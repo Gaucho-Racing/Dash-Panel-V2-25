@@ -8,10 +8,13 @@
             "defines": [
                 "STM32G474xx"
             ],
-            "compilerPath": "/usr/bin/clang-14",
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "linux-clang-x64"
+            "intelliSenseMode": "linux-gcc-arm",
+            "compileCommands": [
+                "${workspaceFolder}/build/Debug/compile_commands.json"
+            ]
         }
     ],
     "version": 4

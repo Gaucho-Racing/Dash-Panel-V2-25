@@ -8,7 +8,7 @@ enable_language(C ASM)
 
 target_compile_definitions(stm32cubemx INTERFACE 
 	USE_HAL_DRIVER 
-	STM32U5A9xx
+	STM32U599xx
     $<$<CONFIG:Debug>:DEBUG>
 )
 
@@ -18,12 +18,46 @@ target_include_directories(stm32cubemx INTERFACE
     ../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy
     ../../Drivers/CMSIS/Device/ST/STM32U5xx/Include
     ../../Drivers/CMSIS/Include
+    ../../Middlewares/Third_Party/FreeRTOS/Source/include/
+    ../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/
+    ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/
+    ../../Middlewares/Third_Party/CMSIS/RTOS2/Include/
 )
 
 target_sources(stm32cubemx INTERFACE
     ../../Core/Src/main.c
+    ../../Core/Src/gpio.c
+    ../../Core/Src/app_freertos.c
+    ../../Core/Src/adc.c
+    ../../Core/Src/mdf.c
+    ../../Core/Src/cordic.c
+    ../../Core/Src/crc.c
+    ../../Core/Src/dac.c
+    ../../Core/Src/dcache.c
+    ../../Core/Src/dma2d.c
+    ../../Core/Src/fdcan.c
+    ../../Core/Src/flash.c
+    ../../Core/Src/gpu2d.c
+    ../../Core/Src/gtzc.c
+    ../../Core/Src/hash.c
+    ../../Core/Src/i2c.c
+    ../../Core/Src/icache.c
+    ../../Core/Src/lptim.c
+    ../../Core/Src/ltdc.c
+    ../../Core/Src/memorymap.c
+    ../../Core/Src/octospi.c
+    ../../Core/Src/rng.c
+    ../../Core/Src/rtc.c
+    ../../Core/Src/sdmmc.c
+    ../../Core/Src/spi.c
+    ../../Core/Src/tim.c
+    ../../Core/Src/usart.c
+    ../../Core/Src/usb_otg.c
     ../../Core/Src/stm32u5xx_it.c
     ../../Core/Src/stm32u5xx_hal_msp.c
+    ../../Core/Src/stm32u5xx_hal_timebase_tim.c
+    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim.c
+    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim_ex.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_adc.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_adc_ex.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c
@@ -72,14 +106,27 @@ target_sources(stm32cubemx INTERFACE
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_sdio.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_spi.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_spi_ex.c
-    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim.c
-    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim_ex.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart_ex.c
+    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pcd.c
+    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pcd_ex.c
+    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_hcd.c
+    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_usb.c
     ../../Core/Src/system_stm32u5xx.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/list.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/timers.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/port.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
+    ../../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
     ../../Core/Src/sysmem.c
     ../../Core/Src/syscalls.c
-    ../../startup_stm32u5a9xx.s
+    ../../startup_stm32u599xx.s
 )
 
 target_link_directories(stm32cubemx INTERFACE

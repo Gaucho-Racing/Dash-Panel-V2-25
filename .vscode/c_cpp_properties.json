@@ -23,7 +23,7 @@
                 "C:\\Program Files (x86)\\Arm GNU Toolchain arm-none-eabi\\14.2 rel1\\lib\\gcc\\arm-none-eabi\\14.2.1\\include\\**"
             ],
             "defines": [
-                "STM32G474xx"
+                "STM32U5A9xx"
             ],
             "compilerPath": "C:\\Program Files (x86)\\Arm GNU Toolchain arm-none-eabi\\14.2 rel1\\bin\\arm-none-eabi-gcc",
             "cStandard": "c17",

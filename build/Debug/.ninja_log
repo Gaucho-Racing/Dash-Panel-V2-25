@@ -1,0 +1,18 @@
+# ninja log v5
+3	92	1741401684981912622	CMakeFiles/Riverdi_50STM32U5A9.dir/TouchGFX/App/app_touchgfx.c.obj	635c268ee6637343
+7	359	1741401685252912630	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/main.c.obj	83f7dcb138d1a1c7
+7	383	1741401685276912630	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/gpio.c.obj	e1ae5d46b00587a9
+7	352	1741401685246912629	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/app_freertos.c.obj	1fb6362c1bc77f72
+11	345	1741401695025912923	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/adc.c.obj	222d65b49c111528
+15	346	1741401573411909227	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/dcache.c.obj	6513dcbd289bedaf
+11	379	1741401695058912924	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/cordic.c.obj	6e75587f007b79f3
+19	308	1741401694988912922	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/dac.c.obj	4ad5ca971b118e71
+15	269	1741401694949912921	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/crc.c.obj	2633d12079d3e4b6
+3	42	1741401799511916098	CMakeFiles/Riverdi_50STM32U5A9.dir/TouchGFX/App/app_touchgfx.c.obj	c9847f578dc1df60
+13	328	1741401799797916107	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/app_freertos.c.obj	d2a517ee442d6346
+12	331	1741401799797916107	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/gpio.c.obj	56b1d1bd18d79dd4
+8	391	1741401799859916109	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/main.c.obj	25b8d9a6cbdcb7da
+24	334	1741401805062916268	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/dac.c.obj	f894262efcbb4988
+11	376	1741401805104916269	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/cordic.c.obj	97460710f0830be
+14	388	1741401805117916269	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/crc.c.obj	134d899ceb01d3f4
+10	449	1741401805177916271	CMakeFiles/Riverdi_50STM32U5A9.dir/Core/Src/adc.c.obj	c4985bfca812baee

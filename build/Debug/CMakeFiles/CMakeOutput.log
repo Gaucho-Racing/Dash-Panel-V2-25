@@ -1,0 +1,256 @@
+The target system is: Generic -  - arm
+The host system is: Linux - 6.6.65-06377-gaae6fc9ba7df - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/arm-none-eabi-gcc 
+Build flags: ;-mcpu=cortex-m33;-mfpu=fpv4-sp-d16;-mfloat-abi=hard;;-Wall;-Wextra;-Wpedantic;-fdata-sections;-ffunction-sections;-mcpu=cortex-m33;-mfpu=fpv4-sp-d16;-mfloat-abi=hard;;-Wall;-Wextra;-Wpedantic;-fdata-sections;-ffunction-sections;-mcpu=cortex-m33;-mfpu=fpv4-sp-d16;-mfloat-abi=hard;;-Wall;-Wextra;-Wpedantic;-fdata-sections;-ffunction-sections
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+
+The C compiler identification is GNU, found in "/home/dchucsb/gaucho-racing/Dash-Panel-V2/build/Debug/CMakeFiles/3.25.1/CompilerIdC/CMakeCCompilerId.o"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/arm-none-eabi-g++ 
+Build flags: ;-mcpu=cortex-m33;-mfpu=fpv4-sp-d16;-mfloat-abi=hard;;-Wall;-Wextra;-Wpedantic;-fdata-sections;-ffunction-sections;-mcpu=cortex-m33;-mfpu=fpv4-sp-d16;-mfloat-abi=hard;;-Wall;-Wextra;-Wpedantic;-fdata-sections;-ffunction-sections;-mcpu=cortex-m33;-mfpu=fpv4-sp-d16;-mfloat-abi=hard;;-Wall;-Wextra;-Wpedantic;-fdata-sections;-ffunction-sections;-fno-rtti;-fno-exceptions;-fno-threadsafe-statics
+Id flags: -c 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+
+The CXX compiler identification is GNU, found in "/home/dchucsb/gaucho-racing/Dash-Panel-V2/build/Debug/CMakeFiles/3.25.1/CompilerIdCXX/CMakeCXXCompilerId.o"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/dchucsb/gaucho-racing/Dash-Panel-V2/build/Debug/CMakeFiles/CMakeScratch/TryCompile-bn9Xoo
+
+Run Build Command(s):/usr/bin/ninja cmTC_727b4 && [1/2] Building C object CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj
+Using built-in specs.
+COLLECT_GCC=/usr/bin/arm-none-eabi-gcc
+Target: arm-none-eabi
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/lib/include' --mandir='/usr/lib/share/man' --infodir='/usr/lib/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --mandir=/usr/share/man --enable-languages=c,c++,lto --enable-multilib --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --enable-tls --build=x86_64-linux-gnu --target=arm-none-eabi --with-system-zlib --with-gnu-as --with-gnu-ld --with-pkgversion=15:12.2.rel1-1 --without-included-gettext --prefix=/usr/lib --infodir=/usr/share/doc/gcc-arm-none-eabi/info --htmldir=/usr/share/doc/gcc-arm-none-eabi/html --pdfdir=/usr/share/doc/gcc-arm-none-eabi/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --disable-libstdc++-v3 --host=x86_64-linux-gnu --with-headers=no --without-newlib --with-multilib-list=rmprofile,aprofile ASFLAGS= CFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' DFLAGS=-frelease FCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' FFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' GCJFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' LDFLAGS=-Wl,-z,relro OBJCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' INHIBIT_LIBC_CFLAGS=-DUSE_TM_CLONE_REGISTRY=0 AR_FOR_TARGET=arm-none-eabi-ar AS_FOR_TARGET=arm-none-eabi-as LD_FOR_TARGET=arm-none-eabi-ld NM_FOR_TARGET=arm-none-eabi-nm OBJDUMP_FOR_TARGET=arm-none-eabi-objdump RANLIB_FOR_TARGET=arm-none-eabi-ranlib READELF_FOR_TARGET=arm-none-eabi-readelf STRIP_FOR_TARGET=arm-none-eabi-strip SED=/bin/sed SHELL=/bin/sh BASH=/bin/bash CONFIG_SHELL=/bin/bash
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 12.2.1 20221205 (15:12.2.rel1-1) 
+COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-v' '-std=gnu11' '-o' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_727b4.dir/'
+ /usr/lib/gcc/arm-none-eabi/12.2.1/cc1 -quiet -v -imultilib thumb/v8-m.main+fp/hard -D__USES_INITFINI__ /usr/share/cmake-3.25/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_727b4.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mcpu=cortex-m33 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -Wall -Wextra -Wpedantic -std=gnu11 -version -fdata-sections -ffunction-sections -o /tmp/cc1hxI9H.s
+GNU C11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)
+	compiled by GNU C version 12.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.25-GMP
+
+warning: MPFR header version 4.1.0 differs from library version 4.2.0.
+warning: MPC header version 1.2.1 differs from library version 1.3.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/sys-include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/arm-none-eabi/12.2.1/include
+ /usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include
+End of search list.
+GNU C11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)
+	compiled by GNU C version 12.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.25-GMP
+
+warning: MPFR header version 4.1.0 differs from library version 4.2.0.
+warning: MPC header version 1.2.1 differs from library version 1.3.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 2c17be7ce85023cb50aa5c4b2860f512
+COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-v' '-std=gnu11' '-o' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_727b4.dir/'
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/as -v -march=armv8-m.main+dsp+fp -mfloat-abi=hard -mfloat-abi=hard -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -meabi=5 -o CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj /tmp/cc1hxI9H.s
+GNU assembler version 2.40 (arm-none-eabi) using BFD version (2.40-2+18+b1) 2.40
+COMPILER_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/
+LIBRARY_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-v' '-std=gnu11' '-o' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.'
+[2/2] Linking C static library libcmTC_727b4.a
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/include]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include]
+  end of search list found
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/include] ==> [/usr/lib/gcc/arm-none-eabi/12.2.1/include]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed] ==> [/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include] ==> [/usr/lib/arm-none-eabi/include]
+  implicit include dirs: [/usr/lib/gcc/arm-none-eabi/12.2.1/include;/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed;/usr/lib/arm-none-eabi/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(arm-none-eabi-g\+\+|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/dchucsb/gaucho-racing/Dash-Panel-V2/build/Debug/CMakeFiles/CMakeScratch/TryCompile-bn9Xoo]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_727b4 && [1/2] Building C object CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/arm-none-eabi-gcc]
+  ignore line: [Target: arm-none-eabi]
+  ignore line: [Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/lib/include' --mandir='/usr/lib/share/man' --infodir='/usr/lib/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --mandir=/usr/share/man --enable-languages=c,c++,lto --enable-multilib --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --enable-tls --build=x86_64-linux-gnu --target=arm-none-eabi --with-system-zlib --with-gnu-as --with-gnu-ld --with-pkgversion=15:12.2.rel1-1 --without-included-gettext --prefix=/usr/lib --infodir=/usr/share/doc/gcc-arm-none-eabi/info --htmldir=/usr/share/doc/gcc-arm-none-eabi/html --pdfdir=/usr/share/doc/gcc-arm-none-eabi/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --disable-libstdc++-v3 --host=x86_64-linux-gnu --with-headers=no --without-newlib --with-multilib-list=rmprofile,aprofile ASFLAGS= CFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' DFLAGS=-frelease FCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' FFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' GCJFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' LDFLAGS=-Wl,-z,relro OBJCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' INHIBIT_LIBC_CFLAGS=-DUSE_TM_CLONE_REGISTRY=0 AR_FOR_TARGET=arm-none-eabi-ar AS_FOR_TARGET=arm-none-eabi-as LD_FOR_TARGET=arm-none-eabi-ld NM_FOR_TARGET=arm-none-eabi-nm OBJDUMP_FOR_TARGET=arm-none-eabi-objdump RANLIB_FOR_TARGET=arm-none-eabi-ranlib READELF_FOR_TARGET=arm-none-eabi-readelf STRIP_FOR_TARGET=arm-none-eabi-strip SED=/bin/sed SHELL=/bin/sh BASH=/bin/bash CONFIG_SHELL=/bin/bash]
+  ignore line: [Thread model: single]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 12.2.1 20221205 (15:12.2.rel1-1) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-v' '-std=gnu11' '-o' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_727b4.dir/']
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/cc1 -quiet -v -imultilib thumb/v8-m.main+fp/hard -D__USES_INITFINI__ /usr/share/cmake-3.25/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_727b4.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mcpu=cortex-m33 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -Wall -Wextra -Wpedantic -std=gnu11 -version -fdata-sections -ffunction-sections -o /tmp/cc1hxI9H.s]
+  ignore line: [GNU C11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)]
+  ignore line: [	compiled by GNU C version 12.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.25-GMP]
+  ignore line: []
+  ignore line: [warning: MPFR header version 4.1.0 differs from library version 4.2.0.]
+  ignore line: [warning: MPC header version 1.2.1 differs from library version 1.3.1.]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/sys-include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/include]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)]
+  ignore line: [	compiled by GNU C version 12.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.25-GMP]
+  ignore line: []
+  ignore line: [warning: MPFR header version 4.1.0 differs from library version 4.2.0.]
+  ignore line: [warning: MPC header version 1.2.1 differs from library version 1.3.1.]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 2c17be7ce85023cb50aa5c4b2860f512]
+  ignore line: [COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-v' '-std=gnu11' '-o' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_727b4.dir/']
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/as -v -march=armv8-m.main+dsp+fp -mfloat-abi=hard -mfloat-abi=hard -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -meabi=5 -o CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj /tmp/cc1hxI9H.s]
+  ignore line: [GNU assembler version 2.40 (arm-none-eabi) using BFD version (2.40-2+18+b1) 2.40]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-v' '-std=gnu11' '-o' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_727b4.dir/CMakeCCompilerABI.c.']
+  ignore line: [[2/2] Linking C static library libcmTC_727b4.a]
+  ignore line: []
+  ignore line: []
+  implicit libs: []
+  implicit objs: []
+  implicit dirs: []
+  implicit fwks: []
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/dchucsb/gaucho-racing/Dash-Panel-V2/build/Debug/CMakeFiles/CMakeScratch/TryCompile-0eKUEc
+
+Run Build Command(s):/usr/bin/ninja cmTC_486c7 && [1/2] Building CXX object CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj
+Using built-in specs.
+COLLECT_GCC=/usr/bin/arm-none-eabi-g++
+Target: arm-none-eabi
+Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/lib/include' --mandir='/usr/lib/share/man' --infodir='/usr/lib/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --mandir=/usr/share/man --enable-languages=c,c++,lto --enable-multilib --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --enable-tls --build=x86_64-linux-gnu --target=arm-none-eabi --with-system-zlib --with-gnu-as --with-gnu-ld --with-pkgversion=15:12.2.rel1-1 --without-included-gettext --prefix=/usr/lib --infodir=/usr/share/doc/gcc-arm-none-eabi/info --htmldir=/usr/share/doc/gcc-arm-none-eabi/html --pdfdir=/usr/share/doc/gcc-arm-none-eabi/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --disable-libstdc++-v3 --host=x86_64-linux-gnu --with-headers=no --without-newlib --with-multilib-list=rmprofile,aprofile ASFLAGS= CFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' DFLAGS=-frelease FCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' FFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' GCJFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' LDFLAGS=-Wl,-z,relro OBJCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' INHIBIT_LIBC_CFLAGS=-DUSE_TM_CLONE_REGISTRY=0 AR_FOR_TARGET=arm-none-eabi-ar AS_FOR_TARGET=arm-none-eabi-as LD_FOR_TARGET=arm-none-eabi-ld NM_FOR_TARGET=arm-none-eabi-nm OBJDUMP_FOR_TARGET=arm-none-eabi-objdump RANLIB_FOR_TARGET=arm-none-eabi-ranlib READELF_FOR_TARGET=arm-none-eabi-readelf STRIP_FOR_TARGET=arm-none-eabi-strip SED=/bin/sed SHELL=/bin/sh BASH=/bin/bash CONFIG_SHELL=/bin/bash
+Thread model: single
+Supported LTO compression algorithms: zlib
+gcc version 12.2.1 20221205 (15:12.2.rel1-1) 
+COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-fno-rtti' '-fno-exceptions' '-fno-threadsafe-statics' '-v' '-std=gnu++11' '-o' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_486c7.dir/'
+ /usr/lib/gcc/arm-none-eabi/12.2.1/cc1plus -quiet -v -imultilib thumb/v8-m.main+fp/hard -D__USES_INITFINI__ /usr/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_486c7.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mcpu=cortex-m33 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -Wall -Wextra -Wpedantic -std=gnu++11 -version -fdata-sections -ffunction-sections -fno-rtti -fno-exceptions -fno-threadsafe-statics -o /tmp/ccZlwPC2.s
+GNU C++11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)
+	compiled by GNU C version 12.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.25-GMP
+
+warning: MPFR header version 4.1.0 differs from library version 4.2.0.
+warning: MPC header version 1.2.1 differs from library version 1.3.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/sys-include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v8-m.main+fp/hard
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/backward
+ /usr/lib/gcc/arm-none-eabi/12.2.1/include
+ /usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include
+End of search list.
+GNU C++11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)
+	compiled by GNU C version 12.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.25-GMP
+
+warning: MPFR header version 4.1.0 differs from library version 4.2.0.
+warning: MPC header version 1.2.1 differs from library version 1.3.1.
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: d5a2eb6d1655b5036da7f102e727111e
+COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-fno-rtti' '-fno-exceptions' '-fno-threadsafe-statics' '-v' '-std=gnu++11' '-o' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_486c7.dir/'
+ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/as -v -march=armv8-m.main+dsp+fp -mfloat-abi=hard -mfloat-abi=hard -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -meabi=5 -o CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj /tmp/ccZlwPC2.s
+GNU assembler version 2.40 (arm-none-eabi) using BFD version (2.40-2+18+b1) 2.40
+COMPILER_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/
+LIBRARY_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-fno-rtti' '-fno-exceptions' '-fno-threadsafe-statics' '-v' '-std=gnu++11' '-o' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.'
+[2/2] Linking CXX static library libcmTC_486c7.a
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v8-m.main+fp/hard]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/backward]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/include]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+    add: [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include]
+  end of search list found
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1] ==> [/usr/lib/arm-none-eabi/include/c++/12.2.1]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v8-m.main+fp/hard] ==> [/usr/lib/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v8-m.main+fp/hard]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/backward] ==> [/usr/lib/arm-none-eabi/include/c++/12.2.1/backward]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/include] ==> [/usr/lib/gcc/arm-none-eabi/12.2.1/include]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed] ==> [/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+  collapse include dir [/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include] ==> [/usr/lib/arm-none-eabi/include]
+  implicit include dirs: [/usr/lib/arm-none-eabi/include/c++/12.2.1;/usr/lib/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v8-m.main+fp/hard;/usr/lib/arm-none-eabi/include/c++/12.2.1/backward;/usr/lib/gcc/arm-none-eabi/12.2.1/include;/usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed;/usr/lib/arm-none-eabi/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(arm-none-eabi-g\+\+|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/dchucsb/gaucho-racing/Dash-Panel-V2/build/Debug/CMakeFiles/CMakeScratch/TryCompile-0eKUEc]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_486c7 && [1/2] Building CXX object CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/arm-none-eabi-g++]
+  ignore line: [Target: arm-none-eabi]
+  ignore line: [Configured with: ../configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/lib/include' --mandir='/usr/lib/share/man' --infodir='/usr/lib/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --mandir=/usr/share/man --enable-languages=c,c++,lto --enable-multilib --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --enable-tls --build=x86_64-linux-gnu --target=arm-none-eabi --with-system-zlib --with-gnu-as --with-gnu-ld --with-pkgversion=15:12.2.rel1-1 --without-included-gettext --prefix=/usr/lib --infodir=/usr/share/doc/gcc-arm-none-eabi/info --htmldir=/usr/share/doc/gcc-arm-none-eabi/html --pdfdir=/usr/share/doc/gcc-arm-none-eabi/pdf --bindir=/usr/bin --libexecdir=/usr/lib --libdir=/usr/lib --disable-libstdc++-v3 --host=x86_64-linux-gnu --with-headers=no --without-newlib --with-multilib-list=rmprofile,aprofile ASFLAGS= CFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' CXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' DFLAGS=-frelease FCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' FFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' GCJFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' LDFLAGS=-Wl,-z,relro OBJCFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' OBJCXXFLAGS='-g -O2 -ffile-prefix-map=/build/gcc-arm-none-eabi-8GAN2q/gcc-arm-none-eabi-12.2.rel1=. -fstack-protector-strong' INHIBIT_LIBC_CFLAGS=-DUSE_TM_CLONE_REGISTRY=0 AR_FOR_TARGET=arm-none-eabi-ar AS_FOR_TARGET=arm-none-eabi-as LD_FOR_TARGET=arm-none-eabi-ld NM_FOR_TARGET=arm-none-eabi-nm OBJDUMP_FOR_TARGET=arm-none-eabi-objdump RANLIB_FOR_TARGET=arm-none-eabi-ranlib READELF_FOR_TARGET=arm-none-eabi-readelf STRIP_FOR_TARGET=arm-none-eabi-strip SED=/bin/sed SHELL=/bin/sh BASH=/bin/bash CONFIG_SHELL=/bin/bash]
+  ignore line: [Thread model: single]
+  ignore line: [Supported LTO compression algorithms: zlib]
+  ignore line: [gcc version 12.2.1 20221205 (15:12.2.rel1-1) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-fno-rtti' '-fno-exceptions' '-fno-threadsafe-statics' '-v' '-std=gnu++11' '-o' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_486c7.dir/']
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/cc1plus -quiet -v -imultilib thumb/v8-m.main+fp/hard -D__USES_INITFINI__ /usr/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_486c7.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mcpu=cortex-m33 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -Wall -Wextra -Wpedantic -std=gnu++11 -version -fdata-sections -ffunction-sections -fno-rtti -fno-exceptions -fno-threadsafe-statics -o /tmp/ccZlwPC2.s]
+  ignore line: [GNU C++11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)]
+  ignore line: [	compiled by GNU C version 12.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.25-GMP]
+  ignore line: []
+  ignore line: [warning: MPFR header version 4.1.0 differs from library version 4.2.0.]
+  ignore line: [warning: MPC header version 1.2.1 differs from library version 1.3.1.]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/sys-include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v8-m.main+fp/hard]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include/c++/12.2.1/backward]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/include]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/include-fixed]
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++11 (15:12.2.rel1-1) version 12.2.1 20221205 (arm-none-eabi)]
+  ignore line: [	compiled by GNU C version 12.2.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.25-GMP]
+  ignore line: []
+  ignore line: [warning: MPFR header version 4.1.0 differs from library version 4.2.0.]
+  ignore line: [warning: MPC header version 1.2.1 differs from library version 1.3.1.]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: d5a2eb6d1655b5036da7f102e727111e]
+  ignore line: [COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-fno-rtti' '-fno-exceptions' '-fno-threadsafe-statics' '-v' '-std=gnu++11' '-o' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_486c7.dir/']
+  ignore line: [ /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/as -v -march=armv8-m.main+dsp+fp -mfloat-abi=hard -mfloat-abi=hard -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -mfpu=fpv4-sp-d16 -meabi=5 -o CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj /tmp/ccZlwPC2.s]
+  ignore line: [GNU assembler version 2.40 (arm-none-eabi) using BFD version (2.40-2+18+b1) 2.40]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-none-eabi/12.2.1/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/thumb/v8-m.main+fp/hard/:/usr/lib/gcc/arm-none-eabi/12.2.1/:/usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-mcpu=cortex-m33' '-mfpu=fpv4-sp-d16' '-mfloat-abi=hard' '-Wall' '-Wextra' '-Wpedantic' '-fdata-sections' '-ffunction-sections' '-fno-rtti' '-fno-exceptions' '-fno-threadsafe-statics' '-v' '-std=gnu++11' '-o' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mthumb' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_486c7.dir/CMakeCXXCompilerABI.cpp.']
+  ignore line: [[2/2] Linking CXX static library libcmTC_486c7.a]
+  ignore line: []
+  ignore line: []
+  implicit libs: []
+  implicit objs: []
+  implicit dirs: []
+  implicit fwks: []
+
+
+Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+arm-none-eabi-gcc (15:12.2.rel1-1) 12.2.1 20221205
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+

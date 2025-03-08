@@ -484,6 +484,7 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
   }
 }
 
+
 /**
   * @brief  Activate LPM feature.
   * @param  hpcd PCD handle
@@ -518,6 +519,7 @@ HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
 
   return HAL_OK;
 }
+
 #endif /* defined (USB_DRD_FS) */
 
 /**

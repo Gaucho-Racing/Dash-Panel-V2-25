@@ -239,6 +239,8 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
   * @{
   */
 
+void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart);
+
 void HAL_UARTEx_RxFifoFullCallback(UART_HandleTypeDef *huart);
 void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart);
 

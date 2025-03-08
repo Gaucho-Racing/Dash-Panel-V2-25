@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -54,7 +54,6 @@ void UsageFault_Handler(void);
 void DebugMon_Handler(void);
 void EXTI6_IRQHandler(void);
 void TIM2_IRQHandler(void);
-void DMA2D_IRQHandler(void);
 void GPU2D_IRQHandler(void);
 void GPU2D_ER_IRQHandler(void);
 void LTDC_IRQHandler(void);

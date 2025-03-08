@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -20,16 +20,13 @@
 #include "main.h"
 #include "cmsis_os2.h"
 #include "adc.h"
-#include "mdf.h"
 #include "cordic.h"
 #include "crc.h"
 #include "dac.h"
 #include "dcache.h"
 #include "dma2d.h"
 #include "fdcan.h"
-#include "flash.h"
 #include "gpu2d.h"
-#include "gtzc.h"
 #include "hash.h"
 #include "i2c.h"
 #include "icache.h"
@@ -44,12 +41,11 @@
 #include "usart.h"
 #include "usb_otg.h"
 #include "gpio.h"
+#include "app_touchgfx.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lvgl/lvgl.h"
-#include "lvgl/demos/lv_demos.h"
-#include "lvgl_port_display.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -78,6 +74,7 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void SystemPower_Config(void);
 void MX_FREERTOS_Init(void);
+static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -107,16 +104,14 @@ int main(void)
 
   /* USER CODE END Init */
 
-  /* Configure the System Power */
-  SystemPower_Config();
-
   /* Configure the system clock */
   SystemClock_Config();
 
   /* Configure the peripherals common clocks */
   PeriphCommonClock_Config();
-  /* GTZC initialisation */
-  MX_GTZC_Init();
+
+  /* Configure the System Power */
+  SystemPower_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -125,8 +120,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC1_Init();
-  MX_ADF1_Init();
+  MX_ADC2_Init();
+  MX_CORDIC_Init();
   MX_CRC_Init();
+  MX_DAC1_Init();
   MX_DCACHE1_Init();
   MX_DCACHE2_Init();
   MX_DMA2D_Init();
@@ -135,176 +132,46 @@ int main(void)
   MX_HASH_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
+  MX_I2C4_Init();
   MX_ICACHE_Init();
+  MX_LPTIM2_Init();
   MX_LTDC_Init();
   MX_OCTOSPI1_Init();
   MX_RNG_Init();
   MX_RTC_Init();
-  MX_USB_OTG_HS_USB_Init();
-  MX_ADC2_Init();
-  MX_CORDIC_Init();
-  MX_DAC1_Init();
-  MX_I2C4_Init();
-  MX_LPTIM2_Init();
   MX_SPI1_Init();
   MX_SPI2_Init();
-  MX_TIM1_Init();
   MX_TIM3_Init();
   MX_TIM5_Init();
   MX_TIM6_Init();
   MX_TIM8_Init();
   MX_TIM15_Init();
   MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
-  MX_FLASH_Init();
+  MX_USB_OTG_HS_USB_Init();
+  MX_TouchGFX_Init();
+  /* Call PreOsInit function */
+  MX_TouchGFX_PreOSInit();
+
+  /* Initialize interrupts */
+  MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+  if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1) != HAL_OK)
+    {
+      /* PWM Generation Error */
+      Error_Handler();
+    }
 
-  /* reset display */
+  /*Configure GPIO pin Output Level */
+
   HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_SET);
-
-  /* initialize LVGL framework */
-  lv_init();
-
-  /* initialize display and touchscreen */
-  lvgl_display_init();
-  
-  /* Change Active Screen's background color */
-  // lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(0x003a57), LV_PART_MAIN);
-  // lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
-
-  // /* Create a spinner */
-  // lv_obj_t * spinner = lv_spinner_create(lv_screen_active()/*, 1000, 60*/);
-  // lv_obj_set_size(spinner, 64, 64);
-
-  static lv_style_t style;
-  lv_style_init(&style);
-  lv_style_set_radius(&style, 5);
-
-  /*Make a gradient*/
-  lv_style_set_width(&style, 150);
-  lv_style_set_height(&style, LV_SIZE_CONTENT);
-
-  lv_style_set_pad_ver(&style, 20);
-  lv_style_set_pad_left(&style, 5);
-
-  lv_style_set_x(&style, lv_pct(50));
-  lv_style_set_y(&style, 80);
-
-  /*Create an object with the new style*/
-  lv_obj_t * obj = lv_obj_create(lv_scr_act());
-  lv_obj_add_style(obj, &style, 0);
-
-  lv_obj_t * label = lv_label_create(obj);
-  lv_label_set_text(label, "Hello");
-
-  lv_screen_load(lv_scr_act());
-
-  // lv_obj_t * flexCol1 = lv_obj_create(scr);
-  // lv_obj_set_layout(flexCol1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexCol1, LV_FLEX_FLOW_COLUMN);
-
-  // lv_obj_t * flexRow1 = lv_obj_create(flexCol1);
-  // lv_obj_t * flexRow2 = lv_obj_create(flexCol1);
-  // lv_obj_set_layout(flexRow1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1, LV_FLEX_FLOW_ROW);
-  // lv_obj_set_layout(flexRow2, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2, LV_FLEX_FLOW_ROW);
-
-  // // Dummy screen test
-
-  // lv_obj_t * label1 = lv_obj_create(flexRow1);
-  // lv_obj_t * label2 = lv_obj_create(flexRow2);
-
-  // lv_label_set_text(label1, "Skibidi toilet rizz.");
-  // lv_label_set_text(label2, "Courtesy of Gaucho Racing");
-
-  // Real code 
-
-  /*
-   * https://docs.lvgl.io/master/details/widgets/label.html - for changing label texts
-   * https://forum.lvgl.io/t/backgroud-colour/2036 - for changing color
-   * 
-   * 
-   * 
-   * 
-  */
-
-  // Top Row
-
-  // lv_obj_t * flexRow1Col1 = lv_obj_create(flexRow1);
-  // lv_obj_set_layout(flexRow1Col1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1Col1, LV_FLEX_FLOW_COLUMN);
-  // lv_obj_t * flexRow1Col2 = lv_obj_create(flexRow1);
-  // lv_obj_set_layout(flexRow1Col2, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1Col2, LV_FLEX_FLOW_COLUMN);
-  // lv_obj_t * flexRow1Col3 = lv_obj_create(flexRow1);
-  // lv_obj_set_layout(flexRow1Col3, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1Col3, LV_FLEX_FLOW_COLUMN);
-
-  // // Bottom Row
-
-  // lv_obj_t * flexRow2Col1 = lv_obj_create(flexRow2);
-  // lv_obj_set_layout(flexRow2Col1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1, LV_FLEX_FLOW_COLUMN);
-  // lv_obj_t * flexRow2Row1 = lv_obj_create(flexRow2);
-  // lv_obj_set_layout(flexRow2Row1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Row1, LV_FLEX_FLOW_ROW);
-
-  // // Power - voltage, SOC, and total power
-
-  // lv_obj_t * voltageWidget = lv_obj_create(flexRow1Col1);
-  // lv_obj_t * socWidget = lv_obj_create(flexRow1Col1);
-  // lv_obj_t * totalPowerWidget = lv_obj_create(flexRow1Col1);
-
-  // // Main - speed, state, and warning
-
-  // lv_obj_t * speedWidget = lv_obj_create(flexRow1Col2);
-  // lv_obj_t * stateWidget = lv_obj_create(flexRow1Col2);
-  // lv_obj_t * warningWidget = lv_obj_create(flexRow1Col2);
-
-  // // Dials 
-
-  // lv_obj_t * regenEncoder = lv_obj_create(flexRow1Col3);
-  // lv_obj_t * currentEncoder = lv_obj_create(flexRow1Col3);
-  // lv_obj_t * torqueMapEncoder = lv_obj_create(flexRow1Col3);
-
-
-  // // Car diagram
-
-  // lv_obj_t * flexRow2Col1Row1 = lv_obj_create(flexRow2Col1);
-  // lv_obj_set_layout(flexRow2Col1Row1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1Row1, LV_FLEX_FLOW_ROW);
-  // lv_obj_t * flexRow2Col1Row2 = lv_obj_create(flexRow2Col1);
-  // lv_obj_set_layout(flexRow2Col1Row2, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1Row2, LV_FLEX_FLOW_ROW);
-  // lv_obj_t * flexRow2Col1Row3 = lv_obj_create(flexRow2Col1);
-  // lv_obj_set_layout(flexRow2Col1Row3, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1Row3, LV_FLEX_FLOW_ROW);
-
-  // lv_obj_t * wheelFLWidget = lv_obj_create(flexRow2Col1Row1);
-  // lv_obj_t * wheelFRWidget = lv_obj_create(flexRow2Col1Row1);
-  // lv_obj_t * wheelRLWidget = lv_obj_create(flexRow2Col1Row3);
-  // lv_obj_t * wheelRRWidget = lv_obj_create(flexRow2Col1Row3);
-
-  // lv_obj_t * carDirectionWidget = lv_obj_create(flexRow2Col1Row2);
-
-  // // Temperature, battery, inverter, motor, water coolant, tire, brake
-
-  // lv_obj_t * batteryTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * inverterTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * motorTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * waterCoolantTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * tireTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * brakeTempWidget = lv_obj_create(flexRow2Row1);
-
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
-  /* Call init function for freertos objects (in app_freertos.c) */
+  /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();
 
   /* Start scheduler */
@@ -390,10 +257,6 @@ void SystemClock_Config(void)
   /** MCO configuration
   */
   HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
-
-  /** Enables the Clock Security System
-  */
-  HAL_RCCEx_EnableLSECSS();
 }
 
 /**
@@ -440,6 +303,17 @@ static void SystemPower_Config(void)
   }
 /* USER CODE BEGIN PWR */
 /* USER CODE END PWR */
+}
+
+/**
+  * @brief NVIC Configuration.
+  * @retval None
+  */
+static void MX_NVIC_Init(void)
+{
+  /* EXTI6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(EXTI6_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI6_IRQn);
 }
 
 /* USER CODE BEGIN 4 */

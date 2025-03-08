@@ -1710,12 +1710,6 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
       else
       {
         hhcd->hc[chnum].urb_state = URB_NOTREADY;
-
-        /* Re-activate the channel  */
-        tmpreg = USBx_HC(chnum)->HCCHAR;
-        tmpreg &= ~USB_OTG_HCCHAR_CHDIS;
-        tmpreg |= USB_OTG_HCCHAR_CHENA;
-        USBx_HC(chnum)->HCCHAR = tmpreg;
       }
     }
     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_TXERR);
@@ -2146,7 +2140,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
     return HAL_ERROR;
   }
 
-  if (((epnum & 0xFU) == 0U) && ((hhcd->ep0_PmaAllocState & 0xF000U) != 0U))
+  if (((epnum & 0xFU)== 0U) && ((hhcd->ep0_PmaAllocState & 0xF000U) != 0U))
   {
     hhcd->hc[ch_num & 0xFU].pmaadress = hhcd->hc[0U].pmaadress;
     hhcd->hc[ch_num & 0xFU].pmaaddr0 = hhcd->hc[0U].pmaaddr0;
@@ -3838,8 +3832,8 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
         if ((hhcd->hc[ch_num & 0xFU].xfer_len == 0U) ||
             ((received_bytes < hhcd->hc[ch_num & 0xFU].max_packet)))
         {
-          hhcd->hc[ch_num & 0xFU].urb_state = URB_DONE;
-          hhcd->hc[ch_num & 0xFU].state = HC_XFRC;
+          hhcd->hc[ch_num & 0xFU].urb_state  = URB_DONE;
+          hhcd->hc[ch_num & 0xFU].state  = HC_XFRC;
         }
         else
         {
@@ -3852,10 +3846,10 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
         if ((hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_BULK) ||
             (hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_INTR))
         {
-          hhcd->hc[ch_num & 0xFU].toggle_in ^= 1U;
+          hhcd->hc[ch_num & 0xFU].toggle_out ^= 1U;
         }
       }
-      /* Manage NACK Response */
+      /* manage NACK Response */
       else if (((ch_reg & USB_CH_RX_STRX) == USB_CH_RX_NAK)
                && (hhcd->hc[ch_num & 0xFU].urb_state != URB_DONE))
       {
@@ -3869,7 +3863,7 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
           HCD_SET_CH_RX_STATUS(hhcd->Instance, phy_chnum, USB_CH_RX_DIS);
         }
       }
-      /* Manage STALL Response */
+      /* manage STALL Response */
       else if ((ch_reg & USB_CH_RX_STRX) == USB_CH_RX_STALL)
       {
         (void)HAL_HCD_HC_Halt(hhcd, ch_num);
@@ -3958,7 +3952,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
     /* Handle Isochronous channel */
     if ((ch_reg & USB_CH_UTYPE) == USB_EP_ISOCHRONOUS)
     {
-      /* Correct transaction */
+      /* correct transaction */
       if ((hhcd->Instance->ISTR & USB_ISTR_ERR) == 0U)
       {
         /* Double buffer isochronous out */
@@ -3967,7 +3961,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
           HCD_SET_CH_TX_CNT(hhcd->Instance, phy_chnum, 0U);
         }
 #if (USE_USB_DOUBLE_BUFFER == 1U)
-        else /* Double buffer isochronous out */
+        else /* double buffer isochronous out */
         {
           /* Odd Transaction */
           if ((ch_reg & USB_CH_DTOG_TX) != 0U)
@@ -4016,20 +4010,14 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
           hhcd->hc[ch_num & 0xFU].xfer_len = 0U;
         }
 
-        if ((hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_BULK) ||
-            (hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_INTR))
-        {
-          hhcd->hc[ch_num & 0xFU].toggle_out ^= 1U;
-        }
-
         /* Transfer no yet finished only one packet of mps is transferred and ACKed from device */
         if (hhcd->hc[ch_num & 0xFU].xfer_len != 0U)
         {
-          /* Manage multiple Xfer */
+          /* manage multiple Xfer */
           hhcd->hc[ch_num & 0xFU].xfer_buff += data_xfr;
           hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
 
-          /* Start a new transfer */
+          /* start a new transfer */
           (void) USB_HC_StartXfer(hhcd->Instance, &hhcd->hc[ch_num & 0xFU]);
         }
         else
@@ -4038,6 +4026,12 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
           hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
           hhcd->hc[ch_num & 0xFU].state = HC_XFRC;
           hhcd->hc[ch_num & 0xFU].urb_state = URB_DONE;
+
+          if ((hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_BULK) ||
+              (hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_INTR))
+          {
+            hhcd->hc[ch_num & 0xFU].toggle_out ^= 1U;
+          }
         }
       }
       /* Check NACK Response */
@@ -4052,7 +4046,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
         /* Get Channel register value */
         WregCh = *(__IO uint32_t *)(&(hhcd->Instance->CHEP0R) + phy_chnum);
 
-        /* Clear NAK status */
+        /*clear NAK status*/
         WregCh &= ~USB_CHEP_NAK & USB_CHEP_REG_MASK;
 
         /* Update channel register Value */
@@ -4143,13 +4137,13 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
     /* Host Port State */
     hhcd->HostState = HCD_HCD_STATE_DISCONNECTED;
 
-    /* Clear all allocated virtual channel */
+    /* clear all allocated virtual channel */
     HAL_HCD_ClearPhyChannel(hhcd);
 
     /* Reset the PMA current pointer */
     (void)HAL_HCD_PMAReset(hhcd);
 
-    /* Reset Ep0 Pma allocation state */
+    /* reset Ep0 Pma allocation state */
     hhcd->ep0_PmaAllocState = 0U;
 
     /* Disconnection Callback */

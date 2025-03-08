@@ -362,45 +362,39 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_BUSY;
 
-    /* Check whether the calendar needs to be initialized */
+    /* Check if the calendar has been not initialized */
     if (__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U)
     {
-      /* Check that the RTC mode is not 'binary only' */
-      if (__HAL_RTC_GET_BINARY_MODE(hrtc) != RTC_BINARY_ONLY)
+      /* Disable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
+
+      /* Enter Initialization mode */
+      status = RTC_EnterInitMode(hrtc);
+      if (status == HAL_OK)
       {
-        /* Disable the write protection for RTC registers */
-        __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
+        /* Clear RTC_CR FMT, OSEL and POL Bits */
+        CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
+        /* Set RTC_CR register */
+        SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
 
-        /* Enter Initialization mode */
-        status = RTC_EnterInitMode(hrtc);
+        /* Configure the RTC PRER */
+        WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
 
+        /* Configure the Binary mode */
+        MODIFY_REG(RTC->ICSR, RTC_ICSR_BIN | RTC_ICSR_BCDU, hrtc->Init.BinMode | hrtc->Init.BinMixBcdU);
+
+        /* Exit Initialization mode */
+        status = RTC_ExitInitMode(hrtc);
         if (status == HAL_OK)
         {
-          /* Clear RTC_CR FMT, OSEL and POL Bits */
-          CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
-          /* Set RTC_CR register */
-          SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
-
-          /* Configure the RTC PRER */
-          WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
-
-          /* Configure the Binary mode */
-          MODIFY_REG(RTC->ICSR, RTC_ICSR_BIN | RTC_ICSR_BCDU, hrtc->Init.BinMode | hrtc->Init.BinMixBcdU);
-
-          /* Exit Initialization mode */
-          status = RTC_ExitInitMode(hrtc);
-
-          if (status == HAL_OK)
-          {
-            MODIFY_REG(RTC->CR, \
-                       RTC_CR_TAMPALRM_PU | RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN, \
-                       hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
-          }
+          MODIFY_REG(RTC->CR, \
+                     RTC_CR_TAMPALRM_PU | RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN, \
+                     hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
         }
-
-        /* Enable the write protection for RTC registers */
-        __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
       }
+
+      /* Enable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
     }
     else
     {

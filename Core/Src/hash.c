@@ -50,7 +50,7 @@ void MX_HASH_Init(void)
 
 void HAL_HASH_MspInit(HASH_HandleTypeDef* hashHandle)
 {
-
+  UNUSED(hashHandle);
   /* USER CODE BEGIN HASH_MspInit 0 */
 
   /* USER CODE END HASH_MspInit 0 */
@@ -63,7 +63,7 @@ void HAL_HASH_MspInit(HASH_HandleTypeDef* hashHandle)
 
 void HAL_HASH_MspDeInit(HASH_HandleTypeDef* hashHandle)
 {
-
+  UNUSED(hashHandle);
   /* USER CODE BEGIN HASH_MspDeInit 0 */
 
   /* USER CODE END HASH_MspDeInit 0 */

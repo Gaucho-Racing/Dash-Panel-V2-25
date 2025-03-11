@@ -52,7 +52,6 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/spi.c
     ../../Core/Src/tim.c
     ../../Core/Src/usart.c
-    ../../Core/Src/usb_otg.c
     ../../Core/Src/stm32u5xx_it.c
     ../../Core/Src/stm32u5xx_hal_msp.c
     ../../Core/Src/stm32u5xx_hal_timebase_tim.c
@@ -108,10 +107,6 @@ target_sources(stm32cubemx INTERFACE
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_spi_ex.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart.c
     ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart_ex.c
-    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pcd.c
-    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pcd_ex.c
-    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_hcd.c
-    ../../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_usb.c
     ../../Core/Src/system_stm32u5xx.c
     ../../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
     ../../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c

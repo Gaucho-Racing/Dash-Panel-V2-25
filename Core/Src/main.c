@@ -42,7 +42,6 @@
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
-#include "usb_otg.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -75,7 +74,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void PeriphCommonClock_Config(void);
 static void SystemPower_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
@@ -112,9 +110,6 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
-
-  /* Configure the peripherals common clocks */
-  PeriphCommonClock_Config();
   /* GTZC initialisation */
   MX_GTZC_Init();
 
@@ -140,7 +135,6 @@ int main(void)
   MX_OCTOSPI1_Init();
   MX_RNG_Init();
   MX_RTC_Init();
-  MX_USB_OTG_HS_USB_Init();
   MX_ADC2_Init();
   MX_CORDIC_Init();
   MX_DAC1_Init();
@@ -401,14 +395,6 @@ void SystemClock_Config(void)
   /** Enables the Clock Security System
   */
   HAL_RCCEx_EnableLSECSS();
-}
-
-/**
-  * @brief Peripherals Common Clock Configuration
-  * @retval None
-  */
-void PeriphCommonClock_Config(void)
-{
 }
 
 /**

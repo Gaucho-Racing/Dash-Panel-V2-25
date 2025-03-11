@@ -171,8 +171,8 @@ int main(void)
   lvgl_display_init();
   
   /* Change Active Screen's background color */
-  // lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(0x003a57), LV_PART_MAIN);
-  // lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
+  lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(0x003a57), LV_PART_MAIN);
+  lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
 
   // /* Create a spinner */
   // lv_obj_t * spinner = lv_spinner_create(lv_screen_active()/*, 1000, 60*/);
@@ -202,24 +202,24 @@ int main(void)
 
   */
 
-  // lv_obj_t * flexCol1 = lv_obj_create(scr);
-  // lv_obj_set_layout(flexCol1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexCol1, LV_FLEX_FLOW_COLUMN);
+  lv_obj_t * flexCol1 = lv_obj_create(lv_screen_active());
+  lv_obj_set_layout(flexCol1, LV_LAYOUT_FLEX);
+  lv_obj_set_flex_flow(flexCol1, LV_FLEX_FLOW_COLUMN);
 
-  // lv_obj_t * flexRow1 = lv_obj_create(flexCol1);
-  // lv_obj_t * flexRow2 = lv_obj_create(flexCol1);
-  // lv_obj_set_layout(flexRow1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1, LV_FLEX_FLOW_ROW);
-  // lv_obj_set_layout(flexRow2, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2, LV_FLEX_FLOW_ROW);
+  lv_obj_t * flexRow1 = lv_obj_create(flexCol1);
+  lv_obj_t * flexRow2 = lv_obj_create(flexCol1);
+  lv_obj_set_layout(flexRow1, LV_LAYOUT_FLEX);
+  lv_obj_set_flex_flow(flexRow1, LV_FLEX_FLOW_ROW);
+  lv_obj_set_layout(flexRow2, LV_LAYOUT_FLEX);
+  lv_obj_set_flex_flow(flexRow2, LV_FLEX_FLOW_ROW);
 
   // // Dummy screen test
 
-  // lv_obj_t * label1 = lv_obj_create(flexRow1);
-  // lv_obj_t * label2 = lv_obj_create(flexRow2);
+  lv_obj_t * label1 = lv_obj_create(flexRow1);
+  lv_obj_t * label2 = lv_obj_create(flexRow2);
 
-  // lv_label_set_text(label1, "Skibidi toilet rizz.");
-  // lv_label_set_text(label2, "Courtesy of Gaucho Racing");
+  lv_label_set_text(label1, "Hello.");
+  lv_label_set_text(label2, "Courtesy of Gaucho Racing");
 
   // Real code 
 

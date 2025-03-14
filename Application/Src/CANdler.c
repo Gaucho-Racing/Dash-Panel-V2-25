@@ -6,6 +6,7 @@
 #include "grIDs.h"
 #include "dash.h"
 #include "customIDs.h"
+#include "utils.h"
 
 extern volatile globalStatus;
 volatile uint8_t numberOfBadMessages = 0;
@@ -64,7 +65,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             DashWarningFlagsMsg* dashWarningFlagsMsg = (DashWarningFlagsMsg*) data;
-            globalStatus.bseAppsViolation = dashWarningFlagsMsg->flags[0]; // TODO: dunno if this is the right endianness, please check later
+            globalStatus.bseAppsViolation = (getBit(dashWarningFlagsMsg->flags, 0));
+            / 8
             break;
 
         case MSG_STEERING_STATUS:
@@ -85,6 +87,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
+            
+
             break;
 
         case MSG_ECU_STATUS_2:
@@ -95,6 +99,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
+            ECUStatusMsgOne* ecuStatusMsgOne = (ECUStatusMsgOne*)data;
+            globalStatus.ecuState = ecuStatusMsgOne->ECUState;
             break;
         
         case MSG_ACU_STATUS_1:
@@ -106,21 +112,23 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             ACU_Status_MsgOne* acuStatusMsgOne = (ACU_STATUS_MSGOne*) data;
-            
+            globalStatus.accumulatorStateOfCharge = data->Accumulator_SOC;
 
             break;
         
-        case MSG_ACU_STATUS_2:
-            if (length != 7) {
-                numberOfBadMessages++;
-                return;
-            } else {
-                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
-            }
+        // Prob don't actually need this
+        // case MSG_ACU_STATUS_2:
+        //     if (length != 7) {
+        //         numberOfBadMessages++;
+        //         return;
+        //     } else {
+        //         numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+        //     }
 
-            ACU_Status_MsgTwo* acuStatusMsgTwo = (ACU_STATUS_MSGTwo*) data;
+        //     ACU_Status_MsgTwo* acuStatusMsgTwo = (ACU_STATUS_MSGTwo*) data;
 
-            break;
+
+        //     break;
 
         case MSG_DTI_DATA_2:
             if (length != 8) {

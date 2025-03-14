@@ -11,28 +11,21 @@ typedef struct {
     uint8_t flags;
 } DashWarningFlagsMsg;
 
-typedef union {
-    struct {
-        uint8_t ECUState;
-        uint8_t StatusBits[3];
-        uint8_t PowerLevelTorqueMap;
-        uint8_t MaxCellTemp;
-        uint8_t AccumulatorStateOfCharge;
-        uint8_t GLVStateOfCharge;
-        uint16_t TractiveSystemVoltage;
-        uint16_t VehicleSpeed;
-        uint16_t FRWheelRPM;
-        uint16_t FLWheelRPM;
-        uint16_t RRWheelRPM;
-        uint16_t RLWheelRPM;
-    };
+typedef struct {
+    uint8_t ECUState;
+    uint8_t StatusBits[3];
+    uint8_t PowerLevelTorqueMap;
+    uint8_t MaxCellTemp;
+    uint8_t AccumulatorStateOfCharge;
+    uint8_t GLVStateOfCharge;
+} ECUStatusMsgOne;
 
-    struct {
-        uint8_t ECUStatusMsgOne[8];
-        uint8_t ECUStatusMsgTwo[8];
-        uint8_t ECUStatusMsgThree[4];
-    };
-} ECUStatusMsgs;
+typedef struct {
+    uint16_t TractiveSystemVoltage;
+    uint16_t VehicleSpeed;
+    uint16_t FRWheelRPM;
+    uint16_t FLWheelRPM;
+} ECUStatusMsgTwo;
 
 typedef struct {
     uint16_t Accumulator_Voltage;
@@ -41,7 +34,6 @@ typedef struct {
     uint8_t Accumulator_SOC;
     uint8_t GLV_SOC;
 } ACU_Status_MsgOne;
-
 
 typedef struct {
     uint8_t V_20v_Voltage;

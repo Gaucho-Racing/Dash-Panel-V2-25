@@ -124,17 +124,6 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             globalStatus.accumulatorStateOfCharge = acuStatusMsgOne->Accumulator_SOC;
 
             break;
-        
-        // Prob don't actually need this
-        // case MSG_ACU_STATUS_2:
-        //     if (length != 7) {
-        //         numberOfBadMessages++;
-        //         return;
-        //     } else {
-        //         numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
-        //     }
-        //     ACU_Status_MsgTwo* acuStatusMsgTwo = (ACU_STATUS_MSGTwo*) data;
-        //     break;
 
         case MSG_DTI_DATA_2:
             if (length != 8) {
@@ -145,7 +134,5 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             break;
-
     }
-
 }

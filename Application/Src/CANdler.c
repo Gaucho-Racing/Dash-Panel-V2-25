@@ -132,6 +132,21 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
+            DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
+            globalStatus.dtiAcCurrent = dtiDataTwoMsg->AC_Current;
+            break;
+        
+        case MSG_INVERTER_STATUS_2:
+            if (length != 6) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+            (InverterStatusTwo*) invTwoMsg = (InverterStatusTwo*)data;
+            globalStatus.maxCellTemp = findTernaryMax(data->uTemp, data->vTemp, data->) // TERNARY MAX IN invTwoMsg;
+
             break;
     }
 }

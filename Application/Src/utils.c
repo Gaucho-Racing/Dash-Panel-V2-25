@@ -9,3 +9,13 @@ uint8_t getBits(uint8_t number, uint8_t indexFromLeft, uint8_t length)
 {
     return (number >> (8 - indexFromLeft - length)) & ((1 << length) - 1);
 }
+
+uint8_t findTernaryMax(const uint8_t a, const uint8_t b, const uint8_t c)
+{
+    if (a > b && a > c)
+        return a;
+    else if (b > a && b > c)
+        return b;
+    else
+        return c;
+}

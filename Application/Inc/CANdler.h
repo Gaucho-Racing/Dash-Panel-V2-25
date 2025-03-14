@@ -45,4 +45,15 @@ typedef struct {
     uint8_t Precharge_Error_IR_State_Software_Latch_Bits;  // All in one!
 } ACU_Status_MsgTwo;
 
+typedef struct {
+    uint16_t AC_Current;
+    uint16_t DC_Current;
+} DTIDataTwoMsg;
+
+typedef struct {
+    uint8_t uTemp;
+    uint8_t vTemp;
+    uint8_t wTemp;
+} InverterStatusTwo;
+
 #endif

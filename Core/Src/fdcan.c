@@ -21,7 +21,51 @@
 #include "fdcan.h"
 
 /* USER CODE BEGIN 0 */
+#include <stdint.h>
 
+FDCAN_TxHeaderTypeDef TxHeader = {
+  .IdType = FDCAN_EXTENDED_ID,
+  .TxFrameType = FDCAN_DATA_FRAME,
+  .ErrorStateIndicator = FDCAN_ESI_ACTIVE, // honestly this might be a value you have to read from a node
+                                           // FDCAN_ESI_ACTIVE is just a state that assumes there are minimal errors
+  .BitRateSwitch = FDCAN_BRS_OFF,
+  .TxEventFifoControl = FDCAN_NO_TX_EVENTS, // change to FDCAN_STORE_TX_EVENTS if you need to store info regarding transmitted messages
+  .MessageMarker = 0 // also change this to a real address if you change fifo control
+};
+
+void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len) {
+  TxHeader.Identifier = (LOCAL_GR_ID << 20) | (msgID << 8) | destID;
+  TxHeader.DataLength = len;
+
+  FDCAN_HandleTypeDef *handle;
+  handle = &hfdcan1;
+  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+
+  if(HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
+  {
+      Error_Handler();
+  }
+}
+
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
+{
+  static FDCAN_RxHeaderTypeDef RxHeader;
+  static uint8_t RxData[64];
+
+  if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+      if(HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK) {
+          Error_Handler();
+      }
+
+      uint16_t msgID = (RxHeader.Identifier & 0x00FFF00) >> 8;
+      uint8_t srcID  = (RxHeader.Identifier & 0xFF00000) >> 20;
+      handleCANMessage(msgID, srcID, RxData, RxHeader.DataLength, RxHeader.RxTimestamp);
+
+      if(HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
+          Error_Handler();
+      }
+  }
+}
 /* USER CODE END 0 */
 
 FDCAN_HandleTypeDef hfdcan1;

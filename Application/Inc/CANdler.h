@@ -45,6 +45,4 @@ typedef struct {
     uint8_t Precharge_Error_IR_State_Software_Latch_Bits;  // All in one!
 } ACU_Status_MsgTwo;
 
-
-
 #endif

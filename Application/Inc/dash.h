@@ -24,7 +24,15 @@ typedef struct {
 } DashStatusMsg;
 
 typedef struct {
+    uint8_t currentEncoder;
+    uint8_t torqueMapEncoder;
+    uint8_t regenEncoder;
+
+} SteeringStatusMsg;
+
+typedef struct {
     DashStatusMsg dashStatusMsg;
+    SteeringStatusMsg steeringStatusMsg;
 
     uint8_t bseAppsViolation;  
     uint16_t vehicleSpeed; // From ECU Status 2

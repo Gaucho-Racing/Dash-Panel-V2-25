@@ -18,17 +18,16 @@ typedef enum {
 } ECUState;
 
 typedef struct {
-    uint8_t ledBits;
-    int8_t tsButtonData;
-    int8_t rtdButtonData; 
-} DashStatusMsg;
-
-typedef struct {
     uint8_t currentEncoder;
     uint8_t torqueMapEncoder;
     uint8_t regenEncoder;
-
 } SteeringStatusMsg;
+
+typedef struct {
+    uint8_t ledBits;
+    int8_t tsButtonData;
+    int8_t rtdButtonData;
+} DashStatusMsg;
 
 typedef struct {
     DashStatusMsg dashStatusMsg;
@@ -43,7 +42,6 @@ typedef struct {
     uint8_t inverterCurrents[4]; // Currents for all 4(?) motors; note: only the first two will be used if the DTI is used X 
     ECUState ecuState; // Current state of the car
     uint16_t tsVoltage;
-
 } DashInfo;
 
 extern volatile DashInfo globalStatus;

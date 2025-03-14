@@ -65,7 +65,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             DashWarningFlagsMsg* dashWarningFlagsMsg = (DashWarningFlagsMsg*) data;
-            globalStatus.bseAppsViolation = (getBit(dashWarningFlagsMsg->flags, 0));
+            globalStatus.bseAppsViolation = getBit(dashWarningFlagsMsg->flags, 0);
             /* May need to add more here if more warning flags are added */
             break;
 

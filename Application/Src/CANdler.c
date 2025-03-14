@@ -144,8 +144,9 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            (InverterStatusTwo*) invTwoMsg = (InverterStatusTwo*)data;
-            globalStatus.maxCellTemp = findTernaryMax(data->uTemp, data->vTemp, data->) // TERNARY MAX IN invTwoMsg;
+            InverterStatusTwo* invTwoMsg = (InverterStatusTwo*)data;
+            // SET A WAY TO FIGURE OUT WHAT THE INDEX IS
+            globalStatus.motorTemperatures[0] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
 
             break;
     }

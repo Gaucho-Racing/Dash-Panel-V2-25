@@ -8,7 +8,6 @@
 #include "dash.h"
 #include "customIDs.h"
 #include "utils.h"
-#include "pinging.h"
 
 volatile uint8_t numberOfBadMessages = 0;
 

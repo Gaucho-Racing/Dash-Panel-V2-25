@@ -24,12 +24,13 @@ typedef struct {
         int8_t rtdButtonData; 
     } DashStatusMsg;
 
-    uint8_t bseAppsViolation;
-    uint16_t vehicleSpeed; // From ECU Status
+    uint8_t bseAppsViolation; // From 
+    uint16_t vehicleSpeed; // From ECU Status 2
     uint8_t maxCellTemp; // Max cell temp from entire car
     uint16_t dtiAcCurrent; // Current of back motor
     uint8_t accumulatorStateOfCharge; // SOC aka battery life
-    uint8_t motorTemperature[4]; // Temperatures for all 4(?) motors
+    uint8_t motorTemperatures[4]; // Temperatures for all 4(?) motors
+    uint8_t inverterCurrents[4]; // Currents for all 4(?) motors; note: only the first two will be used if the DTI is used
     ECUState ecuState; // Current state of the car
 
 } DashInfo;

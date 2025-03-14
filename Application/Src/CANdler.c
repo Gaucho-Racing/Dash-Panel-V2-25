@@ -7,8 +7,8 @@
 #include "dash.h"
 #include "customIDs.h"
 #include "utils.h"
+#include "pinging.h"
 
-extern volatile globalStatus;
 volatile uint8_t numberOfBadMessages = 0;
 
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length, uint32_t timestamp) {
@@ -80,7 +80,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             SteeringStatusMsg* steeringStatusMsg = (SteeringStatusMsg*) data;
             globalStatus.steeringStatusMsg.currentEncoder = steeringStatusMsg->currentEncoder;
             globalStatus.steeringStatusMsg.torqueMapEncoder = steeringStatusMsg->torqueMapEncoder;
-            globalStatus.steeringStatusMsg.regenEncode = steeringStatusMsg->regenEncoder;
+            globalStatus.steeringStatusMsg.regenEncoder = steeringStatusMsg->regenEncoder;
 
             break;
         

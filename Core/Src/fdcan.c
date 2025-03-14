@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include <stdint.h>
+#include "CANdler.h"
 
 FDCAN_TxHeaderTypeDef TxHeader = {
   .IdType = FDCAN_EXTENDED_ID,

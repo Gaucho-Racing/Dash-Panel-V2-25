@@ -18,11 +18,13 @@ typedef enum {
 } ECUState;
 
 typedef struct {
-    struct {
-        uint8_t ledBits;
-        int8_t tsButtonData;
-        int8_t rtdButtonData; 
-    } DashStatusMsg;
+    uint8_t ledBits;
+    int8_t tsButtonData;
+    int8_t rtdButtonData; 
+} DashStatusMsg;
+
+typedef struct {
+    DashStatusMsg dashStatusMsg;
 
     uint8_t bseAppsViolation; // From 
     uint16_t vehicleSpeed; // From ECU Status 2

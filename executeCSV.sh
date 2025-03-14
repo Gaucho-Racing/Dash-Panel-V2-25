@@ -5,6 +5,7 @@ if test -d CSV-25
 then
     python3 CSV-25/grCSVtoH.py CSV-25/GR-ID.csv Application/Inc/grIDs.h
     python3 CSV-25/msgCSVtoH.py CSV-25/MSG-ID.csv Application/Inc/msgIDs.h
+    python3 CSV-25/customIdCSVtoH.py CSV-25/CUSTOM-ID.csv Application/Inc/customIDs.h
 
     echo "-----------"
     echo "  Heads up!"

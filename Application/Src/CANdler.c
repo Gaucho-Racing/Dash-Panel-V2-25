@@ -4,7 +4,9 @@
 #include "CANdler.h"
 #include "msgIDs.h"
 #include "grIDs.h"
+#include "dash.h"
 
+extern volatile globalStatus;
 volatile uint8_t numberOfBadMessages = 0;
 
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length, uint32_t timestamp) {
@@ -45,6 +47,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
+            DashStatusMsg* dashStatusMsg = (DashStatusMsg*) data;
+
             break;
 
         case MSG_DASH_WARNING_FLAGS:
@@ -68,10 +72,40 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             break;
         
         case MSG_ECU_STATUS_1:
+            if (length != 8) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
 
             break;
 
         case MSG_ECU_STATUS_2:
+            if (length != 8) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+            break;
+        
+        case MSG_ACU_STATUS_1:
+            if (length != 8) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+        case MSG_DTI_DATA_2:
+            if (length != 8) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
 
             break;
 

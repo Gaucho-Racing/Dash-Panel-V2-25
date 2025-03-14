@@ -102,7 +102,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             ECUStatusMsgTwo* ecuStatusMsgTwo = (ECUStatusMsgTwo*) data;
             globalStatus.vehicleSpeed = ecuStatusMsgTwo->VehicleSpeed;
-            globalStatus.tsVoltage
+            globalStatus.tsVoltage = ecuStatusMsgTwo->TractiveSystemVoltage;
 
             break;
         

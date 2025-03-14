@@ -66,12 +66,17 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Core/Src/lvgl_port_display.c
     Core/Src/mx25lm51245g.c
+    Application/Src/CANdler.c
+    Application/Src/dash.c
+    Application/Src/pinging.c
+    Application/Src/utils.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     Middlewares/Third_Party/LVGL
+    Application/Inc
 )
 
 # Add project symbols (macros)

@@ -12,8 +12,12 @@ typedef struct {
 
     uint8_t bseAppsViolation;
     uint16_t vehicleSpeed;
-    uint8_t MaxCellTemp;
-    
+    uint8_t maxCellTemp;
+    uint16_t dtiAcCurrent;
+    uint8_t accumulatorStateOfCharge;
+    uint8_t motorTemperature[4];
+    uint8_t ecuState;
+
 } DashInfo;
 
 extern volatile DashInfo globalStatus;

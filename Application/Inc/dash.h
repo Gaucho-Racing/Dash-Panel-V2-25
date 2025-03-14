@@ -34,6 +34,7 @@ typedef struct {
     uint8_t motorTemperatures[4]; // Temperatures for all 4(?) motors
     uint8_t inverterCurrents[4]; // Currents for all 4(?) motors; note: only the first two will be used if the DTI is used
     ECUState ecuState; // Current state of the car
+    uint16_t tsVoltage;
 
 } DashInfo;
 

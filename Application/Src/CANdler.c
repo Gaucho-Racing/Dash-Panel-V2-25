@@ -66,7 +66,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             DashWarningFlagsMsg* dashWarningFlagsMsg = (DashWarningFlagsMsg*) data;
             globalStatus.bseAppsViolation = (getBit(dashWarningFlagsMsg->flags, 0));
-            / 8
+            /* May need to add more here if more warning flags are added */
             break;
 
         case MSG_STEERING_STATUS:
@@ -87,7 +87,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            
+            ECUStatusMsgOne* ecuStatusMsgOne = (ECUStatusMsgOne*) data;
+            globalStatus.ecuState = ecuStatusMsgOne->ECUState;
 
             break;
 
@@ -99,8 +100,10 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            ECUStatusMsgOne* ecuStatusMsgOne = (ECUStatusMsgOne*)data;
-            globalStatus.ecuState = ecuStatusMsgOne->ECUState;
+            ECUStatusMsgTwo* ecuStatusMsgTwo = (ECUStatusMsgTwo*) data;
+            globalStatus.vehicleSpeed = ecuStatusMsgTwo->VehicleSpeed;
+            globalStatus.tsVoltage
+
             break;
         
         case MSG_ACU_STATUS_1:
@@ -111,8 +114,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            ACU_Status_MsgOne* acuStatusMsgOne = (ACU_STATUS_MSGOne*) data;
-            globalStatus.accumulatorStateOfCharge = data->Accumulator_SOC;
+            ACU_Status_MsgOne* acuStatusMsgOne = (ACU_Status_MsgOne*) data;
+            globalStatus.accumulatorStateOfCharge = acuStatusMsgOne->Accumulator_SOC;
 
             break;
         
@@ -124,10 +127,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
         //     } else {
         //         numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
         //     }
-
         //     ACU_Status_MsgTwo* acuStatusMsgTwo = (ACU_STATUS_MSGTwo*) data;
-
-
         //     break;
 
         case MSG_DTI_DATA_2:

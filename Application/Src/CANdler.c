@@ -67,6 +67,11 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             break;
         
+        case MSG_ECU_STATUS_1:
+
+            break;
+
+        case MSG_EC
 
     }
 

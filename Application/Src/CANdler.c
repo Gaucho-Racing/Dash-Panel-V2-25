@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "fdcan.h"
 #include "CANdler.h"
 #include "msgIDs.h"
 #include "grIDs.h"

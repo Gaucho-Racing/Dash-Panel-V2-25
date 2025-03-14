@@ -7,6 +7,5 @@
 
 void respondToPing(uint8_t destID, uint32_t timestamp)
 {
-    uint32_t tick = HAL_GetTick();
-    writeMessage(MSG_PING, destID, (uint8_t *)&tick, sizeof(uint32_t));
+    writeMessage(MSG_PING, destID, (uint8_t*)&timestamp, sizeof(uint32_t));
 }

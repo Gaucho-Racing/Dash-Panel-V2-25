@@ -3,7 +3,7 @@
     "configurations": [{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug with ST-Util",
+        "name": "Debug (launch) with ST-Util",
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stutil",
@@ -15,7 +15,7 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug sans flashing with ST-Util",
+        "name": "Debug (attach) with ST-Util",
         "request": "attach",
         "type": "cortex-debug",
         "servertype": "stutil",

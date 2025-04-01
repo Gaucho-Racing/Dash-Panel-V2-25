@@ -215,7 +215,21 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                     globalStatus.motorTemperatures[3] = invThreeMsg->Motor_Temp;
                     break;
             }
+            break;
+        
+        case MSG_SPECIFIC_BRAKE_IR:
+            if (length != 2) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
 
+            SpecificBrakeIR* brakeMsg = (SpecificBrakeIR*)data;
+            if(brakeMsg->Wheel_Identifier > 3){
+                break;
+            }
+            globalStatus.brakeTemps[brakeMsg->Wheel_Identifier] = brakeMsg->Brake_Temp;
             break;
     }
 }

@@ -67,4 +67,9 @@ typedef struct {
     uint8_t Inverter_Fault_Map;
 } InverterStatusThree;
 
+typedef struct {
+    uint8_t Wheel_Identifier;
+    uint8_t Brake_Temp;
+} SpecificBrakeIR;
+
 #endif

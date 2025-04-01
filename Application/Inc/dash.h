@@ -48,6 +48,7 @@ typedef struct {
     uint8_t brakeTemps[4]; // Temperatures for all 4 brakes
     ECUState ecuState; // Current state of the car
     uint16_t tsVoltage;
+    char debugMessage[8];   // Will be empty if no message sent
 } DashInfo;
 
 extern volatile DashInfo globalStatus;

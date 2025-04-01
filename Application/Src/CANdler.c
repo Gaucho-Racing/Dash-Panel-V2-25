@@ -23,8 +23,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            char* debug2String = (char*)data;
-            UNUSED(debug2String);
+            strncpy(globalStatus.debugMessage, data, 8);
 
             break;
         

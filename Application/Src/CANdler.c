@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "fdcan.h"
 #include "CANdler.h"
@@ -23,7 +24,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            strncpy(globalStatus.debugMessage, data, 8);
+            memncpy(globalStatus.debugMessage, data, 8);
 
             break;
         
@@ -109,8 +110,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             globalStatus.steeringStatusMsg.regenEncoder = steeringStatusMsg->regenEncoder;
 
             break;
-        
-        
+
         case MSG_ACU_STATUS_1:
             if (length != 8) {
                 numberOfBadMessages++;
@@ -134,6 +134,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
             globalStatus.dtiAcCurrent = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
+
             break;
         
         case MSG_INVERTER_STATUS_1:
@@ -225,10 +226,12 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             SpecificBrakeIR* brakeMsg = (SpecificBrakeIR*)data;
-            if(brakeMsg->Wheel_Identifier > 3){
+
+            if (brakeMsg->Wheel_Identifier > 3)
                 break;
-            }
+
             globalStatus.brakeTemps[brakeMsg->Wheel_Identifier] = brakeMsg->Brake_Temp;
+
             break;
     }
 }

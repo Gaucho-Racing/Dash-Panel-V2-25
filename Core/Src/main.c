@@ -33,7 +33,6 @@
 #include "hash.h"
 #include "i2c.h"
 #include "icache.h"
-#include "lptim.h"
 #include "ltdc.h"
 #include "memorymap.h"
 #include "octospi.h"
@@ -139,8 +138,6 @@ int main(void)
   MX_CORDIC_Init();
   MX_DAC1_Init();
   MX_I2C4_Init();
-  MX_LPTIM2_Init();
-  MX_SPI1_Init();
   MX_SPI2_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();

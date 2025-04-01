@@ -2,7 +2,7 @@
 LVGL (Light and Versatile Graphics Library) for the 5-inch Riverdi STM32 Embedded Displays
 
 ## Important Update
-To get the submodule added correctly, run:
+To get the submodule added correctly, please run:
 ```
 git submodule init
 git submodule update --remote

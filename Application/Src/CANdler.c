@@ -39,6 +39,34 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             writeMessage(MSG_PING, srcID, data, sizeof(uint32_t));  // Write back to ya buckaroo
 
             break;
+        
+        case MSG_ECU_STATUS_1:
+            if (length != 8) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+            ECUStatusMsgOne* ecuStatusMsgOne = (ECUStatusMsgOne*) data;
+            globalStatus.ecuState = ecuStatusMsgOne->ECUState;
+            globalStatus.maxCellTemp = (uint8_t)(ecuStatusMsgOne->MaxCellTemp * 0.25);
+
+            break;
+
+        case MSG_ECU_STATUS_2:
+            if (length != 8) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+            ECUStatusMsgTwo* ecuStatusMsgTwo = (ECUStatusMsgTwo*) data;
+            globalStatus.vehicleSpeed = (uint16_t)(ecuStatusMsgTwo->VehicleSpeed * 0.01);
+            globalStatus.tsVoltage = (uint16_t)(ecuStatusMsgTwo->TractiveSystemVoltage * 0.01);
+
+            break;
 
         case MSG_DASH_CONFIG:
             if (length != 7) {
@@ -65,7 +93,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             DashWarningFlagsMsg* dashWarningFlagsMsg = (DashWarningFlagsMsg*) data;
             globalStatus.bseAppsViolation = getBit(dashWarningFlagsMsg->flags, 0);
-            /* May need to add more here if more warning flags are added */
+
             break;
 
         case MSG_STEERING_STATUS:
@@ -83,33 +111,6 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             break;
         
-        case MSG_ECU_STATUS_1:
-            if (length != 8) {
-                numberOfBadMessages++;
-                return;
-            } else {
-                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
-            }
-
-            ECUStatusMsgOne* ecuStatusMsgOne = (ECUStatusMsgOne*) data;
-            globalStatus.ecuState = ecuStatusMsgOne->ECUState;
-            globalStatus.maxCellTemp = ecuStatusMsgOne->MaxCellTemp;
-
-            break;
-
-        case MSG_ECU_STATUS_2:
-            if (length != 8) {
-                numberOfBadMessages++;
-                return;
-            } else {
-                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
-            }
-
-            ECUStatusMsgTwo* ecuStatusMsgTwo = (ECUStatusMsgTwo*) data;
-            globalStatus.vehicleSpeed = ecuStatusMsgTwo->VehicleSpeed;
-            globalStatus.tsVoltage = ecuStatusMsgTwo->TractiveSystemVoltage;
-
-            break;
         
         case MSG_ACU_STATUS_1:
             if (length != 8) {
@@ -120,7 +121,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             ACU_Status_MsgOne* acuStatusMsgOne = (ACU_Status_MsgOne*) data;
-            globalStatus.accumulatorStateOfCharge = acuStatusMsgOne->Accumulator_SOC;
+            globalStatus.accumulatorStateOfCharge = (uint8_t)(acuStatusMsgOne->Accumulator_SOC * 20.0 / 51.0);
 
             break;
 
@@ -133,7 +134,34 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
-            globalStatus.dtiAcCurrent = dtiDataTwoMsg->AC_Current;
+            globalStatus.dtiAcCurrent = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
+            break;
+        
+        case MSG_INVERTER_STATUS_1:
+            if (length != 6) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+            InverterStatusOne* invOneMsg = (InverterStatusOne*)data;
+
+            switch(srcID) {
+                case GR_GR_INVERTER_1:
+                    globalStatus.inverterCurrents[0] = invOneMsg->AC_Current;
+                    break;
+                case GR_GR_INVERTER_2:
+                    globalStatus.inverterCurrents[1] = invOneMsg->AC_Current;
+                    break;
+                case GR_GR_INVERTER_3:
+                    globalStatus.inverterCurrents[2] = invOneMsg->AC_Current;
+                    break;
+                case GR_GR_INVERTER_4:
+                    globalStatus.inverterCurrents[3] = invOneMsg->AC_Current;
+                    break;
+            }
+
             break;
         
         case MSG_INVERTER_STATUS_2:
@@ -145,8 +173,48 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             }
 
             InverterStatusTwo* invTwoMsg = (InverterStatusTwo*)data;
-            // SET A WAY TO FIGURE OUT WHAT THE INDEX IS
-            globalStatus.motorTemperatures[0] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
+
+            switch (srcID) {
+                case GR_GR_INVERTER_1:
+                    globalStatus.inverterTemperatures[0] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
+                    break;
+                case GR_GR_INVERTER_2:
+                    globalStatus.inverterTemperatures[1] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
+                    break;
+                case GR_GR_INVERTER_3:
+                    globalStatus.inverterTemperatures[2] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
+                    break;
+                case GR_GR_INVERTER_4:
+                    globalStatus.inverterTemperatures[3] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
+                    break;
+            }
+
+            break;
+
+        case MSG_INVERTER_STATUS_3:
+            if (length != 2) {
+                numberOfBadMessages++;
+                return;
+            } else {
+                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+            }
+
+            InverterStatusThree* invThreeMsg = (InverterStatusThree*)data;
+
+            switch (srcID) {
+                case GR_GR_INVERTER_1:
+                    globalStatus.motorTemperatures[0] = invThreeMsg->Motor_Temp;
+                    break;
+                case GR_GR_INVERTER_2:
+                    globalStatus.motorTemperatures[1] = invThreeMsg->Motor_Temp;
+                    break;
+                case GR_GR_INVERTER_3:
+                    globalStatus.motorTemperatures[2] = invThreeMsg->Motor_Temp;
+                    break;
+                case GR_GR_INVERTER_4:
+                    globalStatus.motorTemperatures[3] = invThreeMsg->Motor_Temp;
+                    break;
+            }
 
             break;
     }

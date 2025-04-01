@@ -27,6 +27,7 @@
 FDCAN_TxHeaderTypeDef TxHeader = {
   .IdType = FDCAN_EXTENDED_ID,
   .TxFrameType = FDCAN_DATA_FRAME,
+  .FDFormat = FDCAN_CLASSIC_CAN,
   .ErrorStateIndicator = FDCAN_ESI_ACTIVE, // honestly this might be a value you have to read from a node
                                            // FDCAN_ESI_ACTIVE is just a state that assumes there are minimal errors
   .BitRateSwitch = FDCAN_BRS_OFF,
@@ -40,7 +41,6 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len) 
 
   FDCAN_HandleTypeDef *handle;
   handle = &hfdcan1;
-  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
 
   if(HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {

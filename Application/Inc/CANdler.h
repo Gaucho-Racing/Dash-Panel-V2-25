@@ -51,9 +51,20 @@ typedef struct {
 } DTIDataTwoMsg;
 
 typedef struct {
+    uint16_t AC_Current;
+    uint16_t DC_Current;
+    uint16_t Motor_RPM;
+} InverterStatusOne;
+
+typedef struct {
     uint8_t uTemp;
     uint8_t vTemp;
     uint8_t wTemp;
 } InverterStatusTwo;
+
+typedef struct {
+    uint8_t Motor_Temp;
+    uint8_t Inverter_Fault_Map;
+} InverterStatusThree;
 
 #endif

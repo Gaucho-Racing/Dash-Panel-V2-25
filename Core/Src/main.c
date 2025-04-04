@@ -23,7 +23,6 @@
 #include "mdf.h"
 #include "cordic.h"
 #include "crc.h"
-#include "dac.h"
 #include "dcache.h"
 #include "dma2d.h"
 #include "fdcan.h"
@@ -136,7 +135,6 @@ int main(void)
   MX_RTC_Init();
   MX_ADC2_Init();
   MX_CORDIC_Init();
-  MX_DAC1_Init();
   MX_I2C4_Init();
   MX_SPI2_Init();
   MX_TIM1_Init();
@@ -145,8 +143,6 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM8_Init();
   MX_TIM15_Init();
-  MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
   MX_FLASH_Init();
@@ -332,15 +328,12 @@ void SystemClock_Config(void)
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSI
-                              |RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE
-                              |RCC_OSCILLATORTYPE_LSE;
+                              |RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-  RCC_OscInitStruct.LSIDiv = RCC_LSI_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMBOOST = RCC_PLLMBOOST_DIV1;

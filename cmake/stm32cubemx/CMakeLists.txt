@@ -30,7 +30,6 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/mdf.c
     ${CMAKE_SOURCE_DIR}/Core/Src/cordic.c
     ${CMAKE_SOURCE_DIR}/Core/Src/crc.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/dac.c
     ${CMAKE_SOURCE_DIR}/Core/Src/dcache.c
     ${CMAKE_SOURCE_DIR}/Core/Src/dma2d.c
     ${CMAKE_SOURCE_DIR}/Core/Src/fdcan.c
@@ -84,8 +83,6 @@ set(STM32_Drivers_Src
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_cordic.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_crc.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_crc_ex.c
-    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dac.c
-    ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dac_ex.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dcache.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma2d.c
     ${CMAKE_SOURCE_DIR}/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_fdcan.c

@@ -68,10 +68,11 @@ void lvgl_display_init(void)
 
 static void disp_flush(lv_display_t *drv, const lv_area_t *area, uint8_t *color_p)
 {
-  // TODO: update such that drv --> lv_display_t
-  // TODO: update such that color_p --> uint8_t
+  // TODO update such that drv --> lv_display_t
+  // TODO update such that color_p --> uint8_t
+
   UNUSED(drv);
-  // TODO: remove unused
+  // TODO remove unused
 
   lv_coord_t width = lv_area_get_width(area);
   lv_coord_t height = lv_area_get_height(area);
@@ -92,6 +93,7 @@ static void disp_flush(lv_display_t *drv, const lv_area_t *area, uint8_t *color_
 static void disp_flush_complete(DMA2D_HandleTypeDef *hdma2d)
 {
   lv_display_flush_ready(display);
+
   UNUSED(hdma2d);
-  // TODO: remove unused
+  // TODO remove unused
 }

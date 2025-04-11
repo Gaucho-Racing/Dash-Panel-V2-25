@@ -12,10 +12,8 @@
 
 volatile uint8_t numberOfBadMessages = 0;
 
-void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length, uint32_t timestamp)
+void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length)
 {
-    UNUSED(timestamp);
-
     switch (msgID) {
         case MSG_DEBUG_2_0:
             if (length > 8) {
@@ -235,5 +233,10 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             globalStatus.brakeTemps[brakeMsg->Wheel_Identifier] = brakeMsg->Brake_Temp;
 
             break;
+
+        default:
+            return;
     }
+
+    recievedValidMessage();
 }

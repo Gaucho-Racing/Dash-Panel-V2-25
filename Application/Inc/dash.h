@@ -53,5 +53,5 @@
 
     extern volatile DashInfo globalStatus;
 
-    void newDataPleaseRefresh(void);
+    void recievedNewInformationPleaseRefresh(void);
 #endif

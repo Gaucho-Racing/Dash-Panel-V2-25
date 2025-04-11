@@ -11,15 +11,21 @@ void pollButtonState(void)
 {
     bool result = false;
 
-    // if (globalButtonState.rtd != HAL_GPIO_ReadPin()) {
-    //     globalButtonState.rtd = HAL_GPIO_ReadPin();
-    //     result = true;
-    // }
+    uint8_t value = HAL_GPIO_ReadPin(RTD_GPIO_Port, RTD_Pin);
 
-    // if (globalButtonState.tsActive != HAL_GPIO_ReadPin()) {
-    //     globalButtonState.tsActive = HAL_GPIO_ReadPin();
-    //     result = true;
-    // }
+    if (globalButtonState.rtd != value)
+    {
+        globalButtonState.rtd = value;
+        result = true;
+    }
+
+    value = HAL_GPIO_ReadPin(TS_ACTIVE_GPIO_Port, TS_ACTIVE_Pin);
+
+    if (globalButtonState.tsActive != value)
+    {
+        globalButtonState.tsActive = value;
+        result = true;
+    }
 
     if (result)
         recievedNewInformationPleaseRefresh();

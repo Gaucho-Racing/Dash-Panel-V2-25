@@ -27,6 +27,7 @@ void pollButtonState(void)
 
     if (result)
     {
+        // TODO: Send a Dash Status message
         recievedNewInformationPleaseRefresh();
     }
 }

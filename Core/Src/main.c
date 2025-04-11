@@ -148,7 +148,6 @@ int main(void)
   MX_FLASH_Init();
   /* USER CODE BEGIN 2 */
 
-
   if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1) != HAL_OK) {
     /* PWM Generation Error */
     Error_Handler();
@@ -195,90 +194,49 @@ int main(void)
 
   */
 
-  /*Create a white label, set its text and align it to the center*/
-  lv_obj_t * label = lv_label_create(lv_screen_active());
-  lv_label_set_text(label, "Hello world");
-  lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
-  lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+  // --- WIDGET STYLES ---
+  static lv_style_t screenStyle;
+      lv_style_init(&screenStyle);
+      lv_style_set_layout(&screenStyle, LV_LAYOUT_FLEX);
+      lv_style_set_flex_flow(&screenStyle, LV_FLEX_FLOW_COLUMN);
 
-  // Real code 
+  static lv_style_t flexRowStyle;
+      lv_style_init(&flexRowStyle);
+      lv_style_set_width(&flexRowStyle, lv_pct(100)); // Make rows take full width
+      lv_style_set_height(&flexRowStyle, LV_SIZE_CONTENT); // Row height based on content
+      lv_style_set_flex_flow(&flexRowStyle, LV_FLEX_FLOW_ROW);
+      lv_style_set_layout(&flexRowStyle, LV_LAYOUT_FLEX);
+      lv_style_set_border_width(&flexRowStyle, 2);
+      lv_style_set_flex_grow(&flexRowStyle, 1); // Specifically in context of columnn
 
-  /*
-   * https://docs.lvgl.io/master/details/widgets/label.html - for changing label texts
-   * https://forum.lvgl.io/t/backgroud-colour/2036 - for changing color
-   * 
-   * 
-   * 
-   * 
-  */
+  // --- SCREEN SETUP ---
+  lv_obj_t * screen = lv_screen_active();
+  lv_obj_add_style(screen, &screenStyle, 0);
+  lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN);
 
-  // Top Row
+  // Code for top flex row 
+  lv_obj_t * flexRowTop = lv_obj_create(screen);
+  lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
+  lv_obj_set_flex_align(flexRowTop, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_AROUND);
 
-  // lv_obj_t * flexRow1Col1 = lv_obj_create(flexRow1);
-  // lv_obj_set_layout(flexRow1Col1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1Col1, LV_FLEX_FLOW_COLUMN);
-  // lv_obj_t * flexRow1Col2 = lv_obj_create(flexRow1);
-  // lv_obj_set_layout(flexRow1Col2, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1Col2, LV_FLEX_FLOW_COLUMN);
-  // lv_obj_t * flexRow1Col3 = lv_obj_create(flexRow1);
-  // lv_obj_set_layout(flexRow1Col3, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow1Col3, LV_FLEX_FLOW_COLUMN);
+      lv_obj_t * boxTop1 = lv_obj_create(flexRowTop);
+      lv_obj_set_size(boxTop1, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+      lv_obj_set_style_bg_color(boxTop1, lv_color_hex(0xb6d4be), 0);
+      lv_obj_set_style_pad_all(boxTop1, 20, 0); // Add some padding inside the box
+      lv_obj_t * speed = lv_label_create(boxTop1);
+      lv_label_set_text(speed, "Speed: x mph");
 
-  // // Bottom Row
+  // Code for bottom flex row 
+  lv_obj_t * flexRowBottom = lv_obj_create(screen);
+  lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
+  lv_obj_set_flex_align(flexRowBottom, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_AROUND);
 
-  // lv_obj_t * flexRow2Col1 = lv_obj_create(flexRow2);
-  // lv_obj_set_layout(flexRow2Col1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1, LV_FLEX_FLOW_COLUMN);
-  // lv_obj_t * flexRow2Row1 = lv_obj_create(flexRow2);
-  // lv_obj_set_layout(flexRow2Row1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Row1, LV_FLEX_FLOW_ROW);
-
-  // // Power - voltage, SOC, and total power
-
-  // lv_obj_t * voltageWidget = lv_obj_create(flexRow1Col1);
-  // lv_obj_t * socWidget = lv_obj_create(flexRow1Col1);
-  // lv_obj_t * totalPowerWidget = lv_obj_create(flexRow1Col1);
-
-  // // Main - speed, state, and warning
-
-  // lv_obj_t * speedWidget = lv_obj_create(flexRow1Col2);
-  // lv_obj_t * stateWidget = lv_obj_create(flexRow1Col2);
-  // lv_obj_t * warningWidget = lv_obj_create(flexRow1Col2);
-
-  // // Dials 
-
-  // lv_obj_t * regenEncoder = lv_obj_create(flexRow1Col3);
-  // lv_obj_t * currentEncoder = lv_obj_create(flexRow1Col3);
-  // lv_obj_t * torqueMapEncoder = lv_obj_create(flexRow1Col3);
-
-
-  // // Car diagram
-
-  // lv_obj_t * flexRow2Col1Row1 = lv_obj_create(flexRow2Col1);
-  // lv_obj_set_layout(flexRow2Col1Row1, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1Row1, LV_FLEX_FLOW_ROW);
-  // lv_obj_t * flexRow2Col1Row2 = lv_obj_create(flexRow2Col1);
-  // lv_obj_set_layout(flexRow2Col1Row2, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1Row2, LV_FLEX_FLOW_ROW);
-  // lv_obj_t * flexRow2Col1Row3 = lv_obj_create(flexRow2Col1);
-  // lv_obj_set_layout(flexRow2Col1Row3, LV_LAYOUT_FLEX);
-  // lv_obj_set_flex_flow(flexRow2Col1Row3, LV_FLEX_FLOW_ROW);
-
-  // lv_obj_t * wheelFLWidget = lv_obj_create(flexRow2Col1Row1);
-  // lv_obj_t * wheelFRWidget = lv_obj_create(flexRow2Col1Row1);
-  // lv_obj_t * wheelRLWidget = lv_obj_create(flexRow2Col1Row3);
-  // lv_obj_t * wheelRRWidget = lv_obj_create(flexRow2Col1Row3);
-
-  // lv_obj_t * carDirectionWidget = lv_obj_create(flexRow2Col1Row2);
-
-  // // Temperature, battery, inverter, motor, water coolant, tire, brake
-
-  // lv_obj_t * batteryTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * inverterTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * motorTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * waterCoolantTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * tireTempWidget = lv_obj_create(flexRow2Row1);
-  // lv_obj_t * brakeTempWidget = lv_obj_create(flexRow2Row1);
+      lv_obj_t * boxBottom1 = lv_obj_create(flexRowBottom);
+      lv_obj_set_size(boxBottom1, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+      lv_obj_set_style_bg_color(boxBottom1, lv_color_hex(0xb6d4be), 0);
+      lv_obj_set_style_pad_all(boxBottom1, 20, 0); // Add some padding inside the box
+      lv_obj_t * state = lv_label_create(boxBottom1);
+      lv_label_set_text(state, "State: ");
 
   /* USER CODE END 2 */
 

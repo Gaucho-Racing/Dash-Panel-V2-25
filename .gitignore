@@ -17,3 +17,4 @@ CMakeUserPresets.json
 .ccls-cache
 *.bin
 .ccls
+.DS_Store

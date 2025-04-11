@@ -5,28 +5,28 @@
 #include "main.h"
 #include "dash.h"
 
-volatile ButtonState globalButtonState = {false, false};
-
 void pollButtonState(void)
 {
     bool result = false;
 
     uint8_t value = HAL_GPIO_ReadPin(RTD_GPIO_Port, RTD_Pin);
 
-    if (globalButtonState.rtd != value)
+    if (globalStatus.dashStatusMsg.rtdButtonData != value)
     {
-        globalButtonState.rtd = value;
+        globalStatus.dashStatusMsg.rtdButtonData = value;
         result = true;
     }
 
     value = HAL_GPIO_ReadPin(TS_ACTIVE_GPIO_Port, TS_ACTIVE_Pin);
 
-    if (globalButtonState.tsActive != value)
+    if (globalStatus.dashStatusMsg.tsButtonData != value)
     {
-        globalButtonState.tsActive = value;
+        globalStatus.dashStatusMsg.tsButtonData = value;
         result = true;
     }
 
     if (result)
+    {
         recievedNewInformationPleaseRefresh();
+    }
 }

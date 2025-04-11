@@ -73,6 +73,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Application/Src/CANdler.c
     Application/Src/dash.c
     Application/Src/utils.c
+    Application/Src/buttons.c
 )
 
 # Add include paths

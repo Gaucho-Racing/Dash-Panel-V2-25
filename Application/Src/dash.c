@@ -7,5 +7,5 @@ int32_t tempsRefreshRateMillis = 50;
 
 void recievedNewInformationPleaseRefresh(void)
 {
-    // TODO: Implement functionality to call for a refresh of the screen based off of the just-updated DashInfo from CANFD
+    // TODO: Implement functionality to call for a refresh the screen based off of the just-updated DashInfo from CANFD
 }

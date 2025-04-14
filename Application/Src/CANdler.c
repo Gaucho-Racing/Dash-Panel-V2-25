@@ -76,10 +76,10 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            DashStatusMsg* dashStatusMsg = (DashStatusMsg*) data;
-            globalStatus.dashStatusMsg.ledBits = dashStatusMsg->ledBits;
-            globalStatus.dashStatusMsg.rtdButtonData = dashStatusMsg->rtdButtonData;
-            globalStatus.dashStatusMsg.tsButtonData = dashStatusMsg->tsButtonData;
+            DashConfigMsg* dashConfigMsg = (DashConfigMsg*) data;
+            globalStatus.dashStatusMsg.ledBits = dashConfigMsg->ledBits;
+            globalStatus.buttonLedOne = dashConfigMsg->buttonLedOne;
+            globalStatus.buttonLedTwo = dashConfigMsg->buttonLedTwo;
 
             break;
 
@@ -104,10 +104,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
             }
 
-            SteeringStatusMsg* steeringStatusMsg = (SteeringStatusMsg*) data;
-            globalStatus.steeringStatusMsg.currentEncoder = steeringStatusMsg->currentEncoder;
-            globalStatus.steeringStatusMsg.torqueMapEncoder = steeringStatusMsg->torqueMapEncoder;
-            globalStatus.steeringStatusMsg.regenEncoder = steeringStatusMsg->regenEncoder;
+            globalStatus.steeringStatusMsg = *(SteeringStatusMsg*)data;
 
             break;
 

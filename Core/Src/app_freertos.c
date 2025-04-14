@@ -25,6 +25,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lvgl/lvgl.h"
+#include "dash.h"
+#include "buttons.h"
+#include "grIDs.h"
+#include "msgIDs.h"
+#include "fdcan.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,14 +53,28 @@ osThreadId_t lvglTickHandle;
 const osThreadAttr_t lvglTick_attributes = {
   .name = "lvglTick",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4* 1024
+  .stack_size = 4 * 1024
 };
 
 osThreadId_t lvglTimerHandle;
 const osThreadAttr_t lvglTimer_attributes = {
   .name = "lvglTimer",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4* 1024
+  .stack_size = 4 * 1024
+};
+
+osThreadId_t dashStatusMsgHandle;
+const osThreadAttr_t dashStatusMsgAttributes = {
+  .name = "dashStatusMsg",
+  .priority = (osPriority_t) osPriorityBelowNormal,
+  .stack_size = 4 * 1024
+};
+
+osThreadId_t pollButtonStateHandle;
+const osThreadAttr_t pollButtonStateAttributes = {
+  .name = "pollButtonState",
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 4 * 1024
 };
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -70,6 +89,7 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE BEGIN FunctionPrototypes */
 void LVGLTimer(void *argument);
 void LVGLTick(void *argument);
+void sendDashStatusMsg(void* args);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -156,6 +176,8 @@ void MX_FREERTOS_Init(void) {
   /* add threads, ... */
   lvglTickHandle = osThreadNew(LVGLTick, NULL, &lvglTick_attributes);
   lvglTimerHandle = osThreadNew(LVGLTimer, NULL, &lvglTimer_attributes);
+  dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
+  pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -204,5 +226,14 @@ void LVGLTick(void *argument)
   }
   UNUSED(argument);
 }
-/* USER CODE END Application */
 
+void sendDashStatusMsg(void* args)
+{
+    for(;;)
+    {
+        writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
+        osDelay(DASH_STATUS_MSG_DELAY);
+    }
+    UNUSED(args);
+}
+/* USER CODE END Application */

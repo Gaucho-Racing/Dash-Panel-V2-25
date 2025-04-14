@@ -3,5 +3,5 @@
 #ifndef BUTTONS_H
     #define BUTTONS_H
 
-    void pollButtonState(void);
+    void pollButtonState(void* args);
 #endif

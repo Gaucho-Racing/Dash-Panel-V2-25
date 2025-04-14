@@ -1,9 +1,12 @@
 #include <stdint.h>
 
+#include "CANdler.h"
+
 #ifndef DASH_H
     #define DASH_H
 
     #define BAD_TIME_Negative1 -1
+    #define DASH_STATUS_MSG_DELAY 150
 
     /* Must match ECU-25 EXACTLY */
     typedef enum {
@@ -36,6 +39,8 @@
         DashStatusMsg dashStatusMsg;
         SteeringStatusMsg steeringStatusMsg;
 
+        ButtonLedBrightness buttonLedOne;
+        ButtonLedBrightness buttonLedTwo;
         uint8_t bseAppsViolation;
         uint16_t vehicleSpeed; // From ECU Status 2
         uint8_t maxCellTemp; // Max cell temp from entire car

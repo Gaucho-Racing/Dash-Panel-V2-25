@@ -9,8 +9,10 @@
 #include "msgIDs.h"
 #include "dash.h"
 
-void pollButtonState(void)
+void pollButtonState(void* args)
 {
+    UNUSED(args);
+
     bool change = false;
 
     uint8_t value = HAL_GPIO_ReadPin(RTD_GPIO_Port, RTD_Pin);
@@ -31,7 +33,6 @@ void pollButtonState(void)
 
     if (change)
     {
-        writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         recievedNewInformationPleaseRefresh();
     }
 }

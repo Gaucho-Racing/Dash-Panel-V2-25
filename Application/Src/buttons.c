@@ -11,8 +11,6 @@
 #include "dash.h"
 #include "gpio.h"
 
-uint8_t greenPhase = 0xFF;
-
 void colorPin(Color color, ButtonNames button)
 {
     switch(color)

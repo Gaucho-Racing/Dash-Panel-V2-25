@@ -9,6 +9,7 @@
 #include "dash.h"
 #include "customIDs.h"
 #include "utils.h"
+#include "buttons.h"
 
 volatile uint8_t numberOfBadMessages = 0;
 
@@ -51,6 +52,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             globalStatus.ecuState = ecuStatusMsgOne->ECUState;
             globalStatus.maxCellTemp = (uint8_t)(ecuStatusMsgOne->MaxCellTemp * 0.25);
             globalStatus.glvStateOfCharge = ecuStatusMsgOne->GLVStateOfCharge;
+
+            updateButtonColors(NULL);
 
             break;
 

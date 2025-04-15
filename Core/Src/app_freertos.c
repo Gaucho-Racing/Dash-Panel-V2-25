@@ -53,29 +53,37 @@ osThreadId_t lvglTickHandle;
 const osThreadAttr_t lvglTick_attributes = {
   .name = "lvglTick",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4 * 1024
+  .stack_size = 4 * 1024,
 };
 
 osThreadId_t lvglTimerHandle;
 const osThreadAttr_t lvglTimer_attributes = {
   .name = "lvglTimer",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4 * 1024
+  .stack_size = 4 * 1024,
 };
 
 osThreadId_t dashStatusMsgHandle;
 const osThreadAttr_t dashStatusMsgAttributes = {
   .name = "dashStatusMsg",
   .priority = (osPriority_t) osPriorityBelowNormal,
-  .stack_size = 4 * 1024
+  .stack_size = 4 * 1024,
 };
 
 osThreadId_t pollButtonStateHandle;
 const osThreadAttr_t pollButtonStateAttributes = {
   .name = "pollButtonState",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4 * 1024
+  .stack_size = 4 * 1024,
 };
+
+osThreadId_t updateButtonColorsHandle;
+const osThreadAttr_t updateButtonColorsAttributes = {
+  .name = "updateButtonColors",
+  .priority = (osPriority_t) osPriorityLow,
+  .stack_size = 4 * 1024,
+};
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -178,6 +186,7 @@ void MX_FREERTOS_Init(void) {
   lvglTimerHandle = osThreadNew(LVGLTimer, NULL, &lvglTimer_attributes);
   dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
   pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
+  updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */

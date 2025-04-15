@@ -1,7 +1,8 @@
 #include <stdbool.h>
 
 #include "buttons.h"
-#include "stm32u5xx_hal.h"
+#include "cmsis_os2.h"
+#include "stm32u5xx.h"
 #include "grIDs.h"
 #include "fdcan.h"
 #include "main.h"
@@ -19,15 +20,15 @@ void colorPin(Color color, ButtonNames button)
         case COLOR_RED:
             if (button == 1)
             {
-                HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, SET);
-                HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, RESET);
-                HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, RESET);
+                HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_RESET);
             }
             else if (button == 2)
             {
-                HAL_GPIO_WritePin(LED2R_GPIO_Port, LED2R_Pin, SET);
-                HAL_GPIO_WritePin(LED2G_GPIO_Port, LED2G_Pin, RESET);
-                HAL_GPIO_WritePin(LED2B_GPIO_Port, LED2B_Pin, RESET);
+                HAL_GPIO_WritePin(LED2R_GPIO_Port, LED2R_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(LED2G_GPIO_Port, LED2G_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED2B_GPIO_Port, LED2B_Pin, GPIO_PIN_RESET);
             }
 
             break;
@@ -35,30 +36,30 @@ void colorPin(Color color, ButtonNames button)
         case COLOR_GREEN:
             if (button == 1)
             {
-                HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, RESET);
-                HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, SET);
-                HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, RESET);
+                HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_RESET);
             }
             else if (button == 2)
             {
-                HAL_GPIO_WritePin(LED2R_GPIO_Port, LED2R_Pin, RESET);
-                HAL_GPIO_WritePin(LED2G_GPIO_Port, LED2G_Pin, SET);
-                HAL_GPIO_WritePin(LED2B_GPIO_Port, LED2B_Pin, RESET);
+                HAL_GPIO_WritePin(LED2R_GPIO_Port, LED2R_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED2G_GPIO_Port, LED2G_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(LED2B_GPIO_Port, LED2B_Pin, GPIO_PIN_RESET);
             }
             break;
 
         case COLOR_BLUE_PULSE:
             if (button == 1)
             {
-                HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, RESET);
-                HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, RESET);
-                HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, ((HAL_GPIO_ReadPin(LED1B_GPIO_Port, LED1B_Pin) == SET) ? RESET : SET));
+                HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, ((HAL_GPIO_ReadPin(LED1B_GPIO_Port, LED1B_Pin) == GPIO_PIN_SET) ? GPIO_PIN_RESET : GPIO_PIN_SET));
             }
             else if (button == 2)
             {
-                HAL_GPIO_WritePin(LED2R_GPIO_Port, LED2R_Pin, RESET);
-                HAL_GPIO_WritePin(LED2G_GPIO_Port, LED2G_Pin, RESET);
-                HAL_GPIO_WritePin(LED2B_GPIO_Port, LED2B_Pin, ((HAL_GPIO_ReadPin(LED2B_GPIO_Port, LED2B_Pin) == SET) ? RESET : SET));
+                HAL_GPIO_WritePin(LED2R_GPIO_Port, LED2R_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED2G_GPIO_Port, LED2G_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED2B_GPIO_Port, LED2B_Pin, ((HAL_GPIO_ReadPin(LED2B_GPIO_Port, LED2B_Pin) == GPIO_PIN_SET) ? GPIO_PIN_RESET : GPIO_PIN_SET));
             }
 
             break;

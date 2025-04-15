@@ -12,7 +12,7 @@
         RTD_BUTTON = 1,
         TS_ACTIVE_BUTTON = 2,
     } ButtonNames;
-    // Must be 1 or 2 per for LED1 or LED2
+    // Must be 1 or 2 for LED1 or LED2 respectively
 
     typedef enum {
         COLOR_RED,

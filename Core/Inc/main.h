@@ -99,6 +99,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 // See Brand Guidelines
+#define GR_COLOR_WHITE 0xFFFFFF
 #define GR_COLOR_PINK 0xEF0DA1
 #define GR_COLOR_PURPLE 0x7920FF
 #define GR_COLOR_NAVY 0x195297

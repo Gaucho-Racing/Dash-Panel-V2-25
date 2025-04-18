@@ -75,18 +75,18 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Application/Src/utils.c
     Application/Src/buttons.c
 
-    Application/Src/fonts/lv_font_gr_bold_16.c
-    Application/Src/fonts/lv_font_gr_bold_24.c
-    Application/Src/fonts/lv_font_gr_bold_32.c
-    Application/Src/fonts/lv_font_gr_bold_40.c
-    Application/Src/fonts/lv_font_gr_regular_16.c
-    Application/Src/fonts/lv_font_gr_regular_24.c
-    Application/Src/fonts/lv_font_gr_regular_32.c
-    Application/Src/fonts/lv_font_gr_regular_40.c
-    Application/Src/fonts/lv_font_gr_light_16.c
-    Application/Src/fonts/lv_font_gr_light_24.c
-    Application/Src/fonts/lv_font_gr_light_32.c
-    Application/Src/fonts/lv_font_gr_light_40.c
+    Application/Src/Fonts/lv_font_gr_bold_16.c
+    Application/Src/Fonts/lv_font_gr_bold_24.c
+    Application/Src/Fonts/lv_font_gr_bold_32.c
+    Application/Src/Fonts/lv_font_gr_bold_40.c
+    Application/Src/Fonts/lv_font_gr_regular_16.c
+    Application/Src/Fonts/lv_font_gr_regular_24.c
+    Application/Src/Fonts/lv_font_gr_regular_32.c
+    Application/Src/Fonts/lv_font_gr_regular_40.c
+    Application/Src/Fonts/lv_font_gr_light_16.c
+    Application/Src/Fonts/lv_font_gr_light_24.c
+    Application/Src/Fonts/lv_font_gr_light_32.c
+    Application/Src/Fonts/lv_font_gr_light_40.c
 )
 
 # Add include paths

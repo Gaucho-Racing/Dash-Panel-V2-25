@@ -220,8 +220,7 @@ void LVGLTimer(void *argument)
 {
   for(;;)
   {
-    lv_timer_handler();
-    osDelay(20);
+    osDelay(lv_timer_handler());
   }
   UNUSED(argument);
 }

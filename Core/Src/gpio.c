@@ -64,11 +64,10 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOG, LED1G_Pin|IMD_Pin|USB_PWR_EN_Pin|BSPD_Pin
-                          |LED1R_Pin|R_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOG, LED_IMD_Pin|USB_PWR_EN_Pin|LED_AMS_Pin|R_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOH, LCD_DISP_RESET_Pin|AMS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(CTP_RST_GPIO_Port, CTP_RST_Pin, GPIO_PIN_RESET);
@@ -77,10 +76,10 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(R_RST_GPIO_Port, R_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED2R_Pin|LED1B_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED2B_Pin|LED2G_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DIN_TS_ACTIVE_GPIO_Port, DIN_TS_ACTIVE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PB7 */
   GPIO_InitStruct.Pin = GPIO_PIN_7;
@@ -98,10 +97,8 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED1G_Pin IMD_Pin USB_PWR_EN_Pin BSPD_Pin
-                           LED1R_Pin R_CS_Pin */
-  GPIO_InitStruct.Pin = LED1G_Pin|IMD_Pin|USB_PWR_EN_Pin|BSPD_Pin
-                          |LED1R_Pin|R_CS_Pin;
+  /*Configure GPIO pins : LED_IMD_Pin USB_PWR_EN_Pin LED_AMS_Pin R_CS_Pin */
+  GPIO_InitStruct.Pin = LED_IMD_Pin|USB_PWR_EN_Pin|LED_AMS_Pin|R_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -145,15 +142,17 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD_DISP_RESET_Pin AMS_Pin */
-  GPIO_InitStruct.Pin = LCD_DISP_RESET_Pin|AMS_Pin;
+  /*Configure GPIO pin : LCD_DISP_RESET_Pin */
+  GPIO_InitStruct.Pin = LCD_DISP_RESET_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
+  HAL_GPIO_Init(LCD_DISP_RESET_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA11 PA10 RTD_Pin TS_ACTIVE_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_10|RTD_Pin|TS_ACTIVE_Pin;
+  /*Configure GPIO pins : PA11 PA10 PA4 RTD_Pin
+                           TS_ACTIVE_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_10|GPIO_PIN_4|RTD_Pin
+                          |TS_ACTIVE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -197,14 +196,22 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : NO_RTD_Pin PG4 */
+  GPIO_InitStruct.Pin = NO_RTD_Pin|GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
   /*Configure GPIO pin : CTP_INT_Pin */
   GPIO_InitStruct.Pin = CTP_INT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(CTP_INT_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB3 PB12 PB13 PB2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_2;
+  /*Configure GPIO pins : PB3 PB1 PB12 PB13
+                           PB2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_1|GPIO_PIN_12|GPIO_PIN_13
+                          |GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -228,19 +235,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(R_RST_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED2R_Pin LED1B_Pin */
-  GPIO_InitStruct.Pin = LED2R_Pin|LED1B_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  /*Configure GPIO pin : NO_TS_ACTIVE_Pin */
+  GPIO_InitStruct.Pin = NO_TS_ACTIVE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LED2B_Pin LED2G_Pin */
-  GPIO_InitStruct.Pin = LED2B_Pin|LED2G_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(NO_TS_ACTIVE_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PA0 */
   GPIO_InitStruct.Pin = GPIO_PIN_0;
@@ -250,11 +249,25 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : LED_BSPD_Pin */
+  GPIO_InitStruct.Pin = LED_BSPD_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_BSPD_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : R_INT_Pin */
   GPIO_InitStruct.Pin = R_INT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(R_INT_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : DIN_TS_ACTIVE_Pin */
+  GPIO_InitStruct.Pin = DIN_TS_ACTIVE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DIN_TS_ACTIVE_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI6_IRQn, 5, 0);

@@ -11,6 +11,8 @@
 #include "dash.h"
 #include "gpio.h"
 
+// FIXME: Literally everything in this file
+
 void colorPin(Color color, ButtonNames button)
 {
     switch(color)

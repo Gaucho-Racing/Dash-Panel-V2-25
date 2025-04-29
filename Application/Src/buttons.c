@@ -11,11 +11,19 @@
 #include "dash.h"
 #include "spi.h"
 
+// NeoPixel byte representing no brightness
 const uint64_t NEOPIXEL_OFF = 0x8080808080808080;
+
+// NeoPixel byte representing full brightness
 const uint64_t NEOPIXEL_ON = 0xFCFCFCFCFCFCFCFC;
 
 NeoPixelData globalNeoPixelData = {0};
-uint64_t neopixelDataBuffer[6] = {0};
+
+uint64_t neopixelDataBuffer[2 * 3] = {0};
+//                          ^   ^
+//                          |   |
+//                          |   3 bytes per NeoPixel
+//                          2 NeoPixels
 
 void colorPin(Color color, ButtonNames button)
 {
@@ -34,7 +42,7 @@ void colorPin(Color color, ButtonNames button)
             break;
     }
 
-    // Write new color code (GRB) see https://www.newinnovations.nl/post/controlling-ws2812-and-ws2812b-using-only-stm32-spi/#option-3-using-8-spi-bits--pulses for pattern
+    // Write new color code (GRB) see pattern at https://www.newinnovations.nl/post/controlling-ws2812-and-ws2812b-using-only-stm32-spi/#option-3-using-8-spi-bits--pulses
     switch (button)
     {
         case TS_ACTIVE_BUTTON:
@@ -50,7 +58,12 @@ void colorPin(Color color, ButtonNames button)
             break;
     }
 
-    HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 6 * 64);
+    HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
+    //                                                         ^   ^    ^
+    //                                                         |   |    |
+    //                                                         |   |    Single NeoPixel byte
+    //                                                         |   3 bytes per NeoPixel
+    //                                                         2 NeoPixels
 }
 
 void updateButtonColors(void* args)

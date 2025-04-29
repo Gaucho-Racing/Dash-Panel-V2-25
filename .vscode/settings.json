@@ -4,8 +4,7 @@
         "*.c": "c",
     },
     "todo-tree.filtering.excludeGlobs": [
-        "**/Middlewares/**",
-        "**/Third_Party/**"
+        "**/Middlewares/**"
     ],
     "cSpell.diagnosticLevel": "Hint"
 }

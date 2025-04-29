@@ -9,10 +9,49 @@
 #include "dash.h"
 #include "msgIDs.h"
 #include "dash.h"
+#include "spi.h"
+
+// 10000000 10000000 10000000 10000000 10000000 10000000 10000000 10000000
+const uint64_t NEOPIXEL_OFF = 0x8080808080808080;
+// 11111100 11111100 11111100 11111100 11111100 11111100 11111100 11111100
+const uint64_t NEOPIXEL_ON = 0xFCFCFCFCFCFCFCFC;
+
+NeoPixelData globalNeoPixelData = {0, 0};
+
+uint64_t neopixelDataBuffer[6];
 
 void colorPin(Color color, ButtonNames button)
 {
-    
+    if ((button == TS_ACTIVE_BUTTON && color == globalNeoPixelData.TS_Active) || (button == RTD_BUTTON && color == globalNeoPixelData.RTD))
+    {
+        return;
+    }
+
+    switch(button) {
+        case TS_ACTIVE_BUTTON:
+            globalNeoPixelData.TS_Active = color;
+            break;
+        case RTD_BUTTON:
+            globalNeoPixelData.RTD = color;
+            break;
+    }
+
+    // Write new color code (GRB) see https://www.newinnovations.nl/post/controlling-ws2812-and-ws2812b-using-only-stm32-spi/#option-3-using-8-spi-bits--pulses for pattern
+    switch (button) {
+        case TS_ACTIVE_BUTTON:
+            neopixelDataBuffer[0] = (color == COLOR_GREEN) ? NEOPIXEL_ON : NEOPIXEL_OFF;
+            neopixelDataBuffer[1] = (color == COLOR_RED) ? NEOPIXEL_ON : NEOPIXEL_OFF;
+            neopixelDataBuffer[2] = (color == COLOR_BLUE) ? NEOPIXEL_ON : NEOPIXEL_OFF;
+            break;
+
+        case RTD_BUTTON:
+            neopixelDataBuffer[3] = (color == COLOR_GREEN) ? NEOPIXEL_ON : NEOPIXEL_OFF;
+            neopixelDataBuffer[4] = (color == COLOR_RED) ? NEOPIXEL_ON : NEOPIXEL_OFF;
+            neopixelDataBuffer[5] = (color == COLOR_BLUE) ? NEOPIXEL_ON : NEOPIXEL_OFF;
+            break;
+    }
+
+    HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 6 * 64);
 }
 
 void updateButtonColors(void* args)
@@ -24,7 +63,7 @@ void updateButtonColors(void* args)
         switch(globalStatus.ecuState)
         {
             case PRECHARGE_COMPLETE:
-                colorPin(COLOR_BLUE_PULSE, RTD_BUTTON);
+                colorPin(COLOR_BLUE, RTD_BUTTON);
                 break;
 
             case DRIVE_STANDBY:
@@ -47,7 +86,7 @@ void updateButtonColors(void* args)
                 break;
 
             case GLV_ON:
-                colorPin(COLOR_BLUE_PULSE, TS_ACTIVE_BUTTON);
+                colorPin(COLOR_BLUE, TS_ACTIVE_BUTTON);
                 break;
 
             default:

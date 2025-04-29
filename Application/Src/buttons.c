@@ -11,14 +11,11 @@
 #include "dash.h"
 #include "spi.h"
 
-// 10000000 10000000 10000000 10000000 10000000 10000000 10000000 10000000
 const uint64_t NEOPIXEL_OFF = 0x8080808080808080;
-// 11111100 11111100 11111100 11111100 11111100 11111100 11111100 11111100
 const uint64_t NEOPIXEL_ON = 0xFCFCFCFCFCFCFCFC;
 
-NeoPixelData globalNeoPixelData = {0, 0};
-
-uint64_t neopixelDataBuffer[6];
+NeoPixelData globalNeoPixelData = {0};
+uint64_t neopixelDataBuffer[6] = {0};
 
 void colorPin(Color color, ButtonNames button)
 {

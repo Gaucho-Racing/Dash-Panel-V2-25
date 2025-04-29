@@ -24,7 +24,8 @@ void colorPin(Color color, ButtonNames button)
         return;
     }
 
-    switch(button) {
+    switch(button)
+    {
         case TS_ACTIVE_BUTTON:
             globalNeoPixelData.TS_Active = color;
             break;
@@ -34,7 +35,8 @@ void colorPin(Color color, ButtonNames button)
     }
 
     // Write new color code (GRB) see https://www.newinnovations.nl/post/controlling-ws2812-and-ws2812b-using-only-stm32-spi/#option-3-using-8-spi-bits--pulses for pattern
-    switch (button) {
+    switch (button)
+    {
         case TS_ACTIVE_BUTTON:
             neopixelDataBuffer[0] = (color == COLOR_GREEN) ? NEOPIXEL_ON : NEOPIXEL_OFF;
             neopixelDataBuffer[1] = (color == COLOR_RED) ? NEOPIXEL_ON : NEOPIXEL_OFF;

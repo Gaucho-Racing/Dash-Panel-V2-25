@@ -57,14 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define NO_RTD_Pin GPIO_PIN_6
+#define NO_RTD_GPIO_Port GPIOB
 #define LED_IMD_Pin GPIO_PIN_9
 #define LED_IMD_GPIO_Port GPIOG
+#define LED_AMS_Pin GPIO_PIN_10
+#define LED_AMS_GPIO_Port GPIOG
 #define LCD_DISP_RESET_Pin GPIO_PIN_7
 #define LCD_DISP_RESET_GPIO_Port GPIOH
 #define CTP_RST_Pin GPIO_PIN_3
 #define CTP_RST_GPIO_Port GPIOE
-#define NO_RTD_Pin GPIO_PIN_3
-#define NO_RTD_GPIO_Port GPIOG
 #define CTP_INT_Pin GPIO_PIN_6
 #define CTP_INT_GPIO_Port GPIOE
 #define CTP_INT_EXTI_IRQn EXTI6_IRQn
@@ -72,12 +74,14 @@ void Error_Handler(void);
 #define USB_PWR_EN_GPIO_Port GPIOG
 #define USB_OVERCURRENT_Pin GPIO_PIN_0
 #define USB_OVERCURRENT_GPIO_Port GPIOJ
-#define LED_AMS_Pin GPIO_PIN_2
-#define LED_AMS_GPIO_Port GPIOG
+#define DIN_TS_ACTIVE_Pin GPIO_PIN_4
+#define DIN_TS_ACTIVE_GPIO_Port GPIOG
 #define R_RST_Pin GPIO_PIN_4
 #define R_RST_GPIO_Port GPIOF
 #define NO_TS_ACTIVE_Pin GPIO_PIN_11
 #define NO_TS_ACTIVE_GPIO_Port GPIOH
+#define NC_RTD_Pin GPIO_PIN_4
+#define NC_RTD_GPIO_Port GPIOA
 #define R_CS_Pin GPIO_PIN_1
 #define R_CS_GPIO_Port GPIOG
 #define LED_BSPD_Pin GPIO_PIN_3
@@ -88,8 +92,8 @@ void Error_Handler(void);
 #define TS_ACTIVE_GPIO_Port GPIOA
 #define R_INT_Pin GPIO_PIN_4
 #define R_INT_GPIO_Port GPIOC
-#define DIN_TS_ACTIVE_Pin GPIO_PIN_15
-#define DIN_TS_ACTIVE_GPIO_Port GPIOB
+#define NC_TS_ACTIVE_Pin GPIO_PIN_15
+#define NC_TS_ACTIVE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 // See Brand Guidelines

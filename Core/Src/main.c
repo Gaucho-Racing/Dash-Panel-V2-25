@@ -137,7 +137,6 @@ int main(void)
   MX_RTC_Init();
   MX_ADC2_Init();
   MX_CORDIC_Init();
-  MX_I2C4_Init();
   MX_SPI2_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
@@ -148,6 +147,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
   MX_FLASH_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
   if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1) != HAL_OK) {

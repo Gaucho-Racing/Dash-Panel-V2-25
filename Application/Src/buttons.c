@@ -10,6 +10,11 @@
 #include "msgIDs.h"
 #include "dash.h"
 
+void colorPin(Color color, ButtonNames button)
+{
+    
+}
+
 void updateButtonColors(void* args)
 {
     UNUSED(args);

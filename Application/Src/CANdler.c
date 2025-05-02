@@ -147,7 +147,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             InverterStatusOne* invOneMsg = (InverterStatusOne*)data;
 
-            switch(srcID) {
+            switch(srcID)
+            {
                 case GR_GR_INVERTER_1:
                     globalStatus.inverterCurrents[0] = invOneMsg->AC_Current;
                     break;
@@ -174,7 +175,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             InverterStatusTwo* invTwoMsg = (InverterStatusTwo*)data;
 
-            switch (srcID) {
+            switch (srcID)
+            {
                 case GR_GR_INVERTER_1:
                     globalStatus.inverterTemperatures[0] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
                     break;
@@ -201,7 +203,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             InverterStatusThree* invThreeMsg = (InverterStatusThree*)data;
 
-            switch (srcID) {
+            switch (srcID)
+            {
                 case GR_GR_INVERTER_1:
                     globalStatus.motorTemperatures[0] = invThreeMsg->Motor_Temp;
                     break;
@@ -215,6 +218,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                     globalStatus.motorTemperatures[3] = invThreeMsg->Motor_Temp;
                     break;
             }
+
             break;
         
         case MSG_SPECIFIC_BRAKE_IR:
@@ -228,7 +232,9 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             SpecificBrakeIR* brakeMsg = (SpecificBrakeIR*)data;
 
             if (brakeMsg->Wheel_Identifier > 3)
+            {
                 break;
+            }
 
             globalStatus.brakeTemps[brakeMsg->Wheel_Identifier] = brakeMsg->Brake_Temp;
 

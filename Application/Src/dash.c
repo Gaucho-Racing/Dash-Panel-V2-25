@@ -6,6 +6,7 @@
 #include "grIDs.h"
 #include "fdcan.h"
 
+// TODO Confirm all scaling is appropriate
 volatile DashInfo globalStatus = {0};
 
 int32_t prevRefresh = BAD_TIME_Negative1;

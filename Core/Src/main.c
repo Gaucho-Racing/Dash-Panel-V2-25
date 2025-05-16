@@ -92,7 +92,7 @@ void SystemClock_Config(void);
 static void SystemPower_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-static void ecu_update_timer_cb(lv_timer * timer);
+static void ecu_update_timer_cb(lv_timer_t * timer);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/

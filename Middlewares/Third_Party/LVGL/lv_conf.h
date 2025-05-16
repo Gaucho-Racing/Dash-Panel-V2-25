@@ -605,7 +605,7 @@
  *  #define LV_FONT_CUSTOM_DECLARE   LV_FONT_DECLARE(my_font_1) LV_FONT_DECLARE(my_font_2)
  *  @endcode
  */
-#define LV_FONT_CUSTOM_DECLARE
+#define LV_FONT_CUSTOM_DECLARE LV_FONT_DECLARE(lv_font_gr_bold_16) LV_FONT_DECLARE(lv_font_gr_bold_24) LV_FONT_DECLARE(lv_font_gr_bold_32) LV_FONT_DECLARE(lv_font_gr_bold_40) LV_FONT_DECLARE(lv_font_gr_regular_16) LV_FONT_DECLARE(lv_font_gr_regular_24) LV_FONT_DECLARE(lv_font_gr_regular_32) LV_FONT_DECLARE(lv_font_gr_regular_40) LV_FONT_DECLARE(lv_font_gr_light_16) LV_FONT_DECLARE(lv_font_gr_light_24) LV_FONT_DECLARE(lv_font_gr_light_32) LV_FONT_DECLARE(lv_font_gr_light_40)
 
 /** Always set a default font */
 #define LV_FONT_DEFAULT &lv_font_montserrat_14

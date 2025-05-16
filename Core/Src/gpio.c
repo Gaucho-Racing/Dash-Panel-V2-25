@@ -42,6 +42,7 @@
      PD5   ------> USART2_TX
      PC15-OSC32_OUT (PC15)   ------> RCC_OSC32_OUT
      PA13 (JTMS/SWDIO)   ------> DEBUG_JTMS-SWDIO
+     PB11   ------> I2C4_SDA
      PH0-OSC_IN (PH0)   ------> RCC_OSC_IN
      PA0   ------> USART2_CTS
      PA5   ------> COMP_DAC12_group
@@ -64,11 +65,10 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_9|GPIO_PIN_3|USB_PWR_EN_Pin|GPIO_PIN_4
-                          |GPIO_PIN_2|R_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOG, LED_IMD_Pin|LED_AMS_Pin|USB_PWR_EN_Pin|R_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOH, LCD_DISP_RESET_Pin|GPIO_PIN_11, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(CTP_RST_GPIO_Port, CTP_RST_Pin, GPIO_PIN_RESET);
@@ -77,10 +77,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(R_RST_GPIO_Port, R_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_3, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1|GPIO_PIN_15, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PB7 */
   GPIO_InitStruct.Pin = GPIO_PIN_7;
@@ -90,18 +87,22 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PG15 PG12 PG10 PG11
-                           PG7 PG5 PG0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_15|GPIO_PIN_12|GPIO_PIN_10|GPIO_PIN_11
-                          |GPIO_PIN_7|GPIO_PIN_5|GPIO_PIN_0;
+  /*Configure GPIO pins : NO_RTD_Pin NC_TS_ACTIVE_Pin */
+  GPIO_InitStruct.Pin = NO_RTD_Pin|NC_TS_ACTIVE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PG15 PG12 PG11 PG7
+                           PG5 PG0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15|GPIO_PIN_12|GPIO_PIN_11|GPIO_PIN_7
+                          |GPIO_PIN_5|GPIO_PIN_0;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PG9 PG3 USB_PWR_EN_Pin PG4
-                           PG2 R_CS_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_3|USB_PWR_EN_Pin|GPIO_PIN_4
-                          |GPIO_PIN_2|R_CS_Pin;
+  /*Configure GPIO pins : LED_IMD_Pin LED_AMS_Pin USB_PWR_EN_Pin R_CS_Pin */
+  GPIO_InitStruct.Pin = LED_IMD_Pin|LED_AMS_Pin|USB_PWR_EN_Pin|R_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -145,15 +146,17 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD_DISP_RESET_Pin PH11 */
-  GPIO_InitStruct.Pin = LCD_DISP_RESET_Pin|GPIO_PIN_11;
+  /*Configure GPIO pin : LCD_DISP_RESET_Pin */
+  GPIO_InitStruct.Pin = LCD_DISP_RESET_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
+  HAL_GPIO_Init(LCD_DISP_RESET_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA11 PA10 PA6 PA7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_10|GPIO_PIN_6|GPIO_PIN_7;
+  /*Configure GPIO pins : PA11 PA10 NC_RTD_Pin RTD_Pin
+                           TS_ACTIVE_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_10|NC_RTD_Pin|RTD_Pin
+                          |TS_ACTIVE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -203,8 +206,10 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(CTP_INT_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB3 PB12 PB13 PB2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_2;
+  /*Configure GPIO pins : PB3 PB1 PB12 PB13
+                           PB2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_1|GPIO_PIN_12|GPIO_PIN_13
+                          |GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -228,18 +233,18 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(R_RST_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA4 PA3 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_3;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  /*Configure GPIO pin : NO_TS_ACTIVE_Pin */
+  GPIO_InitStruct.Pin = NO_TS_ACTIVE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(NO_TS_ACTIVE_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB1 PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_15;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  /*Configure GPIO pin : PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF3_I2C4;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PA0 */
@@ -249,6 +254,13 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : LED_BSPD_Pin */
+  GPIO_InitStruct.Pin = LED_BSPD_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_BSPD_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : R_INT_Pin */
   GPIO_InitStruct.Pin = R_INT_Pin;

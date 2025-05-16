@@ -3,5 +3,8 @@
         "*.h": "c",
         "*.c": "c",
     },
-    "cSpell.diagnosticLevel": "Hint",
+    "todo-tree.filtering.excludeGlobs": [
+        "**/Middlewares/**"
+    ],
+    "cSpell.diagnosticLevel": "Hint"
 }

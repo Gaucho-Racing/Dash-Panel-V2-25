@@ -47,6 +47,8 @@
 #include "lvgl/lvgl.h"
 #include "lvgl/demos/lv_demos.h"
 #include "lvgl_port_display.h"
+#include "msgIDs.h"
+#include "grIDs.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -135,7 +137,6 @@ int main(void)
   MX_RTC_Init();
   MX_ADC2_Init();
   MX_CORDIC_Init();
-  MX_I2C4_Init();
   MX_SPI2_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
@@ -146,6 +147,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
   MX_FLASH_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
   if (HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1) != HAL_OK) {
@@ -206,6 +208,8 @@ int main(void)
       lv_obj_t * state = lv_label_create(boxBottom1);
       lv_label_set_text(state, "State: ");
 
+  writeMessage(MSG_DEBUG_2_0, GR_ECU, (uint8_t*)"Welcome!", 8);
+  
   /* USER CODE END 2 */
 
   /* Init scheduler */

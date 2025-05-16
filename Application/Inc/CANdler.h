@@ -72,4 +72,16 @@ typedef struct {
     uint8_t Brake_Temp;
 } SpecificBrakeIR;
 
+typedef struct {
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+} ButtonLedBrightness;
+
+typedef struct {
+    uint8_t ledBits;
+    ButtonLedBrightness buttonLedOne;
+    ButtonLedBrightness buttonLedTwo;
+} DashConfigMsg;
+
 #endif

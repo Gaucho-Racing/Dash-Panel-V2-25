@@ -1,5 +1,5 @@
 /**
- * @file lv_version.h
+ * @file version.h
  * The current version of LVGL
  */
 
@@ -11,4 +11,4 @@
 #define LVGL_VERSION_PATCH 0
 #define LVGL_VERSION_INFO "dev"
 
-#endif /* LVGL_VERSION_H */
+#endif /*LVGL_VERSION_H*/

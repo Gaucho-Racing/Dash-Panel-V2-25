@@ -2,3 +2,4 @@
 	path = CSV-25
 	url = ../CSV-25.git
 	branch = main
+	update = merge

@@ -44,11 +44,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <string.h>
+
 #include "lvgl/lvgl.h"
 #include "lvgl/demos/lv_demos.h"
 #include "lvgl_port_display.h"
 #include "msgIDs.h"
 #include "grIDs.h"
+#include "dash.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -157,6 +160,9 @@ int main(void)
 
   /* reset display */
   HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_SET);
+
+  /* Update default debug message on boot */
+  strncpy((char*)globalStatus.debugMessage, "BootN/A", 8);
 
   /* initialize LVGL framework */
   lv_init();

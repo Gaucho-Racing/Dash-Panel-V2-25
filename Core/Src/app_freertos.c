@@ -185,8 +185,8 @@ void MX_FREERTOS_Init(void) {
   lvglTickHandle = osThreadNew(LVGLTick, NULL, &lvglTick_attributes);
   lvglTimerHandle = osThreadNew(LVGLTimer, NULL, &lvglTimer_attributes);
   dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
-  pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
-  updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
+  // pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
+  // updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -240,7 +240,7 @@ void sendDashStatusMsg(void* args)
 {
     for(;;)
     {
-        writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
+        //writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         osDelay(DASH_STATUS_MSG_DELAY);
     }
     UNUSED(args);

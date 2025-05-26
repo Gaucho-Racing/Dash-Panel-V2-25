@@ -72,6 +72,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/mx25lm51245g.c
     Application/Src/CANdler.c
     Application/Src/dash.c
+    Application/Src/gui.c
     Application/Src/utils.c
     Application/Src/buttons.c
 

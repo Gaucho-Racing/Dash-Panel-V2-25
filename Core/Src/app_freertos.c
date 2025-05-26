@@ -240,7 +240,7 @@ void sendDashStatusMsg(void* args)
 {
     for(;;)
     {
-        //writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
+        // writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         osDelay(DASH_STATUS_MSG_DELAY);
     }
     UNUSED(args);

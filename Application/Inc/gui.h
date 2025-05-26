@@ -46,6 +46,8 @@ lv_obj_t * gridCells[GRID_ROWS * GRID_COLUMNS];
 
 void styleSetup(void);
 void displaySetup(void);
+void topSetup(lv_obj_t * parent_obj);
+void bottomSetup(lv_obj_t * parent_obj);
 static void ecu_update_timer_cb(lv_timer_t * timer);
 void createGrid(lv_obj_t * parent_obj);
 

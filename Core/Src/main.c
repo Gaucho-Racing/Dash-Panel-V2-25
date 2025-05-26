@@ -52,6 +52,7 @@
 #include "msgIDs.h"
 #include "grIDs.h"
 #include "dash.h"
+#include "gui.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -306,7 +307,9 @@ int main(void)
   /* initialize display and touchscreen */
   lvgl_display_init();
   
-  
+  /* Put stuff on the display */
+  displaySetup();
+
 
   // writeMessage(MSG_DEBUG_2_0, GR_ECU, (uint8_t*)"Welcome!", 8);
   

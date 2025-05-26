@@ -24,12 +24,22 @@ void styleSetup(void) {
 }
 
 void displaySetup(void) {
+
+    styleSetup();
+
     lv_obj_t * screen = lv_screen_active();
     lv_obj_add_style(screen, &screenStyle, 0);
     lv_obj_set_style_bg_color(screen, lv_color_hex(GR_NAVY), LV_PART_MAIN);
 
-    // Code for top flex row 
-    lv_obj_t * flexRowTop = lv_obj_create(screen);
+    topSetup(screen);
+    bottomSetup(screen);
+    
+}
+
+
+void topSetup(lv_obj_t * parent_obj) {
+
+    lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowTop, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_EVENLY);
     lv_obj_set_style_bg_color(flexRowTop, lv_color_hex(GR_NAVY), 0);
@@ -85,8 +95,12 @@ void displaySetup(void) {
                 regen = lv_label_create(boxTop3);
                 lv_label_set_text(regen, "RN: x");
 
+
+}
+
+void bottomSetup(lv_obj_t * parent_obj) {
     // Code for bottom flex row 
-    lv_obj_t * flexRowBottom = lv_obj_create(screen);
+    lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowBottom, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_AROUND);
     lv_obj_set_style_bg_color(flexRowBottom, lv_color_hex(0x195297), 0);

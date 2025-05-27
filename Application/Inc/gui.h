@@ -20,15 +20,20 @@ static lv_style_t screenStyle;
 static lv_style_t flexRowStyle;
 static lv_style_t flexColumnStyle;
 
+typedef struct {
+    lv_obj_t * speed;
+    lv_obj_t * state; 
+    lv_obj_t * voltage;
+    lv_obj_t * SoC;
+    lv_obj_t * power;   
+    lv_obj_t * current;
+    lv_obj_t * torqueMapping;
+    lv_obj_t * regen;
+} VolatileObjs;
+
 // --- Global or static variables needed in the timer callback ---
-lv_obj_t * speed;
-lv_obj_t * state; 
-lv_obj_t * voltage;
-lv_obj_t * SoC;
-lv_obj_t * power;   
-lv_obj_t * current;
-lv_obj_t * torqueMapping;
-lv_obj_t * regen;
+
+extern volatile VolatileObjs volatileObjs;
 
 static uint16_t speedData = 1;
 static char stateData[] = "Running"; 

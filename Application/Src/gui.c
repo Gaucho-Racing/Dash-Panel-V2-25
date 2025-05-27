@@ -39,6 +39,16 @@ void displaySetup(void) {
 
 void topSetup(lv_obj_t * parent_obj) {
 
+    lv_obj_t * voltage = volatileObjs.voltage;
+    lv_obj_t * SoC = volatileObjs.SoC;
+    lv_obj_t * power = volatileObjs.power;
+    lv_obj_t * speed = volatileObjs.speed;
+    lv_obj_t * state = volatileObjs.state;
+    lv_obj_t * current = volatileObjs.current;
+    lv_obj_t * torqueMapping = volatileObjs.torqueMapping;
+    lv_obj_t * regen = volatileObjs.regen;
+
+
     lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowTop, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_EVENLY);
@@ -210,32 +220,32 @@ static void ecu_update_timer_cb(lv_timer_t * timer) {
 
     // Format the string
     snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
-    if (speed) {
-        lv_label_set_text(speed, speedBuffer);
+    if (volatileObjs.speed) {
+        lv_label_set_text(volatileObjs.speed, speedBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(stateBuffer, sizeof(stateBuffer), "State: %s", stateData);
-    if (state) {
-        lv_label_set_text(state, stateBuffer);
+    if (volatileObjs.state) {
+        lv_label_set_text(volatileObjs.state, stateBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(voltageBuffer, sizeof(voltageBuffer), "Voltage: %d V", voltageData);
-    if (voltage) {
-        lv_label_set_text(voltage, voltageBuffer);
+    if (volatileObjs.voltage) {
+        lv_label_set_text(volatileObjs.voltage, voltageBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
-    if (SoC) {
-        lv_label_set_text(SoC, SoCBuffer);
+    if (volatileObjs.SoC) {
+        lv_label_set_text(volatileObjs.SoC, SoCBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);
-    if (power) {
-        lv_label_set_text(power, powerBuffer);
+    if (volatileObjs.power) {
+        lv_label_set_text(volatileObjs.power, powerBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 }

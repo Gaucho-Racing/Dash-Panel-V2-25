@@ -2,6 +2,9 @@
 #include "lvgl/lvgl.h"
 #include "stdio.h"
 
+volatile VolatileObjs volatileObjs = {0};
+lv_obj_t * gridCells[];
+
 void styleSetup(void) {
 
     lv_style_init(&screenStyle);

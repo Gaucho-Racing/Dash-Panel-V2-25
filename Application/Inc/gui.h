@@ -47,7 +47,7 @@ static char voltageBuffer[32];
 static char SoCBuffer[32];  
 static char powerBuffer[32];  
 
-lv_obj_t * gridCells[GRID_ROWS * GRID_COLUMNS];
+extern lv_obj_t * gridCells[GRID_ROWS * GRID_COLUMNS];
 
 void styleSetup(void);
 void displaySetup(void);

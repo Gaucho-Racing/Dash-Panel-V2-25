@@ -1,10 +1,11 @@
 #include "gui.h"
 #include "lvgl/lvgl.h"
 #include "stdio.h"
+#include "dash.h"
 
 volatile VolatileObjs volatileObjs = {};
 lv_obj_t * gridCells[];
-
+extern DashInfo globalStatus;
 
 void styleSetup(void) {
     lv_style_init(&screenStyle);
@@ -36,7 +37,7 @@ void displaySetup(void) {
 
     topSetup(screen);
     bottomSetup(screen);
-    
+
 }
 
 
@@ -65,7 +66,7 @@ void topSetup(lv_obj_t * parent_obj) {
         lv_obj_set_size(boxTop1, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
         lv_obj_set_height(boxTop1, TOP_HEIGHT);
         lv_obj_set_style_bg_color(boxTop1, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_style_pad_all(boxTop1, 20, 0); 
+        lv_obj_set_style_pad_all(boxTop1, 20, 0);
 
             voltage = lv_label_create(boxTop1);
             lv_label_set_text(voltage, voltageBuffer);
@@ -82,10 +83,10 @@ void topSetup(lv_obj_t * parent_obj) {
         lv_obj_set_size(boxTop2, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
         lv_obj_set_height(boxTop2, TOP_HEIGHT);
         lv_obj_set_style_bg_color(boxTop2, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_style_pad_all(boxTop2, 20, 0); 
+        lv_obj_set_style_pad_all(boxTop2, 20, 0);
         lv_obj_set_style_flex_cross_place(boxTop2, LV_FLEX_ALIGN_CENTER, 0);
         lv_obj_set_style_flex_main_place(boxTop2, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
-        
+
             speed = lv_label_create(boxTop2);
             lv_label_set_text_static(speed, speedBuffer);
             state = lv_label_create(boxTop2);
@@ -110,7 +111,7 @@ void topSetup(lv_obj_t * parent_obj) {
 }
 
 void bottomSetup(lv_obj_t * parent_obj) {
-    // Code for bottom flex row 
+    // Code for bottom flex row
     lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowBottom, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_AROUND);
@@ -181,16 +182,16 @@ void bottomSetup(lv_obj_t * parent_obj) {
 
                         lv_obj_t * inverter3 = lv_label_create(inverterTemps);
                         lv_label_set_text(inverter3, "3: ");
-                    
+
                     lv_obj_t * brakeTemps = lv_obj_create(boxBottom2);
                     lv_obj_set_flex_flow(brakeTemps, LV_FLEX_FLOW_COLUMN);
                     lv_obj_set_flex_align(brakeTemps, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
                     lv_obj_set_scrollbar_mode(brakeTemps, LV_SCROLLBAR_MODE_OFF);
                     lv_obj_set_size(brakeTemps, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-                    
+
                         lv_obj_t * brakeLabel = lv_label_create(brakeTemps);
                         lv_label_set_text(brakeLabel, "Brakes");
-                        
+
                         lv_obj_t * brake1 = lv_label_create(brakeTemps);
                         lv_label_set_text(brake1, "1: ");
 
@@ -205,19 +206,27 @@ void bottomSetup(lv_obj_t * parent_obj) {
 
 }
 
-void updateVolatileBuffer(VolatileObj obj) {
-    lv_label_set_text_static(obj.data, obj.buffer); // TODO: change lv_label_set_text to static if necessary 
+void updateVariableText(VolatileObj obj) {
+    lv_label_set_text(obj.data, obj.buffer); // TODO: change lv_label_set_text to static if necessary
 }
 
 void updateBuffers() {
     for(int i = 0; i < NUM_VARIABLES; i++) {
-        updateVolatileBuffer(volatileObjs.arr[i]);
+        // TODO: CHANGE THIS TO ACTUALLY UDPATE THE BUFFER
+        /*
+         * 1. Global Status -> map needed information into an array that aligns with volatileObjs
+         * Define actual updateBuffer so that you take in data + VolatileObj so you update the specific buffer
+         * And then updateVariableText should be called with ecu_update_timer_cb actually idk what the point of it is
+         *
+         * 2. Test update screen
+         * 3. Implement GPIO pins check steering for implementation
+        */
     }
 }
 
 // --- Timer Callback Function ---
 static void ecu_update_timer_cb(lv_timer_t * timer) {
-    //enum VOLATILE_OBJECTS currVar = SPEED; 
+    //enum VOLATILE_OBJECTS currVar = SPEED;
 
     speedData++;
     if (speedData > 100) {
@@ -227,32 +236,33 @@ static void ecu_update_timer_cb(lv_timer_t * timer) {
     // Format the string
     snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     if (volatileObjs.arr[SPEED].data) {
-        lv_label_set_text(volatileObjs.arr[SPEED].data, speedBuffer);
-        lv_obj_invalidate(lv_screen_active()); 
+        //lv_label_set_text(volatileObjs.arr[SPEED].data, speedBuffer);
+        updateVariableText(volatileObjs.arr[SPEED]);
+        lv_obj_invalidate(lv_screen_active());
     }
 
     snprintf(stateBuffer, sizeof(stateBuffer), "State: %s", stateData);
     if (volatileObjs.arr[STATE].data) {
         lv_label_set_text(volatileObjs.arr[STATE].data, stateBuffer);
-        lv_obj_invalidate(lv_screen_active()); 
+        lv_obj_invalidate(lv_screen_active());
     }
 
     snprintf(voltageBuffer, sizeof(voltageBuffer), "Voltage: %d V", voltageData);
     if (volatileObjs.arr[VOLTAGE].data) {
         lv_label_set_text(volatileObjs.arr[VOLTAGE].data, voltageBuffer);
-        lv_obj_invalidate(lv_screen_active()); 
+        lv_obj_invalidate(lv_screen_active());
     }
 
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
     if (volatileObjs.arr[SOC].data) {
         lv_label_set_text(volatileObjs.arr[SOC].data, SoCBuffer);
-        lv_obj_invalidate(lv_screen_active()); 
+        lv_obj_invalidate(lv_screen_active());
     }
 
     snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);
     if (volatileObjs.arr[POWER].data) {
         lv_label_set_text(volatileObjs.arr[POWER].data, powerBuffer);
-        lv_obj_invalidate(lv_screen_active()); 
+        lv_obj_invalidate(lv_screen_active());
     }
 }
 

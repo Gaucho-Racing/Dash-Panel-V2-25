@@ -33,9 +33,16 @@ enum VOLATILE_OBJECTS {
 };
 
 typedef struct {
-    lv_obj_t * data;
+    lv_obj_t * variable;    // this maps to the LVGL text variable we're updating/keeping track of 
+    static uint16_t data;   
     char buffer[32];
 } VolatileObj;
+
+/*
+FOOD FOR THOUGHT: might need to split up VolatileObj into different structs? we're being too general
+for example - can't use VolatileObj.data for something like globalStatus.inverterCurrents[4] because inverter currents is an array
+*/ 
+
 
 // Dark magic fuckery
 typedef union {
@@ -54,7 +61,7 @@ typedef union {
 
 // --- Global or static variables needed in the timer callback ---
 
-extern volatile VolatileObj volatileObjs[];
+extern volatile VolatileObj volatileObjs[8];
 
 static uint16_t speedData = 1;
 static char stateData[] = "Running"; 

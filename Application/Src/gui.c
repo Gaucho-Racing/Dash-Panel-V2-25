@@ -207,21 +207,41 @@ void bottomSetup(lv_obj_t * parent_obj) {
 }
 
 void updateVariableText(VolatileObj obj) {
-    lv_label_set_text(obj.data, obj.buffer); // TODO: change lv_label_set_text to static if necessary
+    lv_label_set_text(obj.data, obj.buffer); // TODO: change to lv_label_set_text_static if necessary
 }
 
+/*
+    * 1. Global Status -> map needed information into an array that aligns with volatileObjs
+    * Define actual updateBuffer so that you take in data + VolatileObj so you update the specific buffer
+    * And then updateVariableText should be called with ecu_update_timer_cb actually idk what the point of it is
+    *
+    * 2. Test update screen
+    * 3. Implement GPIO pins check steering for implementation
+    * 
+    * Jason side note about general flow of data (following the flow from lvgltesting simulator):
+    *   1. Update VolatileObj.data from globalStatus 
+    *   2. use snprintf() to update each VolatileObj.buffer with a newly formatted string 
+    *   3. Call updateVariableText() with the parameter as each VolatileObj
+*/ 
+
 void updateBuffers() {
-    for(int i = 0; i < NUM_VARIABLES; i++) {
-        // TODO: CHANGE THIS TO ACTUALLY UDPATE THE BUFFER
-        /*
-         * 1. Global Status -> map needed information into an array that aligns with volatileObjs
-         * Define actual updateBuffer so that you take in data + VolatileObj so you update the specific buffer
-         * And then updateVariableText should be called with ecu_update_timer_cb actually idk what the point of it is
-         *
-         * 2. Test update screen
-         * 3. Implement GPIO pins check steering for implementation
-        */
+    volatileObjs[SPEED].data = globalStatus.vehicleSpeed; 
+    volatileObjs[STATE].data = globalStatus.ECUState;
+    volatileObjs[VOLTAGE].data = globalStatus.tsVoltage; 
+    volatileObjs[SOC].data = globalStatus.glvStateOfCharge; 
+    volatileObjs[POWER].data = globalStatus.tsVoltage; // todo: what does POWER map to in globalStatus?
+    volatileObjs[CURRENT].data = globalStatus.tsVoltage; // todo: what does CURRENT map to in globalStatus?
+    volatileObjs[TORQUE_MAPPING].data = globalStatus.tsVoltage; // todo: what does TORQUE_MAPPING map to in globalStatus?
+    volatileObjs[REGEN].data = globalStatus.tsVoltage; // todo: what does REGEN map to in globalStatus?
+    /*
+    Note for bailey/others: I don't think we would be able assign each VolatileObj with data from globalStatus with a for-loop
+    because globalStatus has too many different variables - i think we would have to assign data manually like above?
+    lmk if you have a better solution 
+    for (int i=0; i < NUM_VARIABLES; i++) { 
+        volatileObjs[i].data = ?? 
     }
+    */
+
 }
 
 // --- Timer Callback Function ---

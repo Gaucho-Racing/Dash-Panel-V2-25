@@ -122,7 +122,7 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
 
             break;
 
-        case MSG_DTI_DATA_2:
+        case MSG_DTI_DATA_2:    // TODO Fix DTI being a goofy thing (see ECU code)
             if (length != 8) {
                 numberOfBadMessages++;
                 return;

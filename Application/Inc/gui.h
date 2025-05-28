@@ -15,25 +15,46 @@
 #define GRID_COLUMNS 4
 #define CELL_WIDTH_PX 20
 #define CELL_HEIGHT_PX 20
+#define NUM_VARIABLES 8 // the number of variables we need to update and keep track of on the dash 
 
 static lv_style_t screenStyle;
 static lv_style_t flexRowStyle;
 static lv_style_t flexColumnStyle;
 
+enum VOLATILE_OBJECTS {
+    SPEED = 0,
+    STATE = 1,
+    VOLTAGE = 2,
+    SOC = 3,
+    POWER = 4,
+    CURRENT = 5,
+    TORQUE_MAPPING = 6,
+    REGEN = 7,
+};
+
 typedef struct {
-    lv_obj_t * speed;
-    lv_obj_t * state; 
-    lv_obj_t * voltage;
-    lv_obj_t * SoC;
-    lv_obj_t * power;   
-    lv_obj_t * current;
-    lv_obj_t * torqueMapping;
-    lv_obj_t * regen;
+    lv_obj_t * data;
+    char buffer[32];
+} VolatileObj;
+
+// Dark magic fuckery
+typedef union {
+    struct {
+        VolatileObj speed;
+        VolatileObj state; 
+        VolatileObj voltage;
+        VolatileObj SoC;
+        VolatileObj power;   
+        VolatileObj current;
+        VolatileObj torqueMapping;
+        VolatileObj regen;
+    };
+    VolatileObj arr[8];
 } VolatileObjs;
 
 // --- Global or static variables needed in the timer callback ---
 
-extern volatile VolatileObjs volatileObjs;
+extern volatile VolatileObj volatileObjs[];
 
 static uint16_t speedData = 1;
 static char stateData[] = "Running"; 

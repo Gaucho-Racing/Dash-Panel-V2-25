@@ -2,11 +2,11 @@
 #include "lvgl/lvgl.h"
 #include "stdio.h"
 
-volatile VolatileObjs volatileObjs = {0};
+volatile VolatileObjs volatileObjs = {};
 lv_obj_t * gridCells[];
 
-void styleSetup(void) {
 
+void styleSetup(void) {
     lv_style_init(&screenStyle);
     lv_style_set_layout(&screenStyle, LV_LAYOUT_FLEX);
     lv_style_set_flex_flow(&screenStyle, LV_FLEX_FLOW_COLUMN);
@@ -42,14 +42,14 @@ void displaySetup(void) {
 
 void topSetup(lv_obj_t * parent_obj) {
 
-    lv_obj_t * voltage = volatileObjs.voltage;
-    lv_obj_t * SoC = volatileObjs.SoC;
-    lv_obj_t * power = volatileObjs.power;
-    lv_obj_t * speed = volatileObjs.speed;
-    lv_obj_t * state = volatileObjs.state;
-    lv_obj_t * current = volatileObjs.current;
-    lv_obj_t * torqueMapping = volatileObjs.torqueMapping;
-    lv_obj_t * regen = volatileObjs.regen;
+    lv_obj_t * voltage = volatileObjs.arr[VOLTAGE].data;
+    lv_obj_t * SoC = volatileObjs.arr[SOC].data;
+    lv_obj_t * power = volatileObjs.arr[POWER].data;
+    lv_obj_t * speed = volatileObjs.arr[SPEED].data;
+    lv_obj_t * state = volatileObjs.arr[STATE].data;
+    lv_obj_t * current = volatileObjs.arr[CURRENT].data;
+    lv_obj_t * torqueMapping = volatileObjs.arr[TORQUE_MAPPING].data;
+    lv_obj_t * regen = volatileObjs.arr[REGEN].data;
 
 
     lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
@@ -107,8 +107,6 @@ void topSetup(lv_obj_t * parent_obj) {
                 lv_label_set_text(torqueMapping, "TM: x");
                 regen = lv_label_create(boxTop3);
                 lv_label_set_text(regen, "RN: x");
-
-
 }
 
 void bottomSetup(lv_obj_t * parent_obj) {
@@ -139,13 +137,6 @@ void bottomSetup(lv_obj_t * parent_obj) {
         lv_obj_set_flex_align(boxBottom2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
         lv_obj_set_style_flex_cross_place(boxBottom2, LV_FLEX_ALIGN_START, 0);
         lv_obj_set_style_pad_all(boxBottom2, 20, 0); // Add some padding inside the box
-
-            // most important temperatures to display will probably be maxCellTemp, motorTemp, inverterTemp, brakeTemp
-            
-            // honestly we can probably get rid of this label later down the line; driver can tell temp from celsius/fahrenheit
-            // lv_obj_t * temperature_label = lv_label_create(boxBottom2);
-            // lv_obj_set_flex_align(boxBottom2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-            // lv_label_set_text(temperature_label, "Temperatures:");
 
                     lv_obj_t * cellTempBox = lv_obj_create(boxBottom2);
                     lv_obj_set_height(cellTempBox, 200);
@@ -214,8 +205,20 @@ void bottomSetup(lv_obj_t * parent_obj) {
 
 }
 
+void updateVolatileBuffer(VolatileObj obj) {
+    lv_label_set_text_static(obj.data, obj.buffer); // TODO: change lv_label_set_text to static if necessary 
+}
+
+void updateBuffers() {
+    for(int i = 0; i < NUM_VARIABLES; i++) {
+        updateVolatileBuffer(volatileObjs.arr[i]);
+    }
+}
+
 // --- Timer Callback Function ---
 static void ecu_update_timer_cb(lv_timer_t * timer) {
+    //enum VOLATILE_OBJECTS currVar = SPEED; 
+
     speedData++;
     if (speedData > 100) {
         speedData = 1;
@@ -223,32 +226,32 @@ static void ecu_update_timer_cb(lv_timer_t * timer) {
 
     // Format the string
     snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
-    if (volatileObjs.speed) {
-        lv_label_set_text(volatileObjs.speed, speedBuffer);
+    if (volatileObjs.arr[SPEED].data) {
+        lv_label_set_text(volatileObjs.arr[SPEED].data, speedBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(stateBuffer, sizeof(stateBuffer), "State: %s", stateData);
-    if (volatileObjs.state) {
-        lv_label_set_text(volatileObjs.state, stateBuffer);
+    if (volatileObjs.arr[STATE].data) {
+        lv_label_set_text(volatileObjs.arr[STATE].data, stateBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(voltageBuffer, sizeof(voltageBuffer), "Voltage: %d V", voltageData);
-    if (volatileObjs.voltage) {
-        lv_label_set_text(volatileObjs.voltage, voltageBuffer);
+    if (volatileObjs.arr[VOLTAGE].data) {
+        lv_label_set_text(volatileObjs.arr[VOLTAGE].data, voltageBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
-    if (volatileObjs.SoC) {
-        lv_label_set_text(volatileObjs.SoC, SoCBuffer);
+    if (volatileObjs.arr[SOC].data) {
+        lv_label_set_text(volatileObjs.arr[SOC].data, SoCBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 
     snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);
-    if (volatileObjs.power) {
-        lv_label_set_text(volatileObjs.power, powerBuffer);
+    if (volatileObjs.arr[POWER].data) {
+        lv_label_set_text(volatileObjs.arr[POWER].data, powerBuffer);
         lv_obj_invalidate(lv_screen_active()); 
     }
 }

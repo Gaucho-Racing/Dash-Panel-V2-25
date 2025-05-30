@@ -80,7 +80,7 @@ void MX_ADC1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN ADC1_Init 2 */
-
+  // If started, make sure to run calibration!
   /* USER CODE END ADC1_Init 2 */
 
 }
@@ -137,7 +137,7 @@ void MX_ADC2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN ADC2_Init 2 */
-
+  // If started, make sure to run calibration!
   /* USER CODE END ADC2_Init 2 */
 
 }

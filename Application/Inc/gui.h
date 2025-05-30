@@ -34,7 +34,7 @@ enum VOLATILE_OBJECTS {
 
 typedef struct {
     lv_obj_t * variable;    // this maps to the LVGL text variable we're updating/keeping track of 
-    static uint16_t data;   
+    uint16_t data;   
     char buffer[32];
 } VolatileObj;
 

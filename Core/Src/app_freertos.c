@@ -220,6 +220,11 @@ void LVGLTimer(void *argument)
 {
   for(;;)
   {
+    /*
+    one function of lv_timer_handler() is to check for parts of the UI that have become "invalidated"
+    invalidated means a portion of the UI that changed
+    if a portion of the screen is marked as invalidated, LVGL will redraw those parts of the screen
+    */
     lv_timer_handler();
     osDelay(10);
   }

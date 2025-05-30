@@ -229,10 +229,10 @@ void updateBuffers() {
     volatileObjs[STATE].data = globalStatus.ECUState;
     volatileObjs[VOLTAGE].data = globalStatus.tsVoltage; 
     volatileObjs[SOC].data = globalStatus.glvStateOfCharge; 
-    volatileObjs[POWER].data = globalStatus.tsVoltage; // todo: what does POWER map to in globalStatus?
-    volatileObjs[CURRENT].data = globalStatus.tsVoltage; // todo: what does CURRENT map to in globalStatus?
-    volatileObjs[TORQUE_MAPPING].data = globalStatus.tsVoltage; // todo: what does TORQUE_MAPPING map to in globalStatus?
-    volatileObjs[REGEN].data = globalStatus.tsVoltage; // todo: what does REGEN map to in globalStatus?
+    volatileObjs[POWER].data = globalStatus.; // todo: what does POWER map to in globalStatus?
+    volatileObjs[CURRENT].data = globalStatus.; // todo: what does CURRENT map to in globalStatus?
+    volatileObjs[TORQUE_MAPPING].data = globalStatus.; // todo: what does TORQUE_MAPPING map to in globalStatus?
+    volatileObjs[REGEN].data = globalStatus.; // todo: what does REGEN map to in globalStatus?
     /*
     Note for bailey/others: I don't think we would be able assign each VolatileObj with data from globalStatus with a for-loop
     because globalStatus has too many different variables - i think we would have to assign data manually like above?

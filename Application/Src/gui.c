@@ -115,6 +115,21 @@ void topSetup(lv_obj_t * parent_obj) {
 }
 
 void bottomSetup(lv_obj_t * parent_obj) {
+
+    lv_obj_t * cellTempLabel;
+    lv_obj_t * cellTemp;
+    lv_obj_t * motorTempLabel;
+    lv_obj_t * motorTemp;
+    lv_obj_t * inverterLabel;
+    lv_obj_t * inverter1;
+    lv_obj_t * inverter2;
+    lv_obj_t * inverter3;
+    lv_obj_t * brakeLabel;
+    lv_obj_t * brake1;
+    lv_obj_t * brake2;
+    lv_obj_t * brake3;
+    lv_obj_t * brake4;
+
     // Code for bottom flex row
     lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
@@ -129,8 +144,8 @@ void bottomSetup(lv_obj_t * parent_obj) {
         lv_obj_set_style_bg_color(boxBottom1, lv_color_hex(GR_GRAY), 0);
         lv_obj_set_style_pad_all(boxBottom1, 20, 0); // Add some padding inside the box
 
-            lv_obj_update_layout(lv_screen_active());
-            //createGrid(boxBottom1);
+            // lv_obj_update_layout(lv_screen_active());
+            // createGrid(boxBottom1);
 
         lv_obj_t * boxBottom2 = lv_obj_create(flexRowBottom);
         lv_obj_set_flex_flow(boxBottom2, LV_FLEX_FLOW_ROW); // --> no longer need flex column since we removed the "temperatures" label
@@ -142,25 +157,25 @@ void bottomSetup(lv_obj_t * parent_obj) {
         lv_obj_set_style_flex_cross_place(boxBottom2, LV_FLEX_ALIGN_START, 0);
         lv_obj_set_style_pad_all(boxBottom2, 20, 0); // Add some padding inside the box
 
-                    // lv_obj_t * cellTempBox = lv_obj_create(boxBottom2);
-                    // lv_obj_set_height(cellTempBox, 200);
-                    // lv_obj_set_flex_flow(cellTempBox, LV_FLEX_FLOW_COLUMN);
-                    // lv_obj_set_flex_align(cellTempBox, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-                    // lv_obj_set_scrollbar_mode(cellTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
-                    // lv_obj_set_size(cellTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_t * cellTempBox = lv_obj_create(boxBottom2);
+                    lv_obj_set_height(cellTempBox, 200);
+                    lv_obj_set_flex_flow(cellTempBox, LV_FLEX_FLOW_COLUMN);
+                    lv_obj_set_flex_align(cellTempBox, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+                    lv_obj_set_scrollbar_mode(cellTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
+                    lv_obj_set_size(cellTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
 
-                    //     lv_obj_t * cellTempLabel = lv_label_create(cellTempBox);
-                    //     lv_label_set_text(cellTempLabel, "Cell: ");
+                        cellTempLabel = lv_label_create(cellTempBox);
+                        lv_label_set_text(cellTempLabel, "Cell: ");
 
-                    //     lv_obj_t * cellTemp = lv_label_create(cellTempBox);
-                    //     lv_label_set_text(cellTemp, "x");
+                        // cellTemp = lv_label_create(cellTempBox);
+                        // lv_label_set_text(cellTemp, "x");
 
-                    // lv_obj_t * motorTempBox = lv_obj_create(boxBottom2);
-                    // lv_obj_set_height(motorTempBox, 200);
-                    // lv_obj_set_flex_flow(motorTempBox, LV_FLEX_FLOW_COLUMN);
-                    // lv_obj_set_flex_align(motorTempBox, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-                    // lv_obj_set_scrollbar_mode(motorTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
-                    // lv_obj_set_size(motorTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_t * motorTempBox = lv_obj_create(boxBottom2);
+                    lv_obj_set_height(motorTempBox, 200);
+                    lv_obj_set_flex_flow(motorTempBox, LV_FLEX_FLOW_COLUMN);
+                    lv_obj_set_flex_align(motorTempBox, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+                    lv_obj_set_scrollbar_mode(motorTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
+                    lv_obj_set_size(motorTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
 
                     //     lv_obj_t * motorTempLabel = lv_label_create(motorTempBox);
                     //     lv_label_set_text(motorTempLabel, "Motor: ");
@@ -168,11 +183,11 @@ void bottomSetup(lv_obj_t * parent_obj) {
                     //     lv_obj_t * motorTemp = lv_label_create(motorTempBox);
                     //     lv_label_set_text(motorTemp, "x");
 
-                    // lv_obj_t * inverterTemps = lv_obj_create(boxBottom2);
-                    // lv_obj_set_flex_flow(inverterTemps, LV_FLEX_FLOW_COLUMN);
-                    // lv_obj_set_flex_align(inverterTemps, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-                    // lv_obj_set_scrollbar_mode(inverterTemps, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
-                    // lv_obj_set_size(inverterTemps, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_t * inverterTemps = lv_obj_create(boxBottom2);
+                    lv_obj_set_flex_flow(inverterTemps, LV_FLEX_FLOW_COLUMN);
+                    lv_obj_set_flex_align(inverterTemps, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+                    lv_obj_set_scrollbar_mode(inverterTemps, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
+                    lv_obj_set_size(inverterTemps, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
 
                     //     lv_obj_t * inverterLabel = lv_label_create(inverterTemps);
                     //     lv_label_set_text(inverterLabel, "Inverters");
@@ -186,11 +201,11 @@ void bottomSetup(lv_obj_t * parent_obj) {
                     //     lv_obj_t * inverter3 = lv_label_create(inverterTemps);
                     //     lv_label_set_text(inverter3, "3: ");
 
-                    // lv_obj_t * brakeTemps = lv_obj_create(boxBottom2);
-                    // lv_obj_set_flex_flow(brakeTemps, LV_FLEX_FLOW_COLUMN);
-                    // lv_obj_set_flex_align(brakeTemps, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-                    // lv_obj_set_scrollbar_mode(brakeTemps, LV_SCROLLBAR_MODE_OFF);
-                    // lv_obj_set_size(brakeTemps, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                    lv_obj_t * brakeTemps = lv_obj_create(boxBottom2);
+                    lv_obj_set_flex_flow(brakeTemps, LV_FLEX_FLOW_COLUMN);
+                    lv_obj_set_flex_align(brakeTemps, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+                    lv_obj_set_scrollbar_mode(brakeTemps, LV_SCROLLBAR_MODE_OFF);
+                    lv_obj_set_size(brakeTemps, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
 
                     //     lv_obj_t * brakeLabel = lv_label_create(brakeTemps);
                     //     lv_label_set_text(brakeLabel, "Brakes");

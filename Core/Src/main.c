@@ -299,7 +299,7 @@ int main(void)
   HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_SET);
 
   /* Update default debug message on boot */
-  strncpy((char*)globalStatus.debugMessage, "DarkTech", 8);
+  strncpy((char*)globalStatus.debugMessage, "DarkTek", 8);
 
   /* initialize LVGL framework */
   lv_init();

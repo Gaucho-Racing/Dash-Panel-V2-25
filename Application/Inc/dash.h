@@ -1,6 +1,7 @@
 #include <stdint.h>
 
 #include "CANdler.h"
+#include "gui.h"
 
 #ifndef DASH_H
     #define DASH_H
@@ -42,21 +43,27 @@
         ButtonLedBrightness buttonLedOne;
         ButtonLedBrightness buttonLedTwo;
         uint8_t bseAppsViolation;
-        uint16_t vehicleSpeed; // From ECU Status 2
         uint8_t maxCellTemp; // Max cell temp from entire car
         uint16_t dtiAcCurrent; // Current of back motor X
-        uint8_t accumulatorStateOfCharge; // SOC aka battery life
         uint8_t glvStateOfCharge; // SOC for LV
         uint8_t motorTemperatures[4]; // Temperatures for all 4(?) motors X 
         uint8_t inverterTemperatures[4]; // Temepratures for all 4(?) inverters
-        uint8_t inverterCurrents[4]; // Currents for all 4(?) motors; note: only the first two will be used if the DTI is used X 
         uint8_t brakeTemps[4]; // Temperatures for all 4 brakes
+        
+        uint16_t vehicleSpeed; // From ECU Status 2
         ECUState ecuState; // Current state of the car
         uint16_t tsVoltage;
+        uint8_t accumulatorStateOfCharge; // SOC aka battery life
+        // power ? (i'm just trying to match up order with gui.h VOLATILE_OBJECTS)
+        uint8_t inverterCurrents[4]; // Currents for all 4(?) motors; note: only the first two will be used if the DTI is used X 
+        // torque mapping ?
+        // regen ?
+
         char debugMessage[8];   // Will be empty if no message sent
     } DashInfo;
 
     extern volatile DashInfo globalStatus;
 
+    void initializeDash(); 
     void recievedNewInformationPleaseRefresh(void);
 #endif

@@ -218,6 +218,11 @@ void StartDefaultTask(void *argument)
 /* LVGL timer for tasks */
 void LVGLTimer(void *argument)
 {
+    /*
+    one function of lv_timer_handler() is to check for parts of the UI that have become "invalidated"
+    invalidated means a portion of the UI that changed
+    if a portion of the screen is marked as invalidated, LVGL will redraw those parts of the screen
+    */
   for(;;)
   {
     lv_timer_handler();

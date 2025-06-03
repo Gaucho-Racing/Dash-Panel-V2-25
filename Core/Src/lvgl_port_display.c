@@ -21,7 +21,15 @@
  
  lv_display_t *display;
  
- 
+ /*Add commentMore actions
+ ltdc_buf:
+  - this is a 2nd buffer that gets data DMA'ed to it from lvgl_buf
+  - LTDC is the STM32 peripheral responsible for continuously sending pixel data to the physical display panel
+  - LTDC stands for LCD-TFT display controller
+
+lvgl_buf:
+  - this buffer is drawn to by lvgl
+ */
  volatile uint16_t ltdc_buf[MY_DISP_HOR_RES * MY_DISP_VER_RES];
  volatile uint16_t lvgl_buf[MY_DISP_HOR_RES * MY_DISP_VER_RES];
  
@@ -43,8 +51,8 @@
    /* register the display in LVGL */
    // lv_disp_drv_init(&disp_drv);
    display = lv_display_create(MY_DISP_HOR_RES, MY_DISP_VER_RES);
-   lv_display_set_flush_cb(display, disp_flush);
-   lv_display_set_buffers(display, (void*) &lvgl_buf, NULL, sizeof(lvgl_buf), LV_DISPLAY_RENDER_MODE_DIRECT);
+   lv_display_set_flush_cb(display, disp_flush); // disp_flush is a callback function that lvgl invokes when finished with drawing to lvgl_buf
+   lv_display_set_buffers(display, (void*) &lvgl_buf, NULL, sizeof(lvgl_buf), LV_DISPLAY_RENDER_MODE_DIRECT); // registers lvgl_buf as the DRAWING buffer
  
    HAL_LTDC_SetAddress(&hltdc, (uint32_t) &ltdc_buf, LTDC_LAYER_1);
  
@@ -68,6 +76,13 @@
   *   STATIC FUNCTIONS
   **********************/
  
+/*
+Overview of double buffer data flow to describe how drawings are updated on screen:
+  1. LVGL draws into lvgl_buf
+  2. LVGL calls disp_flush once LVGL is done with drawing 
+  3. disp_flush uses DMA to copy data from lvgl_buf into ltdc_buf
+  4. ltdc_buf is read from continuously from the hardware to refresh the screen
+*/
  static void disp_flush(lv_display_t *drv, const lv_area_t *area, uint8_t *color_p)
  {
    UNUSED(drv);

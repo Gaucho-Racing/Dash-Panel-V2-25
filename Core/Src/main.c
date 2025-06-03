@@ -319,6 +319,12 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in app_freertos.c) */
+  /* 
+  Call init function for freertos objects (in app_freertos.c) 
+    - creates Threads to handle LVGLTick and LVGLTimer
+    - LVGLTick tells lvgl how much time has passed (ticks occur every 10 ms)
+    - LVGLTimer processes pending lvgl related tasks through lv_timer_handler() 
+  */
   MX_FREERTOS_Init();
 
   /* Start scheduler */

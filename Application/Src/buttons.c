@@ -140,6 +140,8 @@ void pollButtonState(void* args)
         {
             recievedNewInformationPleaseRefresh();
         }
+        #else
+        UNUSED(change);
         #endif
 
         osDelay(POLL_BUTTON_STATE_DELAY);

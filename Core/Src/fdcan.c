@@ -47,6 +47,10 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len) 
   {
       Error_Handler();
   }
+  #else
+  UNUSED(data);
+  UNUSED(len);
+  UNUSED(handle);
   #endif
 }
 

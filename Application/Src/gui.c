@@ -118,20 +118,6 @@ void topSetup(lv_obj_t * parent_obj) {
 
 void bottomSetup(lv_obj_t * parent_obj) {
 
-    lv_obj_t * cellTempLabel;
-    lv_obj_t * cellTemp;
-    lv_obj_t * motorTempLabel;
-    lv_obj_t * motorTemp;
-    lv_obj_t * inverterLabel;
-    lv_obj_t * inverter1;
-    lv_obj_t * inverter2;
-    lv_obj_t * inverter3;
-    lv_obj_t * brakeLabel;
-    lv_obj_t * brake1;
-    lv_obj_t * brake2;
-    lv_obj_t * brake3;
-    lv_obj_t * brake4;
-
     // Code for bottom flex row
     lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
@@ -166,7 +152,7 @@ void bottomSetup(lv_obj_t * parent_obj) {
                     // lv_obj_set_scrollbar_mode(cellTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
                     // lv_obj_set_size(cellTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
 
-                        cellTempLabel = lv_label_create(boxBottom2);
+                        lv_obj_t * cellTempLabel = lv_label_create(boxBottom2);
                         lv_label_set_text(cellTempLabel, "Cell: ");
 
                         // cellTemp = lv_label_create(cellTempBox);

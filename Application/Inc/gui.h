@@ -4,6 +4,7 @@
 #define GUI_H
 
 #include "lvgl/lvgl.h"
+#include "dash.h"
 
 // --- WIDGET STYLES ---
 #define GR_NAVY 0x195297

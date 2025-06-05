@@ -58,12 +58,14 @@ void colorPin(Color color, ButtonNames button)
             break;
     }
 
+    #ifdef TEST_NO_CAN
     HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
     //                                                         ^   ^    ^
     //                                                         |   |    |
     //                                                         |   |    Single NeoPixel byte
     //                                                         |   3 bytes per NeoPixel
     //                                                         2 NeoPixels
+    #endif
 }
 
 void updateButtonColors(void* args)
@@ -133,10 +135,12 @@ void pollButtonState(void* args)
             change = true;
         }
 
+        #ifdef TEST_NO_CAN
         if (change)
         {
             recievedNewInformationPleaseRefresh();
         }
+        #endif
 
         osDelay(POLL_BUTTON_STATE_DELAY);
     }

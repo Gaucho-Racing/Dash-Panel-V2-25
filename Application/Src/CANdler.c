@@ -11,6 +11,8 @@
 #include "utils.h"
 #include "buttons.h"
 
+#define TEST_NO_CAN
+
 volatile uint8_t numberOfBadMessages = 0;
 
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length)

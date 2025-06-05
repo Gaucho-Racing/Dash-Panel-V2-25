@@ -37,4 +37,5 @@ void recievedNewInformationPleaseRefresh(void)
     writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
 
     // TODO: Implement functionality to call for a refresh the screen based off of the just-updated DashInfo from CANFD
+    updateDataFromCAN();
 }

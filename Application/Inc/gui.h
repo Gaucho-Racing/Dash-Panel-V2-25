@@ -63,17 +63,26 @@ typedef union {
 // --- Global or static variables needed in the timer callback ---
 extern volatile VolatileObj volatileObjects[8];
 
-static uint16_t speedData = 1;
-static ECUState stateData = GLV_ON;
-static uint16_t voltageData = 1;
-static uint16_t SoCData = 1;
-static uint16_t powerData = 1;
+extern uint16_t speedData;
+extern ECUState stateData;
+extern uint16_t voltageData;
+extern uint16_t SoCData;
+extern uint16_t powerData;
 
-static char speedBuffer[32];  
-static char stateBuffer[32];
-static char voltageBuffer[32];  
-static char SoCBuffer[32];  
-static char powerBuffer[32];  
+extern char speedBuffer[32];
+extern char stateBuffer[32];
+extern char voltageBuffer[32];  
+extern char SoCBuffer[32];  
+extern char powerBuffer[32];  
+
+extern lv_obj_t * speed;
+extern lv_obj_t * state; 
+extern lv_obj_t * voltage;
+extern lv_obj_t * SoC;
+extern lv_obj_t * power;   
+extern lv_obj_t * current;
+extern lv_obj_t * torqueMapping;
+extern lv_obj_t * regen;
 
 extern lv_obj_t * gridCells[GRID_ROWS * GRID_COLUMNS];
 
@@ -81,7 +90,7 @@ void styleSetup(void);
 void displaySetup(void);
 void topSetup(lv_obj_t * parent_obj);
 void bottomSetup(lv_obj_t * parent_obj);
-static void ecu_update_timer_cb(lv_timer_t * timer);
+// static void ecu_update_timer_cb(lv_timer_t * timer);
 void createGrid(lv_obj_t * parent_obj);
 
 #endif

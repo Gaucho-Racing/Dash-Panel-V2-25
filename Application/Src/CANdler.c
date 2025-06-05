@@ -11,7 +11,7 @@
 #include "utils.h"
 #include "buttons.h"
 
-#define TEST_NO_CAN
+#define TEST_NO_CAN 
 
 volatile uint8_t numberOfBadMessages = 0;
 

@@ -38,27 +38,6 @@ void displaySetup(void) {
 
 
 void topSetup(lv_obj_t * parent_obj) {
-
-    // lv_obj_t * voltage = volatileObjs.arr[VOLTAGE].variable;
-    // lv_obj_t * SoC = volatileObjs.arr[SOC].variable;
-    // lv_obj_t * power = volatileObjs.arr[POWER].variable;
-    // lv_obj_t * speed = volatileObjs.arr[SPEED].variable;
-    // lv_obj_t * state = volatileObjs.arr[STATE].variable;
-    // lv_obj_t * current = volatileObjs.arr[CURRENT].variable;
-    // lv_obj_t * torqueMapping = volatileObjs.arr[TORQUE_MAPPING].variable;
-    // lv_obj_t * regen = volatileObjs.arr[REGEN].variable;
-
-    lv_obj_t * speed;
-    lv_obj_t * state; 
-    lv_obj_t * voltage;
-    lv_obj_t * SoC;
-    lv_obj_t * power;   
-    lv_obj_t * current;
-    lv_obj_t * torqueMapping;
-    lv_obj_t * regen;
-
-    // updateDataFromCAN(); -> not sure if this will work, but this function updates each label's buffer with new data from globalStatus
-
     lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowTop, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_EVENLY);
@@ -81,7 +60,6 @@ void topSetup(lv_obj_t * parent_obj) {
             power = lv_label_create(boxTop1);
             lv_label_set_text(power, powerBuffer);
 
-
         lv_obj_t * boxTop2 = lv_obj_create(flexRowTop);
         lv_obj_set_flex_flow(boxTop2, LV_FLEX_COLUMN);
         lv_obj_set_flex_grow(boxTop2, 4); // TODO: edit later for real screen
@@ -95,6 +73,7 @@ void topSetup(lv_obj_t * parent_obj) {
 
             speed = lv_label_create(boxTop2);
             lv_label_set_text_static(speed, speedBuffer);
+            //lv_label_set_text(speed, speedBuffer);
             state = lv_label_create(boxTop2);
             lv_label_set_text(state, stateBuffer);
 

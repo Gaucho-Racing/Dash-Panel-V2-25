@@ -49,6 +49,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+extern volatile DashInfo globalStatus;
+
 osThreadId_t lvglTickHandle;
 const osThreadAttr_t lvglTick_attributes = {
   .name = "lvglTick",
@@ -93,11 +95,14 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4
 };
 
+osThreadId_t testLVGLBufferWriteHandle;
+
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 void LVGLTimer(void *argument);
 void LVGLTick(void *argument);
 void sendDashStatusMsg(void* args);
+void testLVGLBufferWrite(void* args);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -187,6 +192,7 @@ void MX_FREERTOS_Init(void) {
   dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
   pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
   updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
+  testLVGLBufferWriteHandle = osThreadNew(testLVGLBufferWrite, NULL, &defaultTask_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -250,5 +256,15 @@ void sendDashStatusMsg(void* args)
     }
     UNUSED(args);
 }
-/* USER CODE END Application */
 
+void testLVGLBufferWrite(void* args)
+{
+  for (;;)
+  {
+      // TODO: Update globalStatus
+      globalStatus.vehicleSpeed += 1;
+      recievedNewInformationPleaseRefresh();
+      osDelay(100);
+  }
+}
+/* USER CODE END Application */

@@ -39,23 +39,25 @@ void displaySetup(void) {
 
 void topSetup(lv_obj_t * parent_obj) {
 
-    // lv_obj_t * voltage = volatileObjs.arr[VOLTAGE].data;
-    // lv_obj_t * SoC = volatileObjs.arr[SOC].data;
-    // lv_obj_t * power = volatileObjs.arr[POWER].data;
-    // lv_obj_t * speed = volatileObjs.arr[SPEED].data;
-    // lv_obj_t * state = volatileObjs.arr[STATE].data;
-    // lv_obj_t * current = volatileObjs.arr[CURRENT].data;
-    // lv_obj_t * torqueMapping = volatileObjs.arr[TORQUE_MAPPING].data;
-    // lv_obj_t * regen = volatileObjs.arr[REGEN].data;
+    // lv_obj_t * voltage = volatileObjs.arr[VOLTAGE].variable;
+    // lv_obj_t * SoC = volatileObjs.arr[SOC].variable;
+    // lv_obj_t * power = volatileObjs.arr[POWER].variable;
+    // lv_obj_t * speed = volatileObjs.arr[SPEED].variable;
+    // lv_obj_t * state = volatileObjs.arr[STATE].variable;
+    // lv_obj_t * current = volatileObjs.arr[CURRENT].variable;
+    // lv_obj_t * torqueMapping = volatileObjs.arr[TORQUE_MAPPING].variable;
+    // lv_obj_t * regen = volatileObjs.arr[REGEN].variable;
 
+    lv_obj_t * speed;
+    lv_obj_t * state; 
     lv_obj_t * voltage;
     lv_obj_t * SoC;
-    lv_obj_t * power;
-    lv_obj_t * speed;
-    lv_obj_t * state;
+    lv_obj_t * power;   
     lv_obj_t * current;
     lv_obj_t * torqueMapping;
     lv_obj_t * regen;
+
+    // updateDataFromCAN(); -> not sure if this will work, but this function updates each label's buffer with new data from globalStatus
 
     lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
@@ -116,20 +118,6 @@ void topSetup(lv_obj_t * parent_obj) {
 
 void bottomSetup(lv_obj_t * parent_obj) {
 
-    lv_obj_t * cellTempLabel;
-    lv_obj_t * cellTemp;
-    lv_obj_t * motorTempLabel;
-    lv_obj_t * motorTemp;
-    lv_obj_t * inverterLabel;
-    lv_obj_t * inverter1;
-    lv_obj_t * inverter2;
-    lv_obj_t * inverter3;
-    lv_obj_t * brakeLabel;
-    lv_obj_t * brake1;
-    lv_obj_t * brake2;
-    lv_obj_t * brake3;
-    lv_obj_t * brake4;
-
     // Code for bottom flex row
     lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
@@ -164,7 +152,7 @@ void bottomSetup(lv_obj_t * parent_obj) {
                     // lv_obj_set_scrollbar_mode(cellTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
                     // lv_obj_set_size(cellTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
 
-                        cellTempLabel = lv_label_create(boxBottom2);
+                        lv_obj_t * cellTempLabel = lv_label_create(boxBottom2);
                         lv_label_set_text(cellTempLabel, "Cell: ");
 
                         // cellTemp = lv_label_create(cellTempBox);

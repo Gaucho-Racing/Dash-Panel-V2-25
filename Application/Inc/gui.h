@@ -4,6 +4,7 @@
 #define GUI_H
 
 #include "lvgl/lvgl.h"
+#include "dash.h"
 
 // --- WIDGET STYLES ---
 #define GR_NAVY 0x195297
@@ -33,7 +34,7 @@ enum VOLATILE_OBJECTS {
 };
 
 typedef struct {
-    lv_obj_t * variable;    // this maps to the LVGL text variable we're updating/keeping track of 
+    lv_obj_t * variable;    // this maps to the LVGL text variable we're updating/keeping track of  
     uint16_t data;   
     char buffer[32];
 } VolatileObj;
@@ -60,11 +61,10 @@ typedef union {
 } VolatileObjs;
 
 // --- Global or static variables needed in the timer callback ---
-
-extern volatile VolatileObj volatileObjs[8];
+extern volatile VolatileObj volatileObjects[8];
 
 static uint16_t speedData = 1;
-static char stateData[] = "Running"; 
+static ECUState stateData = GLV_ON;
 static uint16_t voltageData = 1;
 static uint16_t SoCData = 1;
 static uint16_t powerData = 1;

@@ -42,10 +42,12 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len) 
   FDCAN_HandleTypeDef *handle;
   handle = &hfdcan1;
 
+  #ifdef TEST_NO_CAN
   if(HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {
       Error_Handler();
   }
+  #endif
 }
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)

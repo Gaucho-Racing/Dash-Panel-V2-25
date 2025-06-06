@@ -18,6 +18,12 @@ lv_obj_t * state = NULL;
 lv_obj_t * voltage = NULL;
 lv_obj_t * SoC = NULL;
 lv_obj_t * power = NULL;   
+
+lv_obj_t * cell = NULL;
+lv_obj_t * motor = NULL;
+lv_obj_t * inverter = NULL;
+lv_obj_t * brake = NULL;
+
 lv_obj_t * current = NULL;
 lv_obj_t * torqueMapping = NULL;
 lv_obj_t * regen = NULL;
@@ -27,6 +33,12 @@ ECUState stateData = GLV_ON;
 uint16_t voltageData = 1;
 uint16_t SoCData = 1;
 uint16_t powerData = 1;
+
+uint16_t cellData = 1;
+uint16_t motorData[4] = {0};
+uint16_t inverterData[4] = {0};
+uint16_t brakeData[4] = {0};
+
 uint16_t currentData = 1;
 uint16_t torqueMappingData = 1;
 uint16_t regenData = 1;
@@ -36,6 +48,12 @@ char stateBuffer[32] = "test";
 char voltageBuffer[32] = "test";
 char SoCBuffer[32] = "test";
 char powerBuffer[32] = "test";
+
+char cellBuffer[32] = "test\ntest";
+char motorBuffer[64] = "test\ntest\ntest\ntest";
+char inverterBuffer[64] = "test\ntest\ntest\ntest\ntest";
+char brakeBuffer[64] = "test\ntest\ntest\ntest\ntest";
+
 char currentBuffer[32] = "test";
 char torqueMappingBuffer[32] = "test";
 char regenBuffer[32] = "test";
@@ -53,11 +71,20 @@ int32_t tempsRefreshRateMillis = 50;
 // }
 
 void updateDataFromCAN() {
-    speedData = globalStatus.vehicleSpeed;
-    stateData = globalStatus.ecuState;
-    voltageData = globalStatus.tsVoltage;
-    SoCData = globalStatus.accumulatorStateOfCharge;
-    //powerData = globalStatus.;
+    speedData = globalStatus.vehicleSpeed % 256;
+    stateData = globalStatus.ecuState % 256;
+    voltageData = globalStatus.tsVoltage % 1000;
+    SoCData = globalStatus.accumulatorStateOfCharge % 256;
+    //powerData = globalStatus.; // tsVoltage * dcCurrent, converted into kW
+
+    cellData = globalStatus.maxCellTemp;
+
+    for (int i = 0; i < 4; i++) {
+        motorData[i] = globalStatus.motorTemperatures[i] % 256;
+        inverterData[i] = globalStatus.inverterTemperatures[i] % 256;
+        brakeData[i]= globalStatus.brakeTemps[i] % 256;
+    }
+    
 
     // This data is coming from the steering encoders
     currentData = globalStatus.steeringStatusMsg.currentEncoder;
@@ -72,6 +99,11 @@ void updateDataFromCAN() {
 
     //snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);
 
+    snprintf(cellBuffer, sizeof(cellBuffer), "Cell:\n%d C", cellData);
+    snprintf(motorBuffer, sizeof(motorBuffer), "Motor:\n%d C\n%d C\n%d C", motorData[0], motorData[1], motorData[2]);
+    snprintf(inverterBuffer, sizeof(inverterBuffer), "Inverter:\n%d C\n%d C\n%d C\n%d C", inverterData[0], inverterData[1], inverterData[2], inverterData[3]);
+    snprintf(brakeBuffer, sizeof(brakeBuffer), "Brake:\n%d C\n%d C\n%d C\n%d C", brakeData[0], brakeData[1], brakeData[2], brakeData[3]);
+
     snprintf(currentBuffer, sizeof(currentBuffer), "C: %d A", currentData);
     snprintf(torqueMappingBuffer, sizeof(torqueMappingBuffer), "TM: %d", torqueMappingData);
     snprintf(regenBuffer, sizeof(regenBuffer), "RN: %d", regenData);
@@ -80,6 +112,12 @@ void updateDataFromCAN() {
     lv_label_set_text_static(state, stateBuffer);
     lv_label_set_text_static(voltage, voltageBuffer);
     lv_label_set_text_static(SoC, SoCBuffer);
+
+    lv_label_set_text_static(cell, cellBuffer);
+    lv_label_set_text_static(motor, motorBuffer);
+    lv_label_set_text_static(inverter, inverterBuffer);
+    lv_label_set_text_static(brake, brakeBuffer);
+    
     lv_obj_invalidate(lv_screen_active());
 }
 

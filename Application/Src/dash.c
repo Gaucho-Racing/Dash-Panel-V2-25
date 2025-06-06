@@ -108,15 +108,15 @@ void updateDataFromCAN() {
     snprintf(torqueMappingBuffer, sizeof(torqueMappingBuffer), "TM: %d", torqueMappingData);
     snprintf(regenBuffer, sizeof(regenBuffer), "RN: %d", regenData);
 
-    lv_label_set_text_static(speed, speedBuffer);
-    lv_label_set_text_static(state, stateBuffer);
-    lv_label_set_text_static(voltage, voltageBuffer);
-    lv_label_set_text_static(SoC, SoCBuffer);
+    // lv_label_set_text_static(speed, speedBuffer);
+    // lv_label_set_text_static(state, stateBuffer);
+    // lv_label_set_text_static(voltage, voltageBuffer);
+    // lv_label_set_text_static(SoC, SoCBuffer);
 
-    lv_label_set_text_static(cell, cellBuffer);
-    lv_label_set_text_static(motor, motorBuffer);
-    lv_label_set_text_static(inverter, inverterBuffer);
-    lv_label_set_text_static(brake, brakeBuffer);
+    // lv_label_set_text_static(cell, cellBuffer);
+    // // lv_label_set_text_static(motor, motorBuffer);
+    // lv_label_set_text_static(inverter, inverterBuffer);
+    // lv_label_set_text_static(brake, brakeBuffer);
     
     lv_obj_invalidate(lv_screen_active());
 }

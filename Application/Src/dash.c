@@ -30,7 +30,7 @@ uint16_t torqueMappingData = 1;
 uint16_t regenData = 1;
 
 char speedBuffer[32] = "test";
-char stateBuffer[32] = "test";
+char stateBuffer[32] = "tests";
 char voltageBuffer[32] = "test";
 char SoCBuffer[32] = "test";
 char powerBuffer[32] = "test";
@@ -99,27 +99,27 @@ void updateDataFromCAN() {
     // lv_label_set_text_static(voltage, voltageBuffer);
     // lv_label_set_text_static(SoC, SoCBuffer);
 
-    lv_label_set_text_static(cell, cellBuffer);
-    lv_label_set_text_static(motor, motorBuffer);
-    lv_label_set_text_static(inverter, inverterBuffer);
-    lv_label_set_text_static(brake, brakeBuffer);
+    // lv_label_set_text_static(cell, cellBuffer);
+    // lv_label_set_text_static(motor, motorBuffer);
+    // lv_label_set_text_static(inverter, inverterBuffer);
+    // lv_label_set_text_static(brake, brakeBuffer);
 
-    lv_layer_t layer;
-    lv_canvas_init_layer(wheelDispCanvas, &layer);
+    // lv_layer_t layer;
+    // lv_canvas_init_layer(wheelDispCanvas, &layer);
 
-    lv_draw_arc_dsc_t dsc;
-    lv_draw_arc_dsc_init(&dsc);
-    dsc.color = lv_color_hex(GR_PRPL);
-    dsc.center.x = 25;
-    dsc.center.y = 25;
-    dsc.width = 15;
-    dsc.radius = 15;
-    dsc.start_angle = 0;
-    dsc.end_angle = 360;
+    // lv_draw_arc_dsc_t dsc;
+    // lv_draw_arc_dsc_init(&dsc);
+    // dsc.color = lv_color_hex(GR_PRPL);
+    // dsc.center.x = 25;
+    // dsc.center.y = 25;
+    // dsc.width = 15;
+    // dsc.radius = 10;
+    // dsc.start_angle = 0;
+    // dsc.end_angle = 220;
 
-    lv_draw_arc(&layer, &dsc);
+    //lv_draw_arc(&layer, &dsc);
 
-    lv_canvas_finish_layer(wheelDispCanvas, &layer);
+    //lv_canvas_finish_layer(wheelDispCanvas, &layer);
     
     lv_obj_invalidate(lv_screen_active());
 }

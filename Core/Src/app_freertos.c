@@ -269,9 +269,9 @@ void testLVGLBufferWrite(void* args)
 
       globalStatus.maxCellTemp += 1;
       for (int i = 0; i < 4; i++) {
-        if (i != 3) globalStatus.motorTemperatures[i] += 1;
-        globalStatus.inverterTemperatures[i] += 1;
-        globalStatus.brakeTemps[i] += 1; 
+        if (i != 3) globalStatus.motorTemperatures[i] += i;
+        globalStatus.inverterTemperatures[i] += 1 + i;
+        globalStatus.brakeTemps[i] += 2 + i; 
       }
 
       globalStatus.steeringStatusMsg.currentEncoder += 1;

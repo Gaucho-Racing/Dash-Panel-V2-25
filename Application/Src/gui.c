@@ -80,11 +80,11 @@ void topSetup(lv_obj_t * parent_obj) {
         lv_obj_set_style_pad_all(boxTop1, 20, 0);
 
             voltage = lv_label_create(boxTop1);
-            lv_label_set_text(voltage, voltageBuffer);
+            lv_label_set_text_static(voltage, voltageBuffer);
             SoC = lv_label_create(boxTop1);
-            lv_label_set_text(SoC, SoCBuffer);
+            lv_label_set_text_static(SoC, SoCBuffer);
             power = lv_label_create(boxTop1);
-            lv_label_set_text(power, powerBuffer);
+            lv_label_set_text_static(power, powerBuffer);
 
         lv_obj_t * boxTop2 = lv_obj_create(flexRowTop);
         lv_obj_set_flex_flow(boxTop2, LV_FLEX_COLUMN);
@@ -101,7 +101,7 @@ void topSetup(lv_obj_t * parent_obj) {
             lv_label_set_text_static(speed, speedBuffer);
             //lv_label_set_text(speed, speedBuffer);
             state = lv_label_create(boxTop2);
-            lv_label_set_text(state, stateBuffer);
+            lv_label_set_text_static(state, stateBuffer);
 
         lv_obj_t * boxTop3 = lv_obj_create(flexRowTop);
         lv_obj_set_flex_flow(boxTop3, LV_FLEX_FLOW_COLUMN);

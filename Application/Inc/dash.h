@@ -72,6 +72,26 @@
 
     extern volatile DashInfo globalStatus;
 
+    extern uint16_t speedData;
+    extern ECUState stateData;
+    extern uint16_t voltageData;
+    extern uint16_t SoCData;
+    extern uint16_t powerData;
+
+    extern char speedBuffer[32];
+    extern char stateBuffer[32];
+    extern char voltageBuffer[32];  
+    extern char SoCBuffer[32];  
+    extern char powerBuffer[32];  
+    extern char cellBuffer[32];
+    extern char motorBuffer[64];
+    extern char inverterBuffer[64];
+    extern char brakeBuffer[64];
+
+    extern char currentBuffer[32];
+    extern char torqueMappingBuffer[32];
+    extern char regenBuffer[32];
+
     void initializeDash(); 
     void recievedNewInformationPleaseRefresh();
 #endif

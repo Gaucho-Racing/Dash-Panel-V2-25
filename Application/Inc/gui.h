@@ -16,11 +16,9 @@
 #define GRID_COLUMNS 4
 #define CELL_WIDTH_PX 20
 #define CELL_HEIGHT_PX 20
+#define GRID_WIDTH_PX 180
+#define GRID_HEIGHT_PX 180
 #define NUM_VARIABLES 8 // the number of variables we need to update and keep track of on the dash 
-
-static lv_style_t screenStyle;
-static lv_style_t flexRowStyle;
-static lv_style_t flexColumnStyle;
 
 enum VOLATILE_OBJECTS {
     SPEED = 0,
@@ -63,26 +61,6 @@ typedef union {
 // --- Global or static variables needed in the timer callback ---
 extern volatile VolatileObj volatileObjects[8];
 
-extern uint16_t speedData;
-extern ECUState stateData;
-extern uint16_t voltageData;
-extern uint16_t SoCData;
-extern uint16_t powerData;
-
-extern char speedBuffer[32];
-extern char stateBuffer[32];
-extern char voltageBuffer[32];  
-extern char SoCBuffer[32];  
-extern char powerBuffer[32];  
-extern char cellBuffer[32];
-extern char motorBuffer[64];
-extern char inverterBuffer[64];
-extern char brakeBuffer[64];
-
-extern char currentBuffer[32];
-extern char torqueMappingBuffer[32];
-extern char regenBuffer[32];
-
 extern lv_obj_t * speed;
 extern lv_obj_t * state; 
 extern lv_obj_t * voltage;
@@ -97,6 +75,8 @@ extern lv_obj_t * brake;
 extern lv_obj_t * current;
 extern lv_obj_t * torqueMapping;
 extern lv_obj_t * regen;
+
+extern lv_obj_t * wheelDispCanvas; 
 
 extern lv_obj_t * gridCells[GRID_ROWS * GRID_COLUMNS];
 

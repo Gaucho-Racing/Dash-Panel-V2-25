@@ -56,6 +56,54 @@ int32_t tempsRefreshRateMillis = 50;
 //     }
 // }
 
+void updateWheelDisp() {
+    lv_layer_t layer;
+    lv_canvas_init_layer(wheelDispCanvas, &layer);
+
+    lv_draw_arc_dsc_t dsc;
+    lv_draw_arc_dsc_init(&dsc);
+    dsc.width = 15;
+    dsc.radius = 15;
+    dsc.start_angle = 0;
+    dsc.end_angle = 359;
+
+    dsc.color = lv_color_hex(GR_PRPL); // TEMP TL
+    dsc.center.x = 25;
+    dsc.center.y = 25;
+    lv_draw_arc(&layer, &dsc);
+    dsc.center.x = 60;
+    dsc.color = lv_color_hex(GR_PRPL); // VOLT TL
+    lv_draw_arc(&layer, &dsc);
+
+    dsc.color = lv_color_hex(GR_PRPL); // TEMP TR
+    dsc.center.x = 180-60;
+    dsc.center.y = 25;
+    lv_draw_arc(&layer, &dsc);
+    dsc.center.x = 180-25;
+    dsc.color = lv_color_hex(GR_PRPL); // VOLT TR
+    lv_draw_arc(&layer, &dsc);
+
+    dsc.color = lv_color_hex(GR_PRPL); // TEMP BL
+    dsc.center.x = 25;
+    dsc.center.y = 180-25;
+    lv_draw_arc(&layer, &dsc);
+    dsc.center.x = 60;
+    dsc.color = lv_color_hex(GR_PRPL); // VOLT BL
+    lv_draw_arc(&layer, &dsc);
+
+    dsc.color = lv_color_hex(GR_PRPL); // TEMP BR
+    dsc.center.x = 180-60;
+    dsc.center.y = 180-25;
+    lv_draw_arc(&layer, &dsc);
+    dsc.center.x = 180-25;
+    dsc.color = lv_color_hex(GR_PRPL); // VOLT BR
+    lv_draw_arc(&layer, &dsc);
+
+    lv_canvas_finish_layer(wheelDispCanvas, &layer);
+
+    lv_obj_invalidate(lv_screen_active());
+}
+
 void updateDataFromCAN() {
     speedData = globalStatus.vehicleSpeed % 256;
     stateData = globalStatus.ecuState % 256;
@@ -94,6 +142,8 @@ void updateDataFromCAN() {
     snprintf(torqueMappingBuffer, sizeof(torqueMappingBuffer), "TM: %d", torqueMappingData);
     snprintf(regenBuffer, sizeof(regenBuffer), "RN: %d", regenData);
 
+    updateWheelDisp();
+
     // lv_label_set_text_static(speed, speedBuffer);
     // lv_label_set_text_static(state, stateBuffer);
     // lv_label_set_text_static(voltage, voltageBuffer);
@@ -103,25 +153,6 @@ void updateDataFromCAN() {
     // lv_label_set_text_static(motor, motorBuffer);
     // lv_label_set_text_static(inverter, inverterBuffer);
     // lv_label_set_text_static(brake, brakeBuffer);
-
-    // lv_layer_t layer;
-    // lv_canvas_init_layer(wheelDispCanvas, &layer);
-
-    // lv_draw_arc_dsc_t dsc;
-    // lv_draw_arc_dsc_init(&dsc);
-    // dsc.color = lv_color_hex(GR_PRPL);
-    // dsc.center.x = 25;
-    // dsc.center.y = 25;
-    // dsc.width = 15;
-    // dsc.radius = 10;
-    // dsc.start_angle = 0;
-    // dsc.end_angle = 220;
-
-    //lv_draw_arc(&layer, &dsc);
-
-    //lv_canvas_finish_layer(wheelDispCanvas, &layer);
-    
-    lv_obj_invalidate(lv_screen_active());
 }
 
 void recievedNewInformationPleaseRefresh()

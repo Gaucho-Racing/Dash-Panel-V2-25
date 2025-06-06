@@ -74,6 +74,9 @@ extern char stateBuffer[32];
 extern char voltageBuffer[32];  
 extern char SoCBuffer[32];  
 extern char powerBuffer[32];  
+extern char currentBuffer[32];
+extern char torqueMappingBuffer[32];
+extern char regenBuffer[32];
 
 extern lv_obj_t * speed;
 extern lv_obj_t * state; 

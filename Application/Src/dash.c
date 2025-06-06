@@ -27,12 +27,18 @@ ECUState stateData = GLV_ON;
 uint16_t voltageData = 1;
 uint16_t SoCData = 1;
 uint16_t powerData = 1;
+uint16_t currentData = 1;
+uint16_t torqueMappingData = 1;
+uint16_t regenData = 1;
 
 char speedBuffer[32] = "test";
 char stateBuffer[32] = "test";
 char voltageBuffer[32] = "test";
 char SoCBuffer[32] = "test";
 char powerBuffer[32] = "test";
+char currentBuffer[32] = "test";
+char torqueMappingBuffer[32] = "test";
+char regenBuffer[32] = "test";
 
 // TODO Confirm all scaling is appropriate
 volatile DashInfo globalStatus = {0};
@@ -53,12 +59,22 @@ void updateDataFromCAN() {
     SoCData = globalStatus.accumulatorStateOfCharge;
     //powerData = globalStatus.;
 
+    // This data is coming from the steering encoders
+    currentData = globalStatus.steeringStatusMsg.currentEncoder;
+    torqueMappingData = globalStatus.steeringStatusMsg.torqueMapEncoder;
+    regenData = globalStatus.steeringStatusMsg.regenEncoder;
+
     //snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     snprintf(stateBuffer, sizeof(stateBuffer), "State: %d", stateData);
     snprintf(voltageBuffer, sizeof(voltageBuffer), "Voltage: %d V", voltageData);
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
+
     //snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);
+
+    snprintf(currentBuffer, sizeof(currentBuffer), "C: %d A", currentData);
+    snprintf(torqueMappingBuffer, sizeof(torqueMappingBuffer), "TM: %d", torqueMappingData);
+    snprintf(regenBuffer, sizeof(regenBuffer), "RN: %d", regenData);
 
     lv_label_set_text_static(speed, speedBuffer);
     lv_label_set_text_static(state, stateBuffer);

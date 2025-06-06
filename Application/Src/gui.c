@@ -88,11 +88,14 @@ void topSetup(lv_obj_t * parent_obj) {
         lv_obj_set_style_pad_all(boxTop3, 20, 0); // Add some padding inside the box
 
                 current = lv_label_create(boxTop3);
-                lv_label_set_text(current, "C: x A");
+                lv_obj_set_width(current, 100);
+                lv_label_set_text_static(current, currentBuffer);
                 torqueMapping = lv_label_create(boxTop3);
-                lv_label_set_text(torqueMapping, "TM: x");
+                lv_obj_set_width(torqueMapping, 100);
+                lv_label_set_text_static(torqueMapping, torqueMappingBuffer);
                 regen = lv_label_create(boxTop3);
-                lv_label_set_text(regen, "RN: x");
+                lv_obj_set_width(regen, 100);
+                lv_label_set_text_static(regen, regenBuffer);
 }
 
 void bottomSetup(lv_obj_t * parent_obj) {

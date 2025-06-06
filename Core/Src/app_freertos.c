@@ -266,6 +266,10 @@ void testLVGLBufferWrite(void* args)
       globalStatus.ecuState += 1;
       globalStatus.tsVoltage += 1;
       globalStatus.accumulatorStateOfCharge += 1;
+
+      globalStatus.steeringStatusMsg.currentEncoder += 1;
+      globalStatus.steeringStatusMsg.torqueMapEncoder += 1;
+      globalStatus.steeringStatusMsg.regenEncoder += 1;
       recievedNewInformationPleaseRefresh();
       osDelay(100);
   }

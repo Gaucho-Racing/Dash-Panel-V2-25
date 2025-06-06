@@ -263,8 +263,12 @@ void testLVGLBufferWrite(void* args)
   {
       // TODO: Update globalStatus
       globalStatus.vehicleSpeed += 1;
+      globalStatus.ecuState += 1;
+      globalStatus.tsVoltage += 1;
+      globalStatus.accumulatorStateOfCharge += 1;
       recievedNewInformationPleaseRefresh();
       osDelay(100);
   }
+  UNUSED(args);
 }
 /* USER CODE END Application */

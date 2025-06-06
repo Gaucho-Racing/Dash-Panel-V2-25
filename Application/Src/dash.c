@@ -61,6 +61,9 @@ void updateDataFromCAN() {
     //snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);
 
     lv_label_set_text_static(speed, speedBuffer);
+    lv_label_set_text_static(state, stateBuffer);
+    lv_label_set_text_static(voltage, voltageBuffer);
+    lv_label_set_text_static(SoC, SoCBuffer);
     lv_obj_invalidate(lv_screen_active());
 }
 

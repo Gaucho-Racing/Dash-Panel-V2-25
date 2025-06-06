@@ -3,6 +3,32 @@
 #include "stdio.h"
 #include "dash.h"
 
+static lv_style_t screenStyle;
+static lv_style_t flexRowStyle;
+static lv_style_t flexColumnStyle;
+
+const size_t SCREEN_WIDTH_PX = 800;
+const size_t SCREEN_HEIGHT_PX = 480;
+
+lv_obj_t * speed = NULL;
+lv_obj_t * state = NULL;  
+lv_obj_t * voltage = NULL;
+lv_obj_t * SoC = NULL;
+lv_obj_t * power = NULL;   
+
+lv_obj_t * cell = NULL;
+lv_obj_t * motor = NULL;
+lv_obj_t * inverter = NULL;
+lv_obj_t * brake = NULL;
+
+lv_obj_t * current = NULL;
+lv_obj_t * torqueMapping = NULL;
+lv_obj_t * regen = NULL;
+
+lv_obj_t * wheelDispCanvas = NULL;
+
+LV_DRAW_BUF_DEFINE_STATIC(wheelDispBuf, GRID_WIDTH_PX, GRID_HEIGHT_PX, LV_COLOR_FORMAT_RGB565);
+
 // volatile VolatileObjs volatileObjs = {};
 lv_obj_t * gridCells[];
 // extern DashInfo globalStatus;
@@ -115,7 +141,7 @@ void bottomSetup(lv_obj_t * parent_obj) {
         lv_obj_set_style_pad_all(boxBottom1, 20, 0); // Add some padding inside the box
 
             // lv_obj_update_layout(lv_screen_active());
-            // createGrid(boxBottom1);
+            createGrid(boxBottom1);
 
         lv_obj_t * boxBottom2 = lv_obj_create(flexRowBottom);
         lv_obj_set_flex_flow(boxBottom2, LV_FLEX_FLOW_ROW); // --> no longer need flex column since we removed the "temperatures" label
@@ -147,6 +173,18 @@ void bottomSetup(lv_obj_t * parent_obj) {
                         lv_label_set_text_static(brake, brakeBuffer);
 
 }
+
+void createGrid(lv_obj_t * parent) {
+    LV_DRAW_BUF_INIT_STATIC(wheelDispBuf);
+
+    wheelDispCanvas = lv_canvas_create(parent);
+    lv_obj_set_size(wheelDispCanvas, GRID_WIDTH_PX, GRID_HEIGHT_PX);
+    lv_canvas_set_draw_buf(wheelDispCanvas, &wheelDispBuf);
+
+    lv_canvas_fill_bg(wheelDispCanvas, lv_color_hex(GR_GRAY), LV_OPA_COVER);
+    lv_obj_center(wheelDispCanvas);
+}
+
 
 // void updateVariableText(VolatileObj obj) {
 //     lv_label_set_text(obj.data, obj.buffer); // TODO: change to lv_label_set_text_static if necessary

@@ -13,20 +13,6 @@ GLOBAL VARIABLES (extern defined in gui.h), data/buffers are declared in dash.c
     - general flow is to have externs defined in a header file, then declare the actual variable in a .c file
     - when you need to refer to these global variabes, just include the header file in the .c file you're using them in
 */
-lv_obj_t * speed = NULL;
-lv_obj_t * state = NULL;  
-lv_obj_t * voltage = NULL;
-lv_obj_t * SoC = NULL;
-lv_obj_t * power = NULL;   
-
-lv_obj_t * cell = NULL;
-lv_obj_t * motor = NULL;
-lv_obj_t * inverter = NULL;
-lv_obj_t * brake = NULL;
-
-lv_obj_t * current = NULL;
-lv_obj_t * torqueMapping = NULL;
-lv_obj_t * regen = NULL;
 
 uint16_t speedData = 1;
 ECUState stateData = GLV_ON;
@@ -117,6 +103,23 @@ void updateDataFromCAN() {
     lv_label_set_text_static(motor, motorBuffer);
     lv_label_set_text_static(inverter, inverterBuffer);
     lv_label_set_text_static(brake, brakeBuffer);
+
+    lv_layer_t layer;
+    lv_canvas_init_layer(wheelDispCanvas, &layer);
+
+    lv_draw_arc_dsc_t dsc;
+    lv_draw_arc_dsc_init(&dsc);
+    dsc.color = lv_color_hex(GR_PRPL);
+    dsc.center.x = 25;
+    dsc.center.y = 25;
+    dsc.width = 15;
+    dsc.radius = 15;
+    dsc.start_angle = 0;
+    dsc.end_angle = 360;
+
+    lv_draw_arc(&layer, &dsc);
+
+    lv_canvas_finish_layer(wheelDispCanvas, &layer);
     
     lv_obj_invalidate(lv_screen_active());
 }

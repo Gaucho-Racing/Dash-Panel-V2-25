@@ -267,8 +267,11 @@ void testLVGLBufferWrite(void* args)
       globalStatus.tsVoltage += 1;
       globalStatus.accumulatorStateOfCharge += 1;
 
+      globalStatus.maxCellTemp += 1;
       for (int i = 0; i < 4; i++) {
-        globalStatus.
+        if (i != 3) globalStatus.motorTemperatures[i] += 1;
+        globalStatus.inverterTemperatures[i] += 1;
+        globalStatus.brakeTemps[i] += 1; 
       }
 
       globalStatus.steeringStatusMsg.currentEncoder += 1;

@@ -99,7 +99,7 @@ void topSetup(lv_obj_t * parent_obj) {
 
             speed = lv_label_create(boxTop2);
             lv_label_set_text_static(speed, speedBuffer);
-            //lv_label_set_text(speed, speedBuffer);
+            //lv_label_set_text(speed, speedBuffer); --> use set_text_static, not set_text for lvgl
             state = lv_label_create(boxTop2);
             lv_label_set_text_static(state, stateBuffer);
 

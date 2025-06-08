@@ -232,7 +232,7 @@ void LVGLTimer(void *argument)
   for(;;)
   {
     lv_timer_handler();
-    recievedNewInformationPleaseRefresh();
+    recievedNewInformationPleaseRefresh();  
     osDelay(10);
   }
   UNUSED(argument);
@@ -279,7 +279,7 @@ void testLVGLBufferWrite(void* args)
       globalStatus.steeringStatusMsg.torqueMapEncoder += 1;
       globalStatus.steeringStatusMsg.regenEncoder += 1;
       
-      osDelay(100);
+      osDelay(1000);
   }
   UNUSED(args);
 }

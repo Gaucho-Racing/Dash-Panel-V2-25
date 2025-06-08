@@ -44,6 +44,11 @@ char currentBuffer[32] = "test";
 char torqueMappingBuffer[32] = "test";
 char regenBuffer[32] = "test";
 
+const char* ECUStateNames[] = {"", "GLV ON", "PRECHARGING ENGAGED", "PRECHARGING", 
+                                    "PRECHARGE COMPLETE", "DRIVE STANDBY", "DRIVE ACTIVE IDLE",
+                                    "DRIVE ACTIVE POWER", "DRIVE ACTIVE REGEN", "TS DISCHARGE OFF",
+                                    "REFLASH TUNE", "TS DISCHARGE OFF", "ERROR STATE"}; 
+
 // TODO Confirm all scaling is appropriate
 volatile DashInfo globalStatus = {0};
 
@@ -94,13 +99,11 @@ void updateWheelDisp() {
     lv_draw_arc(&layer, &dsc);
 
     lv_canvas_finish_layer(wheelDispCanvas, &layer);
-
-    lv_obj_invalidate(lv_screen_active());
 }
 
 void updateDataFromCAN() {
     speedData = globalStatus.vehicleSpeed % 256;
-    stateData = globalStatus.ecuState % 256;
+    stateData = globalStatus.ecuState % 11;
     voltageData = globalStatus.tsVoltage % 1000;
     SoCData = globalStatus.accumulatorStateOfCharge % 256;
     //powerData = globalStatus.; // tsVoltage * dcCurrent, converted into kW
@@ -121,7 +124,7 @@ void updateDataFromCAN() {
 
     //snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
-    snprintf(stateBuffer, sizeof(stateBuffer), "State: %d", stateData);
+    snprintf(stateBuffer, sizeof(stateBuffer), "State: %s", ECUStateNames[stateData]);
     snprintf(voltageBuffer, sizeof(voltageBuffer), "Voltage: %d V", voltageData);
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
 
@@ -138,15 +141,17 @@ void updateDataFromCAN() {
 
     updateWheelDisp();
 
-    // lv_label_set_text_static(speed, speedBuffer);
-    // lv_label_set_text_static(state, stateBuffer);
-    // lv_label_set_text_static(voltage, voltageBuffer);
-    // lv_label_set_text_static(SoC, SoCBuffer);
+    lv_label_set_text_static(speed, speedBuffer);
+    lv_label_set_text_static(state, stateBuffer);
+    lv_label_set_text_static(voltage, voltageBuffer);
+    lv_label_set_text_static(SoC, SoCBuffer);
 
-    // lv_label_set_text_static(cell, cellBuffer);
+    // lv_label_set_text_static(cell, cellBuffer);     // note: how are cell, motor, inverter, and brake updating even when these are commented out? 
     // lv_label_set_text_static(motor, motorBuffer);
     // lv_label_set_text_static(inverter, inverterBuffer);
     // lv_label_set_text_static(brake, brakeBuffer);
+
+    lv_obj_invalidate(lv_screen_active());
 }
 
 void recievedNewInformationPleaseRefresh()

@@ -3,8 +3,6 @@
 #include "stdio.h"
 #include "dash.h"
 
-//#include "Fonts/lv_font_gr_bold_40.c"
-
 static lv_style_t screenStyle;
 static lv_style_t flexRowStyle;
 static lv_style_t flexColumnStyle;
@@ -106,7 +104,7 @@ void topSetup(lv_obj_t * parent_obj) {
             //     speed = lv_label_create(speedBox);
 
             speed = lv_label_create(boxTop2);
-            //lv_obj_set_style_text_font(speed, &lv_font_gr_bold_40, 0);
+            lv_obj_set_style_text_font(speed, &lv_font_gr_bold_40, 0);
             lv_label_set_text_static(speed, speedBuffer);
         
             state = lv_label_create(boxTop2);

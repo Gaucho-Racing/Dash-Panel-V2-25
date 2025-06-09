@@ -58,7 +58,7 @@ void colorPin(Color color, ButtonNames button)
             break;
     }
 
-    HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
+    HAL_SPI_Transmit(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
     //                                                         ^   ^    ^
     //                                                         |   |    |
     //                                                         |   |    Single NeoPixel byte

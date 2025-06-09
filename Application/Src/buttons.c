@@ -119,19 +119,19 @@ void pollButtonState(void* args)
     {
         bool change = false;
 
-        uint8_t value = HAL_GPIO_ReadPin(RTD_GPIO_Port, RTD_Pin);
+        uint8_t newValueRTD = HAL_GPIO_ReadPin(RTD_GPIO_Port, RTD_Pin);
 
-        if (globalStatus.dashStatusMsg.rtdButtonData != value)
+        if (globalStatus.dashStatusMsg.rtdButtonData != newValueRTD)
         {
-            globalStatus.dashStatusMsg.rtdButtonData = value;
+            globalStatus.dashStatusMsg.rtdButtonData = newValueRTD;
             change = true;
         }
 
-        value = HAL_GPIO_ReadPin(TS_ACTIVE_GPIO_Port, TS_ACTIVE_Pin);
+        uint8_t newValueTSActive = HAL_GPIO_ReadPin(TS_ACTIVE_GPIO_Port, TS_ACTIVE_Pin);
 
-        if (globalStatus.dashStatusMsg.tsButtonData != value)
+        if (globalStatus.dashStatusMsg.tsButtonData != newValueTSActive)
         {
-            globalStatus.dashStatusMsg.tsButtonData = value;
+            globalStatus.dashStatusMsg.tsButtonData = newValueTSActive;
             change = true;
         }
 

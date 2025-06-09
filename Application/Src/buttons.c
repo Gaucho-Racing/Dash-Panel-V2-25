@@ -144,8 +144,10 @@ void pollButtonState(void* args)
         UNUSED(change);
         #endif
 
-        HAL_GPIO_WritePin(LED_AMS_GPIO_Port, LED_AMS_Pin, newValueRTD);
-        HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, newValueTSActive);
+        // TODO: Remove these and ensure properly implemented
+        HAL_GPIO_WritePin(LED_AMS_GPIO_Port, LED_AMS_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED_IMD_GPIO_Port, LED_IMD_Pin, GPIO_PIN_SET);
 
         osDelay(POLL_BUTTON_STATE_DELAY);
     }

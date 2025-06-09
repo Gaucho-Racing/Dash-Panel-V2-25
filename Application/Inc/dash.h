@@ -24,14 +24,8 @@
         ERRORSTATE = (uint8_t)11,
     } ECUState;
 
-    /*
-    const char* ECUStateNames[] = {"", "GLV ON", "PRECHARGING ENGAGED", "PRECHARGING", 
-                                    "PRECHARGE COMPLETE", "DRIVE STANDBY", "DRIVE ACTIVE IDLE",
-                                    "DRIVE ACTIVE POWER", "DRIVE ACTIVE REGEN", "TS DISCHARGE OFF",
-                                    "REFLASH TUNE", "TS DISCHARGE OFF", "ERROR STATE"};    
-    */
-
-
+    extern const char* ECUStateNames[];
+    
     typedef struct {
         uint8_t currentEncoder;
         uint8_t torqueMapEncoder;
@@ -92,6 +86,5 @@
     extern char torqueMappingBuffer[32];
     extern char regenBuffer[32];
 
-    void initializeDash(); 
     void recievedNewInformationPleaseRefresh();
 #endif

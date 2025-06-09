@@ -88,19 +88,27 @@ void topSetup(lv_obj_t * parent_obj) {
 
         lv_obj_t * boxTop2 = lv_obj_create(flexRowTop);
         lv_obj_set_flex_flow(boxTop2, LV_FLEX_COLUMN);
-        lv_obj_set_flex_grow(boxTop2, 4); // TODO: edit later for real screen
+        lv_obj_set_flex_grow(boxTop2, 8); // TODO: edit later for real screen
         lv_obj_set_content_height(boxTop2, lv_pct(100));
         lv_obj_set_size(boxTop2, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
         lv_obj_set_height(boxTop2, TOP_HEIGHT);
         lv_obj_set_style_bg_color(boxTop2, lv_color_hex(GR_GRAY), 0);
         lv_obj_set_style_pad_all(boxTop2, 20, 0);
-        lv_obj_set_style_flex_cross_place(boxTop2, LV_FLEX_ALIGN_CENTER, 0);
-        lv_obj_set_style_flex_main_place(boxTop2, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
+        lv_obj_set_flex_align(boxTop2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+        // lv_obj_set_style_flex_cross_place(boxTop2, LV_FLEX_ALIGN_CENTER, 0);
+        // lv_obj_set_style_flex_main_place(boxTop2, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
+
+            // flexbox inside of flexbox doesn't seem to work? 
+            // lv_obj_t * speedBox = lv_obj_create(boxTop2);
+            //     lv_obj_set_flex_flow(speedBox, LV_FLEX_FLOW_ROW);
+            //     speed = lv_label_create(speedBox);
 
             speed = lv_label_create(boxTop2);
+            lv_obj_set_style_text_font(speed, &lv_font_montserrat_44, 0);
             lv_label_set_text_static(speed, speedBuffer);
-            //lv_label_set_text(speed, speedBuffer);
+        
             state = lv_label_create(boxTop2);
+            lv_obj_set_style_text_font(state, &lv_font_montserrat_28, 0);
             lv_label_set_text_static(state, stateBuffer);
 
         lv_obj_t * boxTop3 = lv_obj_create(flexRowTop);

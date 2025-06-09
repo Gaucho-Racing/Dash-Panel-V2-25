@@ -15,6 +15,22 @@
 
 volatile uint8_t numberOfBadMessages = 0;
 
+void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)
+{
+    if (length != 8) {
+        numberOfBadMessages++;
+    } else {
+        numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+    }
+
+    if (msgID == MSG_DTI_DATA_2)
+    {
+            DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
+            globalStatus.inverterCurrents[0] = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
+            recievedNewInformationPleaseRefresh();
+    }
+}
+
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length)
 {
     switch (msgID) {
@@ -123,19 +139,6 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
             globalStatus.accumulatorStateOfCharge = (uint8_t)(acuStatusMsgOne->Accumulator_SOC * 20.0 / 51.0);
 
             break;
-
-        case MSG_DTI_DATA_2:    // TODO Fix DTI being a goofy thing (see ECU code)
-            if (length != 8) {
-                numberOfBadMessages++;
-                return;
-            } else {
-                numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
-            }
-
-            DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
-            globalStatus.dtiAcCurrent = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
-
-            break;
         
         case MSG_INVERTER_STATUS_1:
             if (length != 6) {
@@ -155,11 +158,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 case GR_GR_INVERTER_2:
                     globalStatus.inverterCurrents[1] = invOneMsg->AC_Current;
                     break;
-                case GR_GR_INVERTER_3:
-                    globalStatus.inverterCurrents[2] = invOneMsg->AC_Current;
-                    break;
-                case GR_GR_INVERTER_4:
-                    globalStatus.inverterCurrents[3] = invOneMsg->AC_Current;
+                default:
+                    numberOfBadMessages++;
                     break;
             }
 
@@ -183,11 +183,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 case GR_GR_INVERTER_2:
                     globalStatus.inverterTemperatures[1] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
                     break;
-                case GR_GR_INVERTER_3:
-                    globalStatus.inverterTemperatures[2] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
-                    break;
-                case GR_GR_INVERTER_4:
-                    globalStatus.inverterTemperatures[3] = findTernaryMax(invTwoMsg->uTemp, invTwoMsg->vTemp, invTwoMsg->wTemp);
+                default:
+                    numberOfBadMessages++;
                     break;
             }
 
@@ -211,11 +208,8 @@ void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t len
                 case GR_GR_INVERTER_2:
                     globalStatus.motorTemperatures[1] = invThreeMsg->Motor_Temp;
                     break;
-                case GR_GR_INVERTER_3:
-                    globalStatus.motorTemperatures[2] = invThreeMsg->Motor_Temp;
-                    break;
-                case GR_GR_INVERTER_4:
-                    globalStatus.motorTemperatures[3] = invThreeMsg->Motor_Temp;
+                default:
+                    numberOfBadMessages++;
                     break;
             }
 

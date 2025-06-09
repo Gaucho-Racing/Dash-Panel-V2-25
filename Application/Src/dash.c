@@ -114,7 +114,7 @@ void updateDataFromCAN() {
 
     cellData = globalStatus.maxCellTemp;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         motorData[i] = globalStatus.motorTemperatures[i] % 256;
         inverterData[i] = globalStatus.inverterTemperatures[i] % 256;
         brakeData[i]= globalStatus.brakeTemps[i] % 256;

@@ -59,16 +59,32 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
   static FDCAN_RxHeaderTypeDef RxHeader;
   static uint8_t RxData[64];
 
-  if((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
-      if(HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK) {
+  if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
+  {
+      if(HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK)
+      {
           Error_Handler();
       }
 
-      uint16_t msgID = (RxHeader.Identifier & 0x00FFF00) >> 8;
-      uint8_t srcID  = (RxHeader.Identifier & 0xFF00000) >> 20;
-      handleCANMessage(msgID, srcID, RxData, RxHeader.DataLength);
+      if ((RxHeader.Identifier & ~0xF00) == 0x2016)
+      {
+          uint8_t temp;
+          for (uint16_t i = 0; i < RxHeader.DataLength / 2; ++i) // Because DTI
+          {
+              temp = RxData[i];
+              RxData[i] = RxData[RxHeader.DataLength - i - 1];
+              RxData[RxHeader.DataLength - i - 1] = temp;
+          }
 
-      if(HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
+          handleDtiCANMessage(RxHeader.Identifier, RxData, RxHeader.DataLength);
+      }
+      else
+      {
+          handleCANMessage((RxHeader.Identifier & 0x00FFF00) >> 8, (RxHeader.Identifier & 0xFF00000) >> 20, RxData, RxHeader.DataLength);
+      }
+
+      if(HAL_FDCAN_ActivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK)
+      {
           Error_Handler();
       }
   }

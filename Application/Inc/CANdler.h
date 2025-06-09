@@ -5,6 +5,7 @@
 
 extern volatile uint8_t numberOfBadMessages;
 
+void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length);
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length);
 
 typedef struct {

@@ -58,14 +58,12 @@ void colorPin(Color color, ButtonNames button)
             break;
     }
 
-    #ifdef TEST_NO_CAN
-    HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
+    // HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
     //                                                         ^   ^    ^
     //                                                         |   |    |
     //                                                         |   |    Single NeoPixel byte
     //                                                         |   3 bytes per NeoPixel
     //                                                         2 NeoPixels
-    #endif
 }
 
 void updateButtonColors(void* args)
@@ -120,6 +118,8 @@ void pollButtonState(void* args)
         bool change = false;
 
         uint8_t newValueRTD = HAL_GPIO_ReadPin(RTD_GPIO_Port, RTD_Pin);
+        globalStatus.debugMessage[0] = newValueRTD + 'a';
+        globalStatus.debugMessage[1] = globalStatus.dashStatusMsg.rtdButtonData + 'a';
 
         if (globalStatus.dashStatusMsg.rtdButtonData != newValueRTD)
         {
@@ -128,6 +128,9 @@ void pollButtonState(void* args)
         }
 
         uint8_t newValueTSActive = HAL_GPIO_ReadPin(TS_ACTIVE_GPIO_Port, TS_ACTIVE_Pin);
+        globalStatus.debugMessage[2] = newValueTSActive + 'a';
+        globalStatus.debugMessage[3] = globalStatus.dashStatusMsg.tsButtonData + 'a';
+        globalStatus.debugMessage[4] = '\0';
 
         if (globalStatus.dashStatusMsg.tsButtonData != newValueTSActive)
         {
@@ -145,8 +148,8 @@ void pollButtonState(void* args)
         #endif
 
         // TODO: Remove these and ensure properly implemented
-        HAL_GPIO_WritePin(LED_AMS_GPIO_Port, LED_AMS_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED_AMS_GPIO_Port, LED_AMS_Pin, newValueRTD);
+        HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, newValueTSActive);
         HAL_GPIO_WritePin(LED_IMD_GPIO_Port, LED_IMD_Pin, GPIO_PIN_SET);
 
         osDelay(POLL_BUTTON_STATE_DELAY);

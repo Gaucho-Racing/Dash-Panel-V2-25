@@ -55,6 +55,10 @@ volatile DashInfo globalStatus = {0};
 int32_t prevRefresh = BAD_TIME_Negative1;
 int32_t tempsRefreshRateMillis = 50;
 
+lv_color_t temperatureMap(uint8_t temp) {
+
+}
+
 void updateWheelDisp() {
     lv_layer_t layer;
     lv_canvas_init_layer(wheelDispCanvas, &layer);
@@ -154,10 +158,19 @@ void updateDataFromCAN() {
     lv_obj_invalidate(lv_screen_active());
 }
 
+void updateDebugMsg() {
+    if (globalStatus.debugMessage[0] != '\0') {
+        lv_obj_clear_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
+    } else {
+        lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
+    }
+}
+
 void recievedNewInformationPleaseRefresh()
 {
     writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
 
     // TODO: Implement functionality to call for a refresh the screen based off of the just-updated DashInfo from CANFD
     updateDataFromCAN();
+    updateDebugMsg();
 }

@@ -26,6 +26,7 @@ lv_obj_t * torqueMapping = NULL;
 lv_obj_t * regen = NULL;
 
 lv_obj_t * wheelDispCanvas = NULL;
+DebugMsg debugMsg;
 
 LV_DRAW_BUF_DEFINE_STATIC(wheelDispBuf, GRID_WIDTH_PX, GRID_HEIGHT_PX, LV_COLOR_FORMAT_RGB565);
 
@@ -60,6 +61,7 @@ void displaySetup(void) {
 
     topSetup(screen);
     bottomSetup(screen);
+    initDebugMsg(screen);
 }
 
 
@@ -180,6 +182,22 @@ void bottomSetup(lv_obj_t * parent_obj) {
                         brake = lv_label_create(boxBottom2);
                         lv_label_set_text_static(brake, brakeBuffer);
 
+}
+
+void initDebugMsg(lv_obj_t * parent_obj)
+{
+    debugMsg.panel = lv_obj_create(parent_obj);
+    lv_obj_set_size(debugMsg.panel, 800, 70);
+    lv_obj_center(debugMsg.panel);
+    lv_obj_set_style_bg_color(debugMsg.panel, lv_color_hex(0x7920FF), LV_PART_MAIN);
+    lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
+
+    debugMsg.text = lv_label_create(debugMsg.panel);
+    lv_label_set_text(debugMsg.text, "");
+    lv_obj_center(debugMsg.text);
+    
+    lv_label_set_text_static(debugMsg.text, (const char*)globalStatus.debugMessage);
+    lv_obj_set_style_text_font(debugMsg.text, &lv_font_montserrat_44, 0);
 }
 
 void createGrid(lv_obj_t * parent) {

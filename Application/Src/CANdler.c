@@ -11,7 +11,8 @@
 #include "utils.h"
 #include "buttons.h"
 
-#define TEST_NO_CAN 
+// FIXME Turn off when doing a CAN test
+#define TEST_NO_CAN
 
 volatile uint8_t numberOfBadMessages = 0;
 

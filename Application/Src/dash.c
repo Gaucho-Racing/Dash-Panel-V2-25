@@ -57,7 +57,7 @@ int32_t tempsRefreshRateMillis = 50;
 
 lv_color_t temperatureMap(uint8_t temp)
 {
-
+    UNUSED(temp);
 }
 
 void updateWheelDisp() {

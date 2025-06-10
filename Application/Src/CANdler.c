@@ -14,7 +14,7 @@
 #define TEST_NO_CAN
 
 // FIXME Turn on when doing a CAN test
-//#undef TEST_NO_CAN
+// #undef TEST_NO_CAN
 
 volatile uint8_t numberOfBadMessages = 0;
 

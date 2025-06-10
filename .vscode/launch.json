@@ -6,24 +6,24 @@
         "name": "Debug (launch) with ST-Util",
         "request": "launch",
         "type": "cortex-debug",
-        "servertype": "stutil",
+        "servertype": "stlink",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
         "preLaunchTask": "CMake: build",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U599.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
         "name": "Debug (attach) with ST-Util",
         "request": "attach",
         "type": "cortex-debug",
-        "servertype": "stutil",
+        "servertype": "stlink",
         "runToEntryPoint": "main",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
         "preLaunchTask": "CMake: build",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U599.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
     }]
 }

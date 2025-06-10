@@ -310,7 +310,6 @@ int main(void)
   /* Put stuff on the display */
   displaySetup();
 
-
   // writeMessage(MSG_DEBUG_2_0, GR_ECU, (uint8_t*)"Welcome!", 8);
   
   /* USER CODE END 2 */

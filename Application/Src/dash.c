@@ -55,7 +55,8 @@ volatile DashInfo globalStatus = {0};
 int32_t prevRefresh = BAD_TIME_Negative1;
 int32_t tempsRefreshRateMillis = 50;
 
-lv_color_t temperatureMap(uint8_t temp) {
+lv_color_t temperatureMap(uint8_t temp)
+{
 
 }
 

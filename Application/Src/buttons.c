@@ -109,7 +109,7 @@ void updateButtonColors(void* args)
 
         osDelay(UPDATE_BUTTON_COLORS_DELAY);
 
-        // Update LED colors (just cause no other real spot to put them)
+        // Update LED colors (no good spot for em)
         HAL_GPIO_WritePin(LED_AMS_GPIO_Port, LED_AMS_Pin, getBit(globalStatus.dashStatusMsg.ledBits, 0));
         HAL_GPIO_WritePin(LED_IMD_GPIO_Port, LED_IMD_Pin, getBit(globalStatus.dashStatusMsg.ledBits, 1));
         HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, getBit(globalStatus.dashStatusMsg.ledBits, 2));

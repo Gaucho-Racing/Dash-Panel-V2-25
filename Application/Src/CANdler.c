@@ -11,8 +11,6 @@
 #include "utils.h"
 #include "buttons.h"
 
-#define TEST_NO_CAN
-
 // FIXME Turn on when doing a CAN test
 // #undef TEST_NO_CAN
 

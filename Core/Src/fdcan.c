@@ -24,8 +24,6 @@
 #include <stdint.h>
 #include "CANdler.h"
 
-#define TEST_NO_CAN
-
 FDCAN_TxHeaderTypeDef TxHeader = {
   .IdType = FDCAN_EXTENDED_ID,
   .TxFrameType = FDCAN_DATA_FRAME,

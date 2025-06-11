@@ -53,6 +53,7 @@
 #include "grIDs.h"
 #include "dash.h"
 #include "gui.h"
+#include "utils.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

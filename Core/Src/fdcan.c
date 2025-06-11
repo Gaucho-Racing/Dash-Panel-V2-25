@@ -24,6 +24,9 @@
 #include <stdint.h>
 #include "CANdler.h"
 
+// FIXME Remove when ready, controls if CAN or no CAN
+#define TEST_WITHOUT_CAN true
+
 FDCAN_TxHeaderTypeDef TxHeader = {
   .IdType = FDCAN_EXTENDED_ID,
   .TxFrameType = FDCAN_DATA_FRAME,
@@ -35,15 +38,16 @@ FDCAN_TxHeaderTypeDef TxHeader = {
   .MessageMarker = 0 // also change this to a real address if you change fifo control
 };
 
-void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len) {
+void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len)
+{
   TxHeader.Identifier = (LOCAL_GR_ID << 20) | (msgID << 8) | destID;
   TxHeader.DataLength = len;
 
   FDCAN_HandleTypeDef *handle;
   handle = &hfdcan1;
 
-  #ifdef TEST_NO_CAN
-  if(HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
+  #ifdef TEST_WITHOUT_CAN
+  if (HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {
       Error_Handler();
   }

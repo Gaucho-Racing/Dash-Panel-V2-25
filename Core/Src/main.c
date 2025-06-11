@@ -301,7 +301,7 @@ int main(void)
 
   /* Update default debug message on boot */
   strncpy((char*)globalStatus.debugMessage, "DarkTek", 8);
-  LOGOMATIC("...Booting...\nTick is %d\n", HAL_GetTick());
+  LOGOMATIC("...Booting...\nTick is %ld\n", HAL_GetTick());
 
   /* initialize LVGL framework */
   lv_init();

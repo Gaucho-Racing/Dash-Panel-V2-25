@@ -59,6 +59,7 @@ void colorPin(Color color, ButtonNames button)
             break;
     }
 
+    // FIXME Figure out what to pull high/low/something such that we think we are always ready to transmit
     // HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
     //                                                         ^   ^    ^
     //                                                         |   |    |
@@ -123,7 +124,7 @@ void pollButtonState(void* args)
     {
         bool change = false;
 
-        uint8_t newValueRTD = HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);
+        bool newValueRTD = !(bool)HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);   // Active low
         globalStatus.debugMessage[0] = newValueRTD + 'a';
         globalStatus.debugMessage[1] = globalStatus.dashStatusMsg.rtdButtonData + 'a';
 
@@ -133,7 +134,7 @@ void pollButtonState(void* args)
             change = true;
         }
 
-        uint8_t newValueTSActive = HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);
+        bool newValueTSActive = !(bool)HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
         globalStatus.debugMessage[2] = newValueTSActive + 'a';
         globalStatus.debugMessage[3] = globalStatus.dashStatusMsg.tsButtonData + 'a';
         globalStatus.debugMessage[4] = '\0';

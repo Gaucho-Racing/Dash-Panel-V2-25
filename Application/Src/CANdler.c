@@ -11,9 +11,6 @@
 #include "utils.h"
 #include "buttons.h"
 
-// FIXME Turn on when doing a CAN test
-// #undef TEST_NO_CAN
-
 volatile uint8_t numberOfBadMessages = 0;
 
 void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)

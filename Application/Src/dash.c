@@ -6,6 +6,7 @@
 #include "msgIDs.h"
 #include "grIDs.h"
 #include "fdcan.h"
+#include "main.h"
 #include "gui.h"
 
 // FIXME Please setup so that we can use `ENABLE_THREE_MOTORS`

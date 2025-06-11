@@ -125,8 +125,8 @@ void pollButtonState(void* args)
         bool change = false;
 
         bool newValueRTD = !(bool)HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);   // Active low
-        globalStatus.debugMessage[0] = newValueRTD + 'a';
-        globalStatus.debugMessage[1] = globalStatus.dashStatusMsg.rtdButtonData + 'a';
+        globalStatus.debugMessage[0] = newValueRTD + '0';
+        globalStatus.debugMessage[1] = globalStatus.dashStatusMsg.rtdButtonData + '0';
 
         if (globalStatus.dashStatusMsg.rtdButtonData != newValueRTD)
         {
@@ -135,8 +135,8 @@ void pollButtonState(void* args)
         }
 
         bool newValueTSActive = !(bool)HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
-        globalStatus.debugMessage[2] = newValueTSActive + 'a';
-        globalStatus.debugMessage[3] = globalStatus.dashStatusMsg.tsButtonData + 'a';
+        globalStatus.debugMessage[2] = newValueTSActive + '0';
+        globalStatus.debugMessage[3] = globalStatus.dashStatusMsg.tsButtonData + '0';
         globalStatus.debugMessage[4] = '\0';
 
         if (globalStatus.dashStatusMsg.tsButtonData != newValueTSActive)

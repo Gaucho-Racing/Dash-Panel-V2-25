@@ -264,21 +264,6 @@ void testLVGLBufferWrite(void* args)
   {
       // TODO: Update globalStatus
       globalStatus.vehicleSpeed += 1;
-      globalStatus.ecuState += 1;
-      globalStatus.tsVoltage += 1;
-      globalStatus.accumulatorStateOfCharge += 1;
-
-      globalStatus.maxCellTemp += 1;
-      for (int i = 0; i < 3; i++) {
-        if (i != 3) globalStatus.motorTemperatures[i] += i;
-        globalStatus.inverterTemperatures[i] += 1 + i;
-        globalStatus.brakeTemps[i] += 2 + i; 
-      }
-
-      globalStatus.steeringStatusMsg.currentEncoder += 1;
-      globalStatus.steeringStatusMsg.torqueMapEncoder += 1;
-      globalStatus.steeringStatusMsg.regenEncoder += 1;
-      
       osDelay(1000);
   }
   UNUSED(args);

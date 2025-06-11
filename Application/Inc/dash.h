@@ -7,7 +7,7 @@
     #define DASH_H
 
     #define BAD_TIME_Negative1 -1
-    #define DASH_STATUS_MSG_DELAY 150
+    #define DASH_STATUS_MSG_DELAY 100
 
     /* Must match ECU-25 EXACTLY */
     typedef enum {

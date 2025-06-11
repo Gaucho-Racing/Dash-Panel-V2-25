@@ -96,7 +96,12 @@ void Error_Handler(void);
 #define NC_TS_ACTIVE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-// See Brand Guidelines
+// Undefined if one motor, controlled in `main.h`
+#define ENABLE_THREE_MOTORS
+
+// Uncomment to return to a 1 motor car
+// #undef ENABLE_THREE_MOTORS
+
 #define GR_COLOR_PINK 0xEF0DA1
 #define GR_COLOR_PURPLE 0x7920FF
 #define GR_COLOR_NAVY 0x195297

@@ -8,6 +8,8 @@
 #include "fdcan.h"
 #include "gui.h"
 
+// FIXME Please setup so that we can use `ENABLE_THREE_MOTORS`
+
 /* 
 GLOBAL VARIABLES (extern defined in gui.h), data/buffers are declared in dash.c
     - general flow is to have externs defined in a header file, then declare the actual variable in a .c file

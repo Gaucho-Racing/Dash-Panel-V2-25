@@ -303,6 +303,12 @@ int main(void)
   strncpy((char*)globalStatus.debugMessage, "DarkTek", 8);
   LOGOMATIC("...Booting...\nTick is %ld\n", HAL_GetTick());
 
+  #ifdef ENABLE_THREE_MOTORS
+  LOGOMATIC("Running with 3 motors\n");
+  #else
+  LOGOMATIC("Running with 1 motor\n");
+  #endif
+
   /* initialize LVGL framework */
   lv_init();
 

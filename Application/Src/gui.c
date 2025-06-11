@@ -2,6 +2,9 @@
 #include "lvgl/lvgl.h"
 #include "stdio.h"
 #include "dash.h"
+#include "main.h"
+
+// FIXME Please setup so that we can use `ENABLE_THREE_MOTORS`
 
 static lv_style_t screenStyle;
 static lv_style_t flexRowStyle;

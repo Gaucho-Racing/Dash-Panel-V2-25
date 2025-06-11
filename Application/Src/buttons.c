@@ -145,14 +145,10 @@ void pollButtonState(void* args)
             change = true;
         }
 
-        #ifdef TEST_NO_CAN
         if (change)
         {
             recievedNewInformationPleaseRefresh();
         }
-        #else
-        UNUSED(change);
-        #endif
 
         osDelay(POLL_BUTTON_STATE_DELAY);
     }

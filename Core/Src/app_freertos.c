@@ -192,7 +192,9 @@ void MX_FREERTOS_Init(void) {
   dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
   pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
   updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
-  testLVGLBufferWriteHandle = osThreadNew(testLVGLBufferWrite, NULL, &defaultTask_attributes);
+  /* comment out testLVGLBufferWriteHandle when testing with CAN */
+  // testLVGLBufferWriteHandle = osThreadNew(testLVGLBufferWrite, NULL, &defaultTask_attributes);
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */

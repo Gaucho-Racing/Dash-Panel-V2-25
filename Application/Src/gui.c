@@ -196,10 +196,8 @@ void initDebugMsg(lv_obj_t * parent_obj)
     lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
 
     debugMsg.text = lv_label_create(debugMsg.panel);
-    lv_label_set_text(debugMsg.text, "");
     lv_obj_center(debugMsg.text);
-    
-    lv_label_set_text_static(debugMsg.text, (const char*)globalStatus.debugMessage);
+    lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
     lv_obj_set_style_text_font(debugMsg.text, &lv_font_montserrat_44, 0);
 }
 

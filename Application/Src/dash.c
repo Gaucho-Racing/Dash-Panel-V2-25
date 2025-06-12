@@ -168,7 +168,7 @@ void updateDebugMsg() {
     } else {
         lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
     }
-    // add this below to actually update the lvgl text label with a new debug msg
+    /* adding this line below causes debugmsg text to display "0000" again, not sure why */
     //lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
 }
 

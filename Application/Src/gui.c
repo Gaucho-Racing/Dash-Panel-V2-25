@@ -57,13 +57,16 @@ void styleSetup(void) {
 void displaySetup(void) {
     styleSetup();
 
-    lv_obj_t * screen = lv_screen_active();
-    lv_obj_add_style(screen, &screenStyle, 0);
-    lv_obj_set_style_bg_color(screen, lv_color_hex(GR_NAVY), LV_PART_MAIN);
+    LV_IMAGE_DECLARE(dashbg);
+    lv_obj_t * bg = lv_image_create(lv_screen_active());
+    lv_image_set_src(bg, &dashbg);
+    lv_obj_set_width(bg, SCREEN_WIDTH_PX);
+    lv_obj_set_height(bg, SCREEN_HEIGHT_PX);
+    lv_obj_add_style(bg, &screenStyle, 0);
 
-    topSetup(screen);
-    bottomSetup(screen);
-    initDebugMsg(screen);
+    topSetup(bg);
+    bottomSetup(bg);
+    initDebugMsg(bg);
 }
 
 
@@ -71,7 +74,7 @@ void topSetup(lv_obj_t * parent_obj) {
     lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowTop, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_EVENLY);
-    lv_obj_set_style_bg_color(flexRowTop, lv_color_hex(GR_NAVY), 0);
+    lv_obj_set_style_bg_opa(flexRowTop, 0, 0);
 
         lv_obj_t * boxTop1 = lv_obj_create(flexRowTop);
         lv_obj_set_flex_flow(boxTop1, LV_FLEX_COLUMN);
@@ -142,7 +145,7 @@ void bottomSetup(lv_obj_t * parent_obj) {
     lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
     lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
     lv_obj_set_flex_align(flexRowBottom, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_AROUND);
-    lv_obj_set_style_bg_color(flexRowBottom, lv_color_hex(0x195297), 0);
+    lv_obj_set_style_bg_opa(flexRowBottom, 0, 0);
     lv_obj_set_style_pad_all(flexRowBottom, 10, 0);
 
         lv_obj_t * boxBottom1 = lv_obj_create(flexRowBottom);

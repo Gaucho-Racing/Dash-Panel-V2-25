@@ -94,6 +94,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Application/Src/Fonts/lv_font_gr_light_24.c
     Application/Src/Fonts/lv_font_gr_light_32.c
     Application/Src/Fonts/lv_font_gr_light_40.c
+
+    Application/Src/Images/dashbg.c
 )
 
 # Add include paths

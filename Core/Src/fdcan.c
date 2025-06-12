@@ -25,7 +25,7 @@
 #include "CANdler.h"
 
 // FIXME Remove when ready, controls if CAN or no CAN
-#define TEST_WITHOUT_CAN true
+// #define TEST_WITHOUT_CAN true
 
 FDCAN_TxHeaderTypeDef TxHeader = {
   .IdType = FDCAN_EXTENDED_ID,

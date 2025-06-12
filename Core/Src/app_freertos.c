@@ -95,8 +95,6 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4
 };
 
-osThreadId_t testLVGLBufferWriteHandle;
-
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 void LVGLTimer(void *argument);
@@ -271,3 +269,4 @@ void testLVGLBufferWrite(void* args)
   UNUSED(args);
 }
 /* USER CODE END Application */
+

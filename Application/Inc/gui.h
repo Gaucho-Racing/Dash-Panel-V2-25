@@ -18,49 +18,8 @@
 #define CELL_HEIGHT_PX 20
 #define GRID_WIDTH_PX 180
 #define GRID_HEIGHT_PX 180
-#define NUM_VARIABLES 8 // the number of variables we need to update and keep track of on the dash 
-
-enum VOLATILE_OBJECTS {
-    SPEED = 0,
-    STATE = 1,
-    VOLTAGE = 2,
-    SOC = 3,
-    POWER = 4,
-    CURRENT = 5,
-    TORQUE_MAPPING = 6,
-    REGEN = 7,
-};
-
-typedef struct {
-    lv_obj_t * variable;    // this maps to the LVGL text variable we're updating/keeping track of  
-    uint16_t data;   
-    char buffer[32];
-} VolatileObj;
-
-/*
-FOOD FOR THOUGHT: might need to split up VolatileObj into different structs? we're being too general
-for example - can't use VolatileObj.data for something like globalStatus.inverterCurrents[4] because inverter currents is an array
-*/ 
-
-
-// Dark magic fuckery
-typedef union {
-    struct {
-        VolatileObj speed;
-        VolatileObj state; 
-        VolatileObj voltage;
-        VolatileObj SoC;
-        VolatileObj power;   
-        VolatileObj current;
-        VolatileObj torqueMapping;
-        VolatileObj regen;
-    };
-    VolatileObj arr[8];
-} VolatileObjs;
 
 // --- Global or static variables needed in the timer callback ---
-extern volatile VolatileObj volatileObjects[8];
-
 extern lv_obj_t * speed;
 extern lv_obj_t * state; 
 extern lv_obj_t * voltage;

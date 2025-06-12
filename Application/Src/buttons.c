@@ -222,6 +222,8 @@ void pollButtonState(void* args)
         {
             writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         }
+        //optimize this plz 
+        send();
         osDelay(POLL_BUTTON_STATE_DELAY);
     }
 }

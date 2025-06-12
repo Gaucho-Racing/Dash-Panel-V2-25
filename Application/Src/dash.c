@@ -179,4 +179,5 @@ void recievedNewInformationPleaseRefresh()
     // TODO: Implement functionality to call for a refresh the screen based off of the just-updated DashInfo from CANFD
     updateDataFromCAN();
     updateDebugMsg();
+    return;
 }

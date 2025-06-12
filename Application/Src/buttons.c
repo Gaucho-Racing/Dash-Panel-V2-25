@@ -147,9 +147,8 @@ void pollButtonState(void* args)
 
         if (change)
         {
-            recievedNewInformationPleaseRefresh();
+            writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         }
-
         osDelay(POLL_BUTTON_STATE_DELAY);
     }
 }

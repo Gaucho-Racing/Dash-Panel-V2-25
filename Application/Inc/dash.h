@@ -87,6 +87,4 @@
     extern char currentBuffer[32];
     extern char torqueMappingBuffer[32];
     extern char regenBuffer[32];
-
-    void updatedInformation(void* arg);
 #endif

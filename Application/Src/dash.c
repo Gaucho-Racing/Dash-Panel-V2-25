@@ -191,22 +191,3 @@ void updateDebugMsg()
     /* adding this line below causes debugmsg text to display "0000" again, not sure why */
     //lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
 }
-
-void updatedInformation(void* arg)
-{
-    osDelay(5000);  // Wait for boot to finish
-
-    for (;;)
-    {
-        if (recievedNewInformationPleaseRefresh)
-        {
-            recievedNewInformationPleaseRefresh = false;
-            writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
-            updateDataFromCAN();
-            updateDebugMsg();
-        }
-
-        osDelay(50);
-    }
-    UNUSED(arg);
-}

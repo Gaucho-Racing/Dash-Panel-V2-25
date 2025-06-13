@@ -60,7 +60,9 @@ int32_t tempsRefreshRateMillis = 50;
 
 lv_color_t temperatureMap(uint8_t temp)
 {
+    // FIXME What does this function do and how can we do it
     UNUSED(temp);
+    return (lv_color_t){0, 0, 0};   // Stub
 }
 
 void updateWheelDisp() {

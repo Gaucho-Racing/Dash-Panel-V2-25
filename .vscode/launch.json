@@ -3,7 +3,7 @@
     "configurations": [{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug (stutil) with ST-Util",
+        "name": "Debug (launch) with ST-Util",
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stutil",

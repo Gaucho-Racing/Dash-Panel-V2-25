@@ -42,18 +42,19 @@ void updateButtonColors(void* args)
         switch(globalStatus.ecuState)
         {
             case PRECHARGE_COMPLETE:
-                globalNeoPixelData.RTD = COLOR_BLUE;
+            case REFLASH_TUNE:
+                globalNeoPixelData.RTD = (HAL_GetTick() * 71) & 0xFFFFFF;
                 break;
 
             case DRIVE_STANDBY:
             case DRIVE_ACTIVE_IDLE:
             case DRIVE_ACTIVE_POWER:
             case DRIVE_ACTIVE_REGEN:
-                globalNeoPixelData.RTD = COLOR_GREEN;
+                globalNeoPixelData.RTD = COLOR_RED;
                 break;
 
             default:
-                globalNeoPixelData.RTD = COLOR_RED;
+                globalNeoPixelData.RTD = COLOR_BLUE;
                 break;
         }
 
@@ -61,15 +62,16 @@ void updateButtonColors(void* args)
         {
             case TS_DISCHARGE_OFF:
             case ERRORSTATE:
-                globalNeoPixelData.TS_Active = COLOR_RED;
-                break;
-
-            case GLV_ON:
                 globalNeoPixelData.TS_Active = COLOR_BLUE;
                 break;
 
+            case GLV_ON:
+            case REFLASH_TUNE:
+                globalNeoPixelData.TS_Active = (HAL_GetTick() * 71) & 0xFFFFFF;
+                break;
+
             default:
-                globalNeoPixelData.TS_Active = COLOR_GREEN;
+                globalNeoPixelData.TS_Active = COLOR_RED;
         }
 
         // Dark tech right here sorry; essentially a waveform through an SPI message

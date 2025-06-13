@@ -21,9 +21,13 @@
         COLOR_BLUE = (uint32_t)0x0000FF,
     } Color;
 
-    typedef struct {
-        Color TS_Active;
-        Color RTD;
+    typedef union {
+        struct {
+            Color TS_Active;
+            Color RTD;
+        };
+
+        uint32_t rawData[2];
     } NeoPixelData;
 
     void pollButtonState(void* args);

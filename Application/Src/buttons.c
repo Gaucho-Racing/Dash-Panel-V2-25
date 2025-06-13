@@ -14,27 +14,6 @@
 
 NeoPixelData globalNeoPixelData = {0};
 
-void sendNeopixelSpi(Color color)
-{
-	uint8_t sendData[24];
-	int indx = 0;
-
-    for (int i = 23; i >= 0; i--)
-	{
-		if (((uint32_t)color >> i) & 0x1)
-        {
-            sendData[indx++] = 0x6;  // store 1
-        }
-        else
-        {
-            sendData[indx++] = 0x4;  // store 0
-        }
-	}
-
-    //if you guys figure out how to get DMA working cause icbb.
-    HAL_SPI_Transmit(&hspi1, sendData, 24, 1000);
-}
-
 void colorPin(Color color, ButtonNames button)
 {
     if ((button == TS_ACTIVE_BUTTON && color == globalNeoPixelData.TS_Active) || (button == RTD_BUTTON && color == globalNeoPixelData.RTD))
@@ -93,12 +72,20 @@ void updateButtonColors(void* args)
                 globalNeoPixelData.TS_Active = COLOR_GREEN;
         }
 
-        sendNeopixelSpi(globalNeoPixelData.TS_Active);
-        sendNeopixelSpi(globalNeoPixelData.RTD);
+        // Dark tech right here sorry; essentially a waveform as an SPI message
+        uint8_t neopixelTransmission[48];
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 23; j >= 0; j--)
+            {
+                neopixelTransmission[i * 24 + 23 - j] = 0x4 + ((globalNeoPixelData.rawData[i] >> j) & 0x1 << 1);
+            }
+        }
+        HAL_SPI_Transmit_IT(&hspi1, neopixelTransmission, 48);   // Maybe change to DMA
 
         osDelay(UPDATE_BUTTON_COLORS_DELAY);
 
-        // Update LED colors (no good spot for em)
+        // Update LED colors (no other good spot for em)
         HAL_GPIO_WritePin(LED_AMS_GPIO_Port, LED_AMS_Pin, getBit(globalStatus.dashStatusMsg.ledBits, 0));
         HAL_GPIO_WritePin(LED_IMD_GPIO_Port, LED_IMD_Pin, getBit(globalStatus.dashStatusMsg.ledBits, 1));
         HAL_GPIO_WritePin(LED_BSPD_GPIO_Port, LED_BSPD_Pin, getBit(globalStatus.dashStatusMsg.ledBits, 2));

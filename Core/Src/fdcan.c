@@ -48,12 +48,12 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len)
 
   if (HAL_FDCAN_GetTxFifoFreeLevel(handle) == 0)
   {
-      LOGOMATIC("\n\n---FDCAN Tx FIFO is full!---\n\n");
+    LOGOMATIC("\n\n---FDCAN Tx FIFO is full!---\n\n");
   }
   else if (HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {
-      LOGOMATIC("Could not add msg to transmission FIFO queue\n");
-      Error_Handler();
+    LOGOMATIC("Could not add msg to transmission FIFO queue\n");
+    Error_Handler();
   }
 }
 

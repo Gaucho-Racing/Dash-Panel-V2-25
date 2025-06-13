@@ -98,7 +98,7 @@ void pollButtonState(void* args)
 
     for (;;)
     {
-        bool newValue = !(bool)HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);   // Active low
+        bool newValue = !HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);   // Active low
 
         if (globalStatus.dashStatusMsg.rtdButtonData != newValue)
         {
@@ -106,7 +106,7 @@ void pollButtonState(void* args)
             recievedNewInformationPleaseRefresh = true;
         }
 
-        newValue = !(bool)HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
+        newValue = !HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
 
         if (globalStatus.dashStatusMsg.tsButtonData != newValue)
         {

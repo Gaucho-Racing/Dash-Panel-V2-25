@@ -144,9 +144,9 @@ void updateDataFromCAN() {
 
     // FIXME Shorten things plz (no need to say "Speed: " etc)
     //snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
-    snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
-    snprintf(stateBuffer, sizeof(stateBuffer), "State: %s", ECUStateNames[stateData]);
-    snprintf(voltageBuffer, sizeof(voltageBuffer), "Voltage: %d V", voltageData);
+    snprintf(speedBuffer, sizeof(speedBuffer), "%d", speedData);
+    snprintf(stateBuffer, sizeof(stateBuffer), "%s", ECUStateNames[stateData]);
+    snprintf(voltageBuffer, sizeof(voltageBuffer), "%d V", voltageData);
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
 
     //snprintf(powerBuffer, sizeof(powerBuffer), "Power: %d V", powerData);

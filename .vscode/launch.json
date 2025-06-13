@@ -3,7 +3,7 @@
     "configurations": [{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug (launch) with ST-Util",
+        "name": "ST-Util Launch",
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stutil",
@@ -15,7 +15,7 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug (launch) with ST-Link",
+        "name": "ST-Link Launch",
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stlink",
@@ -27,10 +27,10 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug (attach) with ST-Link",
+        "name": "ST-Util Attach",
         "request": "attach",
         "type": "cortex-debug",
-        "servertype": "stlink",
+        "servertype": "stutil",
         "runToEntryPoint": "main",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
@@ -40,10 +40,10 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug (attach) with ST-Util",
+        "name": "ST-Link Attach",
         "request": "attach",
         "type": "cortex-debug",
-        "servertype": "stutil",
+        "servertype": "stlink",
         "runToEntryPoint": "main",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],

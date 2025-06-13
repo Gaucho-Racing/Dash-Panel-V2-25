@@ -47,9 +47,9 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len)
   handle = &hfdcan1;
 
   #ifndef TEST_WITHOUT_CAN
-  if (HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
+  if (HAL_FDCAN_GetTxFifoFreeLevel(handle) > 0 && HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {
-      Error_Handler();
+    Error_Handler();
   }
   #else
   UNUSED(data);

@@ -204,6 +204,7 @@ void updatedInformation(void* arg)
             updateDataFromCAN();
             updateDebugMsg();
         }
+
         osDelay(50);
     }
     UNUSED(arg);

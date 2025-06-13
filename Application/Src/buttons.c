@@ -81,7 +81,7 @@ void updateButtonColors(void* args)
                 neopixelTransmission[i * 24 + 23 - j] = 0x4 + ((globalNeoPixelData.rawData[i] >> j) & 0x1 << 1);    // 0x06 is high, 0x04 is low
             }
         }
-        HAL_SPI_Transmit_IT(&hspi1, neopixelTransmission, 48);   // Maybe change to DMA
+        HAL_SPI_Transmit(&hspi1, neopixelTransmission, 48, 1000);   // Maybe change to DMA
 
         osDelay(UPDATE_BUTTON_COLORS_DELAY);
 

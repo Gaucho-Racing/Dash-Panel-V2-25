@@ -282,6 +282,8 @@ void clearDebugMsg(void* args)
             globalStatus.debugMessage[0] = '\0';
             lastUpdated = 0;
         }
+
+        osDelay(100);
     }
     UNUSED(args);
 }

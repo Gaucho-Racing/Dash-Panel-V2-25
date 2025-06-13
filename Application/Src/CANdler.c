@@ -31,6 +31,7 @@ void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)
 
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length)
 {
+    strncpy((char*)globalStatus.debugMessage, "READ!", 6);
     LOGOMATIC("Recieved msgID %#X\n", msgID);
 
     switch (msgID) {

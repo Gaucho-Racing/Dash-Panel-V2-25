@@ -10,6 +10,8 @@
     #define DASH_STATUS_MSG_DELAY 100
     #define DISPLAY_DEBUG_MESSAGE_TIME_MS 5000
 
+    extern volatile bool recievedNewInformationPleaseRefresh;
+
     /* Must match ECU-25 EXACTLY */
     typedef enum {
         GLV_ON = (uint8_t)1,
@@ -86,5 +88,5 @@
     extern char torqueMappingBuffer[32];
     extern char regenBuffer[32];
 
-    void recievedNewInformationPleaseRefresh();
+    void updatedInformation(void* arg);
 #endif

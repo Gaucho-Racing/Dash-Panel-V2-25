@@ -9,6 +9,8 @@
 #include "main.h"
 #include "gui.h"
 
+volatile bool recievedNewInformationPleaseRefresh = true;
+
 // FIXME Please setup so that we can use `ENABLE_THREE_MOTORS`
 
 /* 
@@ -75,7 +77,8 @@ lv_color_t temperatureMap(uint8_t temp)
     return (lv_color_t){0, 0, 0};   // Stub
 }
 
-void updateWheelDisp() {
+void updateWheelDisp()
+{
     lv_layer_t layer;
     lv_canvas_init_layer(wheelDispCanvas, &layer);
 
@@ -121,7 +124,8 @@ void updateWheelDisp() {
     lv_canvas_finish_layer(wheelDispCanvas, &layer);
 }
 
-void updateDataFromCAN() {
+void updateDataFromCAN()
+{
     speedData = globalStatus.vehicleSpeed % 256;
     stateData = globalStatus.ecuState % 11;
     voltageData = globalStatus.tsVoltage % 1000;
@@ -173,7 +177,8 @@ void updateDataFromCAN() {
     lv_obj_invalidate(lv_screen_active());
 }
 
-void updateDebugMsg() {
+void updateDebugMsg()
+{
     if (globalStatus.debugMessage[0] != '\0')
     {
         lv_obj_clear_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
@@ -186,12 +191,20 @@ void updateDebugMsg() {
     //lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
 }
 
-void recievedNewInformationPleaseRefresh()
+void updatedInformation(void* arg)
 {
-    writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
+    osDelay(5000);  // Wait for boot to finish
 
-    // TODO: Implement functionality to call for a refresh the screen based off of the just-updated DashInfo from CANFD
-    updateDataFromCAN();
-    updateDebugMsg();
-    return;
+    for (;;)
+    {
+        if (recievedNewInformationPleaseRefresh)
+        {
+            recievedNewInformationPleaseRefresh = false;
+            writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
+            updateDataFromCAN();
+            updateDebugMsg();
+        }
+        osDelay(50);
+    }
+    UNUSED(arg);
 }

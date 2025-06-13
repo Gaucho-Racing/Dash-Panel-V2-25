@@ -86,6 +86,13 @@ const osThreadAttr_t updateButtonColorsAttributes = {
   .stack_size = 4 * 1024,
 };
 
+osThreadId_t updatedInformationHandle;
+const osThreadAttr_t updatedInformationAttributes = {
+  .name = "updatedInformation",
+  .priority = (osPriority_t) osPriorityLow,
+  .stack_size = 4 * 1024,
+};
+
 osThreadId_t clearDebugMsgHandle;
 const osThreadAttr_t clearDebugMsgAttributes = {
   .name = "clearDebugMsg",
@@ -198,6 +205,7 @@ void MX_FREERTOS_Init(void) {
   dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
   pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
   updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
+  updatedInformationHandle = osThreadNew(updatedInformation, NULL, &updatedInformationAttributes);
   clearDebugMsgHandle = osThreadNew(clearDebugMsg, NULL, &clearDebugMsgAttributes);
   /* comment out testLVGLBufferWriteHandle when testing with CAN */
   // testLVGLBufferWriteHandle = osThreadNew(testLvglBufferVehicleSpeed, NULL, &defaultTask_attributes);
@@ -241,7 +249,6 @@ void LVGLTimer(void *argument)
   for(;;)
   {
     lv_timer_handler();
-    recievedNewInformationPleaseRefresh();  
     osDelay(10);
   }
   UNUSED(argument);

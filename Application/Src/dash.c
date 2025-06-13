@@ -47,10 +47,20 @@ char currentBuffer[32] = "test";
 char torqueMappingBuffer[32] = "test";
 char regenBuffer[32] = "test";
 
-const char* ECUStateNames[] = {"", "GLV ON", "PRECHARGING ENGAGED", "PRECHARGING", 
-                                    "PRECHARGE COMPLETE", "DRIVE STANDBY", "DRIVE ACTIVE IDLE",
-                                    "DRIVE ACTIVE POWER", "DRIVE ACTIVE REGEN", "TS DISCHARGE OFF",
-                                    "REFLASH TUNE", "TS DISCHARGE OFF", "ERROR STATE"}; 
+const char* ECUStateNames[] = {"INVALID STATE",
+    "GLV ON",
+    "PRECHARGING ENGAGED",
+    "PRECHARGING", 
+    "PRECHARGE COMPLETE",
+    "DRIVE STANDBY",
+    "DRIVE ACTIVE IDLE",
+    "DRIVE ACTIVE POWER",
+    "DRIVE ACTIVE REGEN",
+    "TS DISCHARGE OFF",
+    "REFLASH TUNE",
+    "TS DISCHARGE OFF",
+    "ERROR STATE"
+}; 
 
 // TODO Confirm all scaling is appropriate
 volatile DashInfo globalStatus = {0};
@@ -132,6 +142,7 @@ void updateDataFromCAN() {
     torqueMappingData = globalStatus.steeringStatusMsg.torqueMapEncoder;
     regenData = globalStatus.steeringStatusMsg.regenEncoder;
 
+    // FIXME Shorten things plz (no need to say "Speed: " etc)
     //snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     snprintf(stateBuffer, sizeof(stateBuffer), "State: %s", ECUStateNames[stateData]);
@@ -165,9 +176,12 @@ void updateDataFromCAN() {
 }
 
 void updateDebugMsg() {
-    if (globalStatus.debugMessage[0] != '\0') {
+    if (globalStatus.debugMessage[0] != '\0')
+    {
         lv_obj_clear_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
-    } else {
+    }
+    else
+    {
         lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
     }
     /* adding this line below causes debugmsg text to display "0000" again, not sure why */

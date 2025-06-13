@@ -60,7 +60,7 @@
         // torque mapping ?
         // regen ?
 
-        char debugMessage[8];   // Will be empty if no message sent
+        char debugMessage[9];   // Will be empty if no message sent, 9th byte always '\0'
     } DashInfo;
 
     extern volatile DashInfo globalStatus;

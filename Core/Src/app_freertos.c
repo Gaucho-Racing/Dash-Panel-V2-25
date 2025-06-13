@@ -266,8 +266,6 @@ void LVGLTick(void *argument)
 
 void sendDashStatusMsg(void* args)
 {
-    osDelay(500);
-
     for(;;)
     {
         writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);

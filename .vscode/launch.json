@@ -7,6 +7,7 @@
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stlink",
+        //change this shit to either stlink or stutil for some fucking reson this shit works 50 50 🥀🥀🥀🥀🥀
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
         "preLaunchTask": "CMake: build",
@@ -18,7 +19,7 @@
         "name": "Debug (attach) with ST-Util",
         "request": "attach",
         "type": "cortex-debug",
-        "servertype": "stlink",
+        "servertype": "stutil",
         "runToEntryPoint": "main",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],

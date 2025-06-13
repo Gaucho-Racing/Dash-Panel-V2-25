@@ -283,7 +283,6 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM5_Init();
   MX_TIM6_Init();
-  MX_TIM8_Init();
   MX_TIM15_Init();
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
@@ -297,10 +296,13 @@ int main(void)
   }
 
   /* reset display */
-  HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LCD_DISP_RESET_GPIO_Port, LCD_DISP_RESET_Pin, GPIO_PIN_SET); 
+
+  //set the can traciever to normal mode
+  HAL_GPIO_WritePin(GPIOI, GPIO_PIN_7, GPIO_PIN_RESET);
 
   /* Update default debug message on boot */
-  strncpy((char*)globalStatus.debugMessage, "DarkTek", 8);
+  strncpy((char*)globalStatus.debugMessage, "DarkTek\0", 8);
   LOGOMATIC("...Booting...\nTick is %ld\n", HAL_GetTick());
 
   #ifdef ENABLE_THREE_MOTORS
@@ -326,12 +328,6 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in app_freertos.c) */
-  /* 
-  Call init function for freertos objects (in app_freertos.c) 
-    - creates Threads to handle LVGLTick and LVGLTimer
-    - LVGLTick tells lvgl how much time has passed (ticks occur every 10 ms)
-    - LVGLTimer processes pending lvgl related tasks through lv_timer_handler() 
-  */
   MX_FREERTOS_Init();
 
   /* Start scheduler */
@@ -475,7 +471,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM2) {
+  if (htim->Instance == TIM2)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */

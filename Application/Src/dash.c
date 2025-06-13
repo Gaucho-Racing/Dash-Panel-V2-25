@@ -168,6 +168,8 @@ void updateDebugMsg() {
     } else {
         lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
     }
+    /* adding this line below causes debugmsg text to display "0000" again, not sure why */
+    //lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
 }
 
 void recievedNewInformationPleaseRefresh()
@@ -177,4 +179,5 @@ void recievedNewInformationPleaseRefresh()
     // TODO: Implement functionality to call for a refresh the screen based off of the just-updated DashInfo from CANFD
     updateDataFromCAN();
     updateDebugMsg();
+    return;
 }

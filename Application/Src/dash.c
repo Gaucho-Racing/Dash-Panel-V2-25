@@ -51,8 +51,8 @@ char regenBuffer[32] = "test";
 
 const char* ECUStateNames[] = {"!INVALID STATE!",
     "GLV ON",
-    "PRECHARGING ENGAGED",
-    "PRECHARGING", 
+    "PRECHARGE ENGAGED",
+    "PRECHARGING",
     "PRECHARGE COMPLETE",
     "DRIVE STANDBY",
     "DRIVE ACTIVE IDLE",
@@ -60,7 +60,6 @@ const char* ECUStateNames[] = {"!INVALID STATE!",
     "DRIVE ACTIVE REGEN",
     "TS DISCHARGE OFF",
     "REFLASH TUNE",
-    "TS DISCHARGE OFF",
     "ERROR STATE"
 }; 
 

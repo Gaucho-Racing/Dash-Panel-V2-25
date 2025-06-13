@@ -269,4 +269,3 @@ void testLVGLBufferWrite(void* args)
   UNUSED(args);
 }
 /* USER CODE END Application */
-

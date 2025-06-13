@@ -133,25 +133,25 @@ void MX_FDCAN1_Init(void)
   }
   /* USER CODE BEGIN FDCAN1_Init 2 */
   // hardware filter
-  FDCAN_FilterTypeDef fdcan1_filter;
+  // FDCAN_FilterTypeDef fdcan1_filter;
 
-  fdcan1_filter.IdType = FDCAN_EXTENDED_ID;
-  fdcan1_filter.FilterIndex = 0;
-  fdcan1_filter.FilterType = FDCAN_FILTER_MASK;
-  fdcan1_filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
-  fdcan1_filter.FilterID1 = LOCAL_GR_ID; // filter messages with ECU destination
-  fdcan1_filter.FilterID2 = 0x00000FF;
+  // fdcan1_filter.IdType = FDCAN_EXTENDED_ID;
+  // fdcan1_filter.FilterIndex = 0;
+  // fdcan1_filter.FilterType = FDCAN_FILTER_MASK;
+  // fdcan1_filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+  // fdcan1_filter.FilterID1 = LOCAL_GR_ID; // filter messages with ECU destination
+  // fdcan1_filter.FilterID2 = 0xFF;
 
-  if(HAL_FDCAN_ConfigFilter(&hfdcan1, &fdcan1_filter) != HAL_OK) {
-      Error_Handler();
-  }
+  // if(HAL_FDCAN_ConfigFilter(&hfdcan1, &fdcan1_filter) != HAL_OK) {
+  //     Error_Handler();
+  // }
 
-  fdcan1_filter.FilterIndex = 1;
-  fdcan1_filter.FilterID1 = 0xFF; // filter messages for all targets
+  // fdcan1_filter.FilterIndex = 1;
+  // fdcan1_filter.FilterID1 = 0xFF; // filter messages for all targets
 
-  if(HAL_FDCAN_ConfigFilter(&hfdcan1, &fdcan1_filter) != HAL_OK) {
-      Error_Handler();
-  }
+  // if(HAL_FDCAN_ConfigFilter(&hfdcan1, &fdcan1_filter) != HAL_OK) {
+  //     Error_Handler();
+  // }
 
   if(HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0) != HAL_OK) {
       Error_Handler();

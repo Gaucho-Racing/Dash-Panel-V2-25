@@ -87,4 +87,8 @@
     extern char currentBuffer[32];
     extern char torqueMappingBuffer[32];
     extern char regenBuffer[32];
+
+    void updateWheelDisp(void);
+    void updateDebugMsg(void);
+    void updateDataFromCAN(void);
 #endif

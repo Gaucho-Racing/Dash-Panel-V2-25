@@ -77,7 +77,7 @@ lv_color_t temperatureMap(uint8_t temp)
     return (lv_color_t){0, 0, 0};   // Stub
 }
 
-void updateWheelDisp()
+void updateWheelDisp(void)
 {
     lv_layer_t layer;
     lv_canvas_init_layer(wheelDispCanvas, &layer);
@@ -124,7 +124,7 @@ void updateWheelDisp()
     lv_canvas_finish_layer(wheelDispCanvas, &layer);
 }
 
-void updateDataFromCAN()
+void updateDataFromCAN(void)
 {
     speedData = globalStatus.vehicleSpeed % 256;
     stateData = globalStatus.ecuState % 11;
@@ -178,7 +178,7 @@ void updateDataFromCAN()
     lv_obj_invalidate(lv_screen_active());
 }
 
-void updateDebugMsg()
+void updateDebugMsg(void)
 {
     if (globalStatus.debugMessage[0] != '\0')
     {

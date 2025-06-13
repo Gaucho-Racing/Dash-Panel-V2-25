@@ -62,7 +62,7 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len)
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 {
   static FDCAN_RxHeaderTypeDef RxHeader;
-  static uint8_t RxData[64];
+  static uint8_t RxData[8];
 
   if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET)
   {

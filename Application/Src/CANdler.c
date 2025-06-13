@@ -15,17 +15,17 @@ volatile uint8_t numberOfBadMessages = 0;
 
 void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)
 {
-    if (length != 8) {
-        numberOfBadMessages++;
-    } else {
-        numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
-    }
-
-    if (msgID == MSG_DTI_DATA_2)
+    // Just recieving one message, refactor if more
+    if (msgID == MSG_DTI_DATA_2 && length == 8)
     {
-            DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
-            globalStatus.inverterCurrents[0] = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
-            recievedNewInformationPleaseRefresh();
+        numberOfBadMessages += (numberOfBadMessages > 0) ? -1 : 0;
+        DTIDataTwoMsg* dtiDataTwoMsg = (DTIDataTwoMsg*) data;
+        globalStatus.inverterCurrents[0] = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
+        recievedNewInformationPleaseRefresh();
+    }
+    else
+    {
+        numberOfBadMessages++;
     }
 }
 

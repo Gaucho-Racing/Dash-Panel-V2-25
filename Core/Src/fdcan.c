@@ -22,6 +22,8 @@
 
 /* USER CODE BEGIN 0 */
 #include <stdint.h>
+
+#include "utils.h"
 #include "CANdler.h"
 
 // FIXME Remove when ready, controls if CAN or no CAN

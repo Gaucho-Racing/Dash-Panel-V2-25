@@ -39,7 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DISPLAY_DEBUG_MESSAGE_TIME_MS 5000
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/

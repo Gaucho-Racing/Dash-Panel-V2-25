@@ -61,7 +61,7 @@ const char* ECUStateNames[] = {"!INVALID STATE!",
     "TS DISCHARGE OFF",
     "REFLASH TUNE",
     "ERROR STATE"
-}; 
+};
 
 // TODO Confirm all scaling is appropriate
 volatile DashInfo globalStatus = {0};
@@ -147,7 +147,7 @@ void updateDataFromCAN(void)
     regenData = globalStatus.steeringStatusMsg.regenEncoder;
 
     snprintf(speedBuffer, sizeof(speedBuffer), "%d", speedData);
-    snprintf(stateBuffer, sizeof(stateBuffer), "%s", ECUStateNames[stateData]);
+    snprintf(stateBuffer, sizeof(stateBuffer), "%s", ECUStateNames[(uint8_t)stateData]);
     snprintf(voltageBuffer, sizeof(voltageBuffer), "%d V", voltageData);
     snprintf(SoCBuffer, sizeof(SoCBuffer), "SoC: %d%%", SoCData);
 

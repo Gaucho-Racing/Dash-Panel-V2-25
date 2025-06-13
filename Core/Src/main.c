@@ -302,7 +302,7 @@ int main(void)
   HAL_GPIO_WritePin(GPIOI, GPIO_PIN_7, GPIO_PIN_RESET);
 
   /* Update default debug message on boot */
-  strncpy((char*)globalStatus.debugMessage, "DarkTech", 8);
+  strncpy((char*)globalStatus.debugMessage, "DarkTech", 9);
   LOGOMATIC("...Booting...\nTick is %ld\n", HAL_GetTick());
 
   #ifdef ENABLE_THREE_MOTORS

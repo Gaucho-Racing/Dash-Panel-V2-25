@@ -98,27 +98,20 @@ void pollButtonState(void* args)
 
     for (;;)
     {
-        bool change = false;
+        bool newValue = !(bool)HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);   // Active low
 
-        bool newValueRTD = !(bool)HAL_GPIO_ReadPin(NO_RTD_GPIO_Port, NO_RTD_Pin);   // Active low
-
-        if (globalStatus.dashStatusMsg.rtdButtonData != newValueRTD)
+        if (globalStatus.dashStatusMsg.rtdButtonData != newValue)
         {
-            globalStatus.dashStatusMsg.rtdButtonData = newValueRTD;
-            change = true;
+            globalStatus.dashStatusMsg.rtdButtonData = newValue;
+            recievedNewInformationPleaseRefresh = true;
         }
 
-        bool newValueTSActive = !(bool)HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
+        newValue = !(bool)HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
 
-        if (globalStatus.dashStatusMsg.tsButtonData != newValueTSActive)
+        if (globalStatus.dashStatusMsg.tsButtonData != newValue)
         {
-            globalStatus.dashStatusMsg.tsButtonData = newValueTSActive;
-            change = true;
-        }
-
-        if (change)
-        {
-            writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
+            globalStatus.dashStatusMsg.tsButtonData = newValue;
+            recievedNewInformationPleaseRefresh = true;
         }
 
         osDelay(POLL_BUTTON_STATE_DELAY);

@@ -72,7 +72,7 @@ void updateButtonColors(void* args)
                 globalNeoPixelData.TS_Active = COLOR_GREEN;
         }
 
-        // Dark tech right here sorry; essentially a waveform as an SPI message
+        // Dark tech right here sorry; essentially a waveform through an SPI message
         uint8_t neopixelTransmission[48];
         for (int i = 0; i < 2; i++)
         {

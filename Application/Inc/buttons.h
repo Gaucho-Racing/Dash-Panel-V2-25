@@ -6,7 +6,7 @@
     #define BUTTONS_H
 
     #define POLL_BUTTON_STATE_DELAY 20
-    #define UPDATE_BUTTON_COLORS_DELAY 100
+    #define UPDATE_BUTTON_COLORS_DELAY 150
 
     typedef enum {
         RTD_BUTTON = 1,

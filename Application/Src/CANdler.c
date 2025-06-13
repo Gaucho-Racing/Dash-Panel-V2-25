@@ -23,7 +23,7 @@ void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)
         globalStatus.inverterCurrents[0] = (uint16_t)(dtiDataTwoMsg->AC_Current * 0.01);
         recievedNewInformationPleaseRefresh();
     }
-    else
+    else if (length != 8)
     {
         numberOfBadMessages++;
     }

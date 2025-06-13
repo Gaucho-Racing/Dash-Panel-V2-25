@@ -107,7 +107,7 @@ const osThreadAttr_t defaultTask_attributes = {
 void LVGLTimer(void *argument);
 void LVGLTick(void *argument);
 void sendDashStatusMsg(void* args);
-void testLVGLBufferWrite(void* args);
+void testLvglBufferVehicleSpeed(void* args);
 void clearDebugMsg(void* args);
 /* USER CODE END FunctionPrototypes */
 
@@ -200,7 +200,7 @@ void MX_FREERTOS_Init(void) {
   updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
   clearDebugMsgHandle = osThreadNew(clearDebugMsg, NULL, &clearDebugMsgAttributes);
   /* comment out testLVGLBufferWriteHandle when testing with CAN */
-  // testLVGLBufferWriteHandle = osThreadNew(testLVGLBufferWrite, NULL, &defaultTask_attributes);
+  // testLVGLBufferWriteHandle = osThreadNew(testLvglBufferVehicleSpeed, NULL, &defaultTask_attributes);
 
   /* USER CODE END RTOS_THREADS */
 
@@ -288,11 +288,10 @@ void clearDebugMsg(void* args)
     UNUSED(args);
 }
 
-void testLVGLBufferWrite(void* args)
+void testLvglBufferVehicleSpeed(void* args)
 {
   for (;;)
   {
-      // TODO: Update globalStatus
       globalStatus.vehicleSpeed += 1;
       osDelay(1000);
   }

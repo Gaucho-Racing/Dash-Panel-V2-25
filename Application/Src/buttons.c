@@ -12,47 +12,28 @@
 #include "dash.h"
 #include "spi.h"
 
-// NeoPixel byte representing no brightness
-const uint64_t NEOPIXEL_OFF = 0x8080808080808080;
-
-// NeoPixel byte representing full brightness
-const uint64_t NEOPIXEL_ON = 0xFCFCFCFCFCFCFCFC;
-
 NeoPixelData globalNeoPixelData = {0};
 
-uint64_t neopixelDataBuffer[2 * 3] = {0};
-//                          ^   ^
-//                          |   |
-//                          |   3 bytes per NeoPixel
-//                          2 NeoPixels
-
-
-uint8_t LED_Data[2][3];
-/*Helper function
-got it from some website
-
-
-*/
-void neo_spi(int G, int R, int B){
-    uint32_t color = G<<16 | R<<8 | B;
+void sendNeopixelSpi(Color color)
+{
 	uint8_t sendData[24];
 	int indx = 0;
-    for (int i=23; i>=0; i--)
+
+    for (int i = 23; i >= 0; i--)
 	{
-		if (((color>>i)&0x01) == 1) sendData[indx++] = 0x6;  // store 1
-		else sendData[indx++] = 0x4;  // store 0
+		if (((uint32_t)color >> i) & 0x1)
+        {
+            sendData[indx++] = 0x6;  // store 1
+        }
+        else
+        {
+            sendData[indx++] = 0x4;  // store 0
+        }
 	}
+
     //if you guys figure out how to get DMA working cause icbb.
     HAL_SPI_Transmit(&hspi1, sendData, 24, 1000);
 }
-
-void send(void){
-    neo_spi(LED_Data[0][0], LED_Data[0][1] , LED_Data[0][2]);
-    neo_spi(LED_Data[1][0], LED_Data[1][1] , LED_Data[1][2]);
-}
-
-
-
 
 void colorPin(Color color, ButtonNames button)
 {
@@ -60,85 +41,17 @@ void colorPin(Color color, ButtonNames button)
     {
         return;
     }
-    /*
-     COLOR_RED = 1,
-        COLOR_GREEN = 2,
-        COLOR_BLUE = 3,
-    
-    */
+
     switch(button)
     {
         case TS_ACTIVE_BUTTON:
             globalNeoPixelData.TS_Active = color;
-            switch(color){
-                case COLOR_RED:
-                    LED_Data[0][0] = 0x00;
-                    LED_Data[0][1] = 0xFF;
-                    LED_Data[0][2] = 0x00;
-                break;
-                case COLOR_GREEN:
-                    LED_Data[0][0] = 0xFF;
-                    LED_Data[0][1] = 0x00;
-                    LED_Data[0][2] = 0x00;
-                break;
-                case COLOR_BLUE:
-                    LED_Data[0][0] = 0x00;
-                    LED_Data[0][1] = 0x00;
-                    LED_Data[0][2] = 0xFF;
-                break;
-                default:
-                break;
-            }
             break;
+
         case RTD_BUTTON:
             globalNeoPixelData.RTD = color;
-            switch(color){
-                case COLOR_RED:
-                    LED_Data[1][0] = 0x00;
-                    LED_Data[1][1] = 0xFF;
-                    LED_Data[1][2] = 0x00;
-                break;
-                case COLOR_GREEN:
-                    LED_Data[1][0] = 0xFF;
-                    LED_Data[1][1] = 0x00;
-                    LED_Data[1][2] = 0x00;
-                break;
-                case COLOR_BLUE:
-                    LED_Data[1][0] = 0x00;
-                    LED_Data[1][1] = 0x00;
-                    LED_Data[1][2] = 0xFF;
-                break;
-                default:
-                break;
-            }
             break;
     }
-
-
-
-    // Write new color code (GRB) see pattern at https://www.newinnovations.nl/post/controlling-ws2812-and-ws2812b-using-only-stm32-spi/#option-3-using-8-spi-bits--pulses
-    // switch (button)
-    // {
-    //     case TS_ACTIVE_BUTTON:
-    //         neopixelDataBuffer[0] = (color == COLOR_GREEN) ? NEOPIXEL_ON : NEOPIXEL_OFF;
-    //         neopixelDataBuffer[1] = (color == COLOR_RED) ? NEOPIXEL_ON : NEOPIXEL_OFF;
-    //         neopixelDataBuffer[2] = (color == COLOR_BLUE) ? NEOPIXEL_ON : NEOPIXEL_OFF;
-    //         break;
-
-    //     case RTD_BUTTON:
-    //         neopixelDataBuffer[3] = (color == COLOR_GREEN) ? NEOPIXEL_ON : NEOPIXEL_OFF;
-    //         neopixelDataBuffer[4] = (color == COLOR_RED) ? NEOPIXEL_ON : NEOPIXEL_OFF;
-    //         neopixelDataBuffer[5] = (color == COLOR_BLUE) ? NEOPIXEL_ON : NEOPIXEL_OFF;
-    //         break;
-    // }
-
-    // FIXME Figure out what to pull high/low/something such that we think we are always ready to transmit
-    // HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)neopixelDataBuffer, 2 * 3 * 64);
-    //                                                         ^   ^    ^
-    //                                                         |   |    |
-    //                                                         |   |    Single NeoPixel byte
-    //                                                         |   3 bytes per NeoPixel
-    //                                                         2 NeoPixels
 }
 
 void updateButtonColors(void* args)
@@ -150,18 +63,18 @@ void updateButtonColors(void* args)
         switch(globalStatus.ecuState)
         {
             case PRECHARGE_COMPLETE:
-                colorPin(COLOR_BLUE, RTD_BUTTON);
+                globalNeoPixelData.RTD = COLOR_BLUE;
                 break;
 
             case DRIVE_STANDBY:
             case DRIVE_ACTIVE_IDLE:
             case DRIVE_ACTIVE_POWER:
             case DRIVE_ACTIVE_REGEN:
-                colorPin(COLOR_GREEN, RTD_BUTTON);
+                globalNeoPixelData.RTD = COLOR_GREEN;
                 break;
 
             default:
-                colorPin(COLOR_RED, RTD_BUTTON);
+                globalNeoPixelData.RTD = COLOR_RED;
                 break;
         }
 
@@ -169,16 +82,19 @@ void updateButtonColors(void* args)
         {
             case TS_DISCHARGE_OFF:
             case ERRORSTATE:
-                colorPin(COLOR_RED, TS_ACTIVE_BUTTON);
+                globalNeoPixelData.TS_Active = COLOR_RED;
                 break;
 
             case GLV_ON:
-                colorPin(COLOR_BLUE, TS_ACTIVE_BUTTON);
+                globalNeoPixelData.TS_Active = COLOR_BLUE;
                 break;
 
             default:
-                colorPin(COLOR_GREEN, TS_ACTIVE_BUTTON);
+                globalNeoPixelData.TS_Active = COLOR_GREEN;
         }
+
+        sendNeopixelSpi(globalNeoPixelData.TS_Active);
+        sendNeopixelSpi(globalNeoPixelData.RTD);
 
         osDelay(UPDATE_BUTTON_COLORS_DELAY);
 
@@ -217,8 +133,7 @@ void pollButtonState(void* args)
         {
             writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         }
-        //optimize this plz 
-        send();
+
         osDelay(POLL_BUTTON_STATE_DELAY);
     }
 }

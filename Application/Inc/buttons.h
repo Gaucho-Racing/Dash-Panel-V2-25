@@ -14,16 +14,17 @@
     } ButtonNames;
     // Must be 1 or 2 for LED1 or LED2 respectively
 
-    typedef enum {
-        COLOR_RED = 1,
-        COLOR_GREEN = 2,
-        COLOR_BLUE = 3,
-    } Color;
-
     typedef struct {
         Color TS_Active;
         Color RTD;
     } NeoPixelData;
+
+    // Format is GRB
+    typedef enum {
+        COLOR_GREEN = (uint32_t)0xFF0000,
+        COLOR_RED = (uint32_t)0x00FF00,
+        COLOR_BLUE = (uint32_t)0x0000FF,
+    } Color;
 
     void pollButtonState(void* args);
     void updateButtonColors(void* args);

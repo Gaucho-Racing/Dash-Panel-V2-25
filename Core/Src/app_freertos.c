@@ -298,3 +298,4 @@ void testLvglBufferVehicleSpeed(void* args)
   UNUSED(args);
 }
 /* USER CODE END Application */
+

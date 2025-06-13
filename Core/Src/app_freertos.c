@@ -39,7 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define DISPLAY_DEBUG_MESSAGE_TIME_MS 5000
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -86,6 +86,13 @@ const osThreadAttr_t updateButtonColorsAttributes = {
   .stack_size = 4 * 1024,
 };
 
+osThreadId_t clearDebugMsgHandle;
+const osThreadAttr_t clearDebugMsgAttributes = {
+  .name = "clearDebugMsg",
+  .priority = (osPriority_t) osPriorityLow,
+  .stack_size = 4 * 1024,
+};
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -101,6 +108,7 @@ void LVGLTimer(void *argument);
 void LVGLTick(void *argument);
 void sendDashStatusMsg(void* args);
 void testLVGLBufferWrite(void* args);
+void clearDebugMsg(void* args);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -190,6 +198,7 @@ void MX_FREERTOS_Init(void) {
   dashStatusMsgHandle = osThreadNew(sendDashStatusMsg, NULL, &dashStatusMsgAttributes);
   pollButtonStateHandle = osThreadNew(pollButtonState, NULL, &pollButtonStateAttributes);
   updateButtonColorsHandle = osThreadNew(updateButtonColors, NULL, &updateButtonColorsAttributes);
+  clearDebugMsgHandle = osThreadNew(clearDebugMsg, NULL, &clearDebugMsgAttributes);
   /* comment out testLVGLBufferWriteHandle when testing with CAN */
   // testLVGLBufferWriteHandle = osThreadNew(testLVGLBufferWrite, NULL, &defaultTask_attributes);
 
@@ -254,6 +263,25 @@ void sendDashStatusMsg(void* args)
     {
         writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         osDelay(DASH_STATUS_MSG_DELAY);
+    }
+    UNUSED(args);
+}
+
+void clearDebugMsg(void* args)
+{
+    uint32_t lastUpdated = HAL_GetTick();
+
+    for (;;)
+    {
+        if (globalStatus.debugMessage[0] != '\0' && lastUpdated == 0)
+        {
+            lastUpdated = HAL_GetTick();
+        }
+        else if (HAL_GetTick() - lastUpdated > DISPLAY_DEBUG_MESSAGE_TIME_MS)
+        {
+            globalStatus.debugMessage[0] = '\0';
+            lastUpdated = 0;
+        }
     }
     UNUSED(args);
 }

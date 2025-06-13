@@ -47,7 +47,7 @@ char currentBuffer[32] = "test";
 char torqueMappingBuffer[32] = "test";
 char regenBuffer[32] = "test";
 
-const char* ECUStateNames[] = {"INVALID STATE",
+const char* ECUStateNames[] = {"!INVALID STATE!",
     "GLV ON",
     "PRECHARGING ENGAGED",
     "PRECHARGING", 
@@ -142,8 +142,6 @@ void updateDataFromCAN() {
     torqueMappingData = globalStatus.steeringStatusMsg.torqueMapEncoder;
     regenData = globalStatus.steeringStatusMsg.regenEncoder;
 
-    // FIXME Shorten things plz (no need to say "Speed: " etc)
-    //snprintf(speedBuffer, sizeof(speedBuffer), "Speed: %d mph", speedData);
     snprintf(speedBuffer, sizeof(speedBuffer), "%d", speedData);
     snprintf(stateBuffer, sizeof(stateBuffer), "%s", ECUStateNames[stateData]);
     snprintf(voltageBuffer, sizeof(voltageBuffer), "%d V", voltageData);

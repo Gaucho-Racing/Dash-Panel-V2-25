@@ -245,7 +245,6 @@ void LVGLTimer(void *argument)
     if (recievedNewInformationPleaseRefresh)
     {
         recievedNewInformationPleaseRefresh = false;
-        writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         updateDataFromCAN();
         updateDebugMsg();
     }

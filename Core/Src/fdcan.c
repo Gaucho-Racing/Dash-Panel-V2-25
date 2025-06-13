@@ -46,16 +46,15 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len)
   FDCAN_HandleTypeDef *handle;
   handle = &hfdcan1;
 
-  #ifndef TEST_WITHOUT_CAN
-  if (HAL_FDCAN_GetTxFifoFreeLevel(handle) > 0 && HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
+  if (HAL_FDCAN_GetTxFifoFreeLevel(handle) == 0)
   {
-    Error_Handler();
+      LOGOMATIC("\n\n---FDCAN Tx FIFO is full!---\n\n");
   }
-  #else
-  UNUSED(data);
-  UNUSED(len);
-  UNUSED(handle);
-  #endif
+  else if (HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
+  {
+      LOGOMATIC("Could not add msg to transmission FIFO queue\n");
+      Error_Handler();
+  }
 }
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)

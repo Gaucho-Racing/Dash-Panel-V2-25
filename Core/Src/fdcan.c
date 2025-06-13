@@ -40,10 +40,10 @@ FDCAN_TxHeaderTypeDef TxHeader = {
   .MessageMarker = 0 // also change this to a real address if you change fifo control
 };
 
-void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t len)
+void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t length)
 {
   TxHeader.Identifier = (LOCAL_GR_ID << 20) | (msgID << 8) | destID;
-  TxHeader.DataLength = len;
+  TxHeader.DataLength = length;
 
   FDCAN_HandleTypeDef *handle;
   handle = &hfdcan1;

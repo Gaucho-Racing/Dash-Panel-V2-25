@@ -57,13 +57,16 @@ void styleSetup(void) {
 void displaySetup(void) {
     styleSetup();
 
-    lv_obj_t * screen = lv_screen_active();
-    lv_obj_add_style(screen, &screenStyle, 0);
-    lv_obj_set_style_bg_color(screen, lv_color_hex(GR_NAVY), LV_PART_MAIN);
+    LV_IMAGE_DECLARE(dashbg);
+    lv_obj_t * bg = lv_image_create(lv_screen_active());
+    lv_image_set_src(bg, &dashbg);
+    lv_obj_set_width(bg, SCREEN_WIDTH_PX);
+    lv_obj_set_height(bg, SCREEN_HEIGHT_PX);
+    lv_obj_add_style(bg, &screenStyle, 0);
 
-    topSetup(screen);
-    bottomSetup(screen);
-    initDebugMsg(screen);
+    topSetup(bg);
+    bottomSetup(bg);
+    initDebugMsg(bg);
 }
 
 

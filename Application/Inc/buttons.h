@@ -14,7 +14,7 @@
     } ButtonNames;
     // Must be 1 or 2 for LED1 or LED2 respectively
 
-    // Format is GRB
+    // Format is GRB, dark tech, must be kept at 24 bits (byte per color)
     typedef enum {
         COLOR_GREEN = (uint32_t)0xFF0000,
         COLOR_RED = (uint32_t)0x03FC00,

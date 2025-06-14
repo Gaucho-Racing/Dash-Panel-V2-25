@@ -51,6 +51,8 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t lengt
   if (HAL_FDCAN_GetTxFifoFreeLevel(handle) == 0)
   {
     LOGOMATIC("\nFDCAN Tx FIFO is full\n");
+    HAL_FDCAN_MspDeInit(handle);
+    MX_FDCAN1_Init();
   }
   else if (HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {
@@ -114,8 +116,8 @@ void MX_FDCAN1_Init(void)
   hfdcan1.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
   hfdcan1.Init.Mode = FDCAN_MODE_NORMAL;
   hfdcan1.Init.AutoRetransmission = ENABLE;
-  hfdcan1.Init.TransmitPause = ENABLE;
-  hfdcan1.Init.ProtocolException = DISABLE;
+  hfdcan1.Init.TransmitPause = DISABLE;
+  hfdcan1.Init.ProtocolException = ENABLE;
   hfdcan1.Init.NominalPrescaler = 8;
   hfdcan1.Init.NominalSyncJumpWidth = 16;
   hfdcan1.Init.NominalTimeSeg1 = 14;

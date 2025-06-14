@@ -48,6 +48,13 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t lengt
   FDCAN_HandleTypeDef *handle;
   handle = &hfdcan1;
 
+  FDCAN_ProtocolStatusTypeDef protocolStatus = {};
+  HAL_FDCAN_GetProtocolStatus(handle, &protocolStatus);
+  if (protocolStatus.BusOff)
+  {
+    CLEAR_BIT(handle->Instance->CCCR, FDCAN_CCCR_INIT);
+  }
+
   if (HAL_FDCAN_GetTxFifoFreeLevel(handle) == 0)
   {
     LOGOMATIC("\nFDCAN Tx FIFO is full\n");

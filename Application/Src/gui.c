@@ -57,6 +57,7 @@ void styleSetup(void) {
 void displaySetup(void) {
     styleSetup();
 
+    #ifdef USE_NICE_BACKGROUND
     LV_IMAGE_DECLARE(dashbg);
     lv_obj_t * bg = lv_image_create(lv_screen_active());
     lv_image_set_src(bg, &dashbg);
@@ -67,6 +68,15 @@ void displaySetup(void) {
     topSetup(bg);
     bottomSetup(bg);
     initDebugMsg(bg);
+    #else
+    lv_obj_t * screen = lv_screen_active();
+    lv_obj_add_style(screen, &screenStyle, 0);
+    lv_obj_set_style_bg_color(screen, lv_color_hex(GR_NAVY), LV_PART_MAIN);
+
+    topSetup(screen);
+    bottomSetup(screen);
+    initDebugMsg(screen);
+    #endif
 }
 
 

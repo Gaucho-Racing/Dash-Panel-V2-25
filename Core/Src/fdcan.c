@@ -51,8 +51,6 @@ void writeMessage(uint16_t msgID, uint8_t destID, uint8_t data[], uint32_t lengt
   if (HAL_FDCAN_GetTxFifoFreeLevel(handle) == 0)
   {
     LOGOMATIC("\nFDCAN Tx FIFO is full\n");
-    HAL_FDCAN_MspDeInit(handle);
-    MX_FDCAN1_Init();
   }
   else if (HAL_FDCAN_AddMessageToTxFifoQ(handle, &TxHeader, data) != HAL_OK)
   {

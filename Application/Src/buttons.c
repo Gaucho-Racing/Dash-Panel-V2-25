@@ -110,10 +110,14 @@ void pollButtonState(void* args)
 
         newValue = !HAL_GPIO_ReadPin(NO_TS_ACTIVE_GPIO_Port, NO_TS_ACTIVE_Pin);  // Active low
 
-        if (globalStatus.dashStatusMsg.tsButtonData != newValue)
+        if (globalStatus.dashStatusMsg.tsButtonData != newValue && globalStatus.ecuState != TS_DISCHARGE_OFF)
         {
             globalStatus.dashStatusMsg.tsButtonData = newValue;
             recievedNewInformationPleaseRefresh = true;
+        }
+        else if (globalStatus.ecuState == TS_DISCHARGE_OFF)  // Do not send request if we are in a bad state
+        {
+            globalStatus.dashStatusMsg.tsButtonData = 0;
         }
 
         osDelay(POLL_BUTTON_STATE_DELAY);

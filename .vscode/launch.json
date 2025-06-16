@@ -11,7 +11,22 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Debug",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": true,
+            "cpuFrequency": 160000000,
+            "swoFrequency":  115200,
+            "source": "probe",
+            "decoders": [
+                { 
+                    "type": "console",
+                    "label": "ITM",
+                    "showOnStartup": true,
+                    "port": 0,
+                    "encoding": "ascii"
+                }
+            ]
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -23,7 +38,22 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Debug",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": true,
+            "cpuFrequency": 160000000,
+            "swoFrequency":  115200,
+            "source": "probe",
+            "decoders": [
+                { 
+                    "type": "console",
+                    "label": "ITM",
+                    "showOnStartup": true,
+                    "port": 0,
+                    "encoding": "ascii"
+                }
+            ]
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -36,7 +66,22 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Debug",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": true,
+            "cpuFrequency": 160000000,
+            "swoFrequency":  115200,
+            "source": "probe",
+            "decoders": [
+                { 
+                    "type": "console",
+                    "label": "ITM",
+                    "showOnStartup": true,
+                    "port": 0,
+                    "encoding": "ascii"
+                }
+            ]
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -49,7 +94,22 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Debug",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": true,
+            "cpuFrequency": 160000000,
+            "swoFrequency":  115200,
+            "source": "probe",
+            "decoders": [
+                { 
+                    "type": "console",
+                    "label": "ITM",
+                    "showOnStartup": true,
+                    "port": 0,
+                    "encoding": "ascii"
+                }
+            ]
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -61,7 +121,10 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Release",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": false,
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -73,7 +136,10 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Release",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": false,
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -86,7 +152,10 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Release",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": false,
+        }
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
@@ -99,6 +168,9 @@
         "searchDir": [],
         "preLaunchTask": "CMake: Release",
         "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd"
+        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
+        "swoConfig": {
+            "enabled": false,
+        }
     }]
 }

@@ -306,6 +306,7 @@ void testLvglBufferVehicleSpeed(void* args)
 {
   for (;;)
   {
+      LOGOMATIC("\n!!!THIS SHOULD NOT BE RUNNING IN PROD!!!\n\n");
       globalStatus.vehicleSpeed += 1;
       osDelay(1000);
   }

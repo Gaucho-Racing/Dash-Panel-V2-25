@@ -268,6 +268,10 @@ void sendDashStatusMsg(void* args)
 {
     for(;;)
     {
+        #ifdef ADVANCED_LOGGING
+        LOGOMATIC("Sending Dash Status msg\n");
+        #endif
+
         writeMessage(MSG_DASH_STATUS, GR_ECU, (uint8_t*)&globalStatus.dashStatusMsg, 3);
         osDelay(DASH_STATUS_MSG_DELAY);
     }
@@ -283,15 +287,17 @@ void clearDebugMsg(void* args)
     {
         if (globalStatus.debugMessage[0] != '\0' && lastUpdated == 0)
         {
+            LOGOMATIC("Starting timer for clearing debug message\n");
             lastUpdated = HAL_GetTick();
         }
         else if (HAL_GetTick() - lastUpdated > DISPLAY_DEBUG_MESSAGE_TIME_MS)
         {
+            LOGOMATIC("Clearing debug message\n");
             globalStatus.debugMessage[0] = '\0';
             lastUpdated = 0;
         }
 
-        osDelay(100);
+        osDelay(200);
     }
     UNUSED(args);
 }

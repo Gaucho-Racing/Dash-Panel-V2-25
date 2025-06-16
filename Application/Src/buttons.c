@@ -105,6 +105,7 @@ void pollButtonState(void* args)
         if (globalStatus.dashStatusMsg.rtdButtonData != newValue)
         {
             globalStatus.dashStatusMsg.rtdButtonData = newValue;
+            LOGOMATIC("RTD status changed, now reading %d\n", newValue);
             recievedNewInformationPleaseRefresh = true;
         }
 
@@ -113,6 +114,7 @@ void pollButtonState(void* args)
         if (globalStatus.dashStatusMsg.tsButtonData != newValue)
         {
             globalStatus.dashStatusMsg.tsButtonData = newValue;
+            LOGOMATIC("TS Active status changed, now reading %d\n", newValue);
             recievedNewInformationPleaseRefresh = true;
         }
 

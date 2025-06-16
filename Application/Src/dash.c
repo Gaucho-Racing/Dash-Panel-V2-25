@@ -63,7 +63,6 @@ const char* ECUStateNames[] = {"!INVALID STATE!",
     "ERROR STATE"
 };
 
-// TODO Confirm all scaling is appropriate
 volatile DashInfo globalStatus = {0};
 
 int32_t prevRefresh = BAD_TIME_Negative1;
@@ -78,6 +77,10 @@ lv_color_t temperatureMap(uint8_t temp)
 
 void updateWheelDisp(void)
 {
+    #ifdef ADVANCED_LOGGING
+    LOGOMATIC("Updating wheel display\n");
+    #endif
+
     lv_layer_t layer;
     lv_canvas_init_layer(wheelDispCanvas, &layer);
 
@@ -125,6 +128,10 @@ void updateWheelDisp(void)
 
 void updateDataFromCAN(void)
 {
+    #ifdef ADVANCED_LOGGING
+    LOGOMATIC("Updating data from CAN\n");
+    #endif
+
     speedData = globalStatus.vehicleSpeed % 256;
     stateData = globalStatus.ecuState % 11;
     voltageData = globalStatus.tsVoltage % 1000;
@@ -181,12 +188,15 @@ void updateDebugMsg(void)
 {
     if (globalStatus.debugMessage[0] != '\0')
     {
+        LOGOMATIC("Adding debug message '%s'\n", globalStatus.debugMessage);
         lv_obj_clear_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
     }
     else
     {
+        LOGOMATIC("Clearing debug message\n");
         lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
     }
+
     /* adding this line below causes debugmsg text to display "0000" again, not sure why */
     //lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
 }

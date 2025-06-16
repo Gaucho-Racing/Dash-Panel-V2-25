@@ -8,7 +8,7 @@
 
     #define BAD_TIME_Negative1 -1
     #define DASH_STATUS_MSG_DELAY 100
-    #define DISPLAY_DEBUG_MESSAGE_TIME_MS 5000
+    #define DISPLAY_DEBUG_MESSAGE_TIME_MS 6000
 
     extern volatile bool recievedNewInformationPleaseRefresh;
 

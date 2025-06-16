@@ -15,6 +15,10 @@ volatile uint8_t numberOfBadMessages = 0;
 
 void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)
 {
+    #ifdef ADVANCED_LOGGING
+    LOGOMATIC("Recieved a CAN message from the DTI!\tMessage ID: %d\tLength: %ld\n", msgID, length);
+    #endif
+
     // Just recieving one message, refactor if more
     if (msgID == MSG_DTI_DATA_2 && length == 8)
     {
@@ -31,6 +35,10 @@ void handleDtiCANMessage(uint16_t msgID, uint8_t* data, uint32_t length)
 
 void handleCANMessage(uint16_t msgID, uint8_t srcID, uint8_t *data, uint32_t length)
 {
+    #ifdef ADVANCED_LOGGING
+    LOGOMATIC("Recieved a CAN message!\tMessage ID: %d\tLength: %ld\n", msgID, length);
+    #endif
+
     switch (msgID) {
         case MSG_DEBUG_2_0:
             if (length > 8) {

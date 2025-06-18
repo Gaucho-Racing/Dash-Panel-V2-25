@@ -3,13 +3,13 @@
     "configurations": [{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug ST-Util Launch",
+        "name": "ST-Util Launch",
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stutil",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
-        "preLaunchTask": "CMake: Debug",
+        "preLaunchTask": "CMake: build",
         "showDevDebugOutput": "raw",
         "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
         "swoConfig": {
@@ -30,13 +30,13 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug ST-Link Launch",
+        "name": "ST-Link Launch",
         "request": "launch",
         "type": "cortex-debug",
         "servertype": "stlink",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
-        "preLaunchTask": "CMake: Debug",
+        "preLaunchTask": "CMake: build",
         "showDevDebugOutput": "raw",
         "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
         "swoConfig": {
@@ -57,14 +57,14 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug ST-Util Attach",
+        "name": "ST-Util Attach",
         "request": "attach",
         "type": "cortex-debug",
         "servertype": "stutil",
         "runToEntryPoint": "main",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
-        "preLaunchTask": "CMake: Debug",
+        "preLaunchTask": "CMake: build",
         "showDevDebugOutput": "raw",
         "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
         "swoConfig": {
@@ -85,14 +85,14 @@
     },{
         "cwd": "${workspaceFolder}",
         "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Debug ST-Link Attach",
+        "name": "ST-Link Attach",
         "request": "attach",
         "type": "cortex-debug",
         "servertype": "stlink",
         "runToEntryPoint": "main",
         "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
         "searchDir": [],
-        "preLaunchTask": "CMake: Debug",
+        "preLaunchTask": "CMake: build",
         "showDevDebugOutput": "raw",
         "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
         "swoConfig": {
@@ -109,68 +109,6 @@
                     "encoding": "ascii"
                 }
             ]
-        }
-    },{
-        "cwd": "${workspaceFolder}",
-        "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Release ST-Util Launch",
-        "request": "launch",
-        "type": "cortex-debug",
-        "servertype": "stutil",
-        "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
-        "searchDir": [],
-        "preLaunchTask": "CMake: Release",
-        "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
-        "swoConfig": {
-            "enabled": false
-        }
-    },{
-        "cwd": "${workspaceFolder}",
-        "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Release ST-Link Launch",
-        "request": "launch",
-        "type": "cortex-debug",
-        "servertype": "stlink",
-        "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
-        "searchDir": [],
-        "preLaunchTask": "CMake: Release",
-        "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
-        "swoConfig": {
-            "enabled": false
-        }
-    },{
-        "cwd": "${workspaceFolder}",
-        "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Release ST-Util Attach",
-        "request": "attach",
-        "type": "cortex-debug",
-        "servertype": "stutil",
-        "runToEntryPoint": "main",
-        "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
-        "searchDir": [],
-        "preLaunchTask": "CMake: Release",
-        "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
-        "swoConfig": {
-            "enabled": false
-        }
-    },{
-        "cwd": "${workspaceFolder}",
-        "executable": "./build/Debug/dashPanel25.elf",
-        "name": "Release ST-Link Attach",
-        "request": "attach",
-        "type": "cortex-debug",
-        "servertype": "stlink",
-        "runToEntryPoint": "main",
-        "configFiles": ["interface/stlink.cfg", "target/stm32u5x.cfg"],
-        "searchDir": [],
-        "preLaunchTask": "CMake: Release",
-        "showDevDebugOutput": "raw",
-        "svdPath": "${workspaceFolder}/.vscode/STM32U5A9.svd",
-        "swoConfig": {
-            "enabled": false
         }
     }]
 }

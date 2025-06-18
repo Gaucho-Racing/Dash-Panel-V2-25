@@ -42,7 +42,6 @@ void updateButtonColors(void* args)
         switch(globalStatus.ecuState)
         {
             case PRECHARGE_COMPLETE:
-            case REFLASH_TUNE:
                 globalNeoPixelData.RTD = (HAL_GetTick() * 71) & 0xFFFF00;    // Nice slow pulse
                 break;
 
@@ -66,7 +65,6 @@ void updateButtonColors(void* args)
                 break;
 
             case GLV_ON:
-            case REFLASH_TUNE:
                 globalNeoPixelData.TS_Active = (HAL_GetTick() * 71) & 0xFFFF00;  // Nice slow pulse
                 break;
 

@@ -43,7 +43,7 @@ void updateButtonColors(void* args)
         {
             case PRECHARGE_COMPLETE:
             case REFLASH_TUNE:
-                globalNeoPixelData.RTD = HAL_GetTick() * 71;    // Nice slow pulse
+                globalNeoPixelData.RTD = (HAL_GetTick() * 71) & 0xFFFF00;    // Nice slow pulse
                 break;
 
             case DRIVE_STANDBY:
@@ -67,7 +67,7 @@ void updateButtonColors(void* args)
 
             case GLV_ON:
             case REFLASH_TUNE:
-                globalNeoPixelData.TS_Active = HAL_GetTick() * 71;  // Nice slow pulse
+                globalNeoPixelData.TS_Active = (HAL_GetTick() * 71) & 0xFFFF00;  // Nice slow pulse
                 break;
 
             default:

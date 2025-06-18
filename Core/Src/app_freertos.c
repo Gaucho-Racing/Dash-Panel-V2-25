@@ -27,6 +27,7 @@
 #include "lvgl/lvgl.h"
 #include "dash.h"
 #include "buttons.h"
+#include "utils.h"
 #include "grIDs.h"
 #include "msgIDs.h"
 #include "fdcan.h"

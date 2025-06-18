@@ -4,6 +4,7 @@
 #include "cmsis_os2.h"
 #include "dash.h"
 #include "msgIDs.h"
+#include "utils.h"
 #include "grIDs.h"
 #include "fdcan.h"
 #include "main.h"

@@ -6,52 +6,28 @@
 
 // FIXME Please setup so that we can use `ENABLE_THREE_MOTORS`
 
-static lv_style_t screenStyle;
-static lv_style_t flexRowStyle;
-static lv_style_t flexColumnStyle;
+static lv_style_t infoTextStyle;
+static lv_style_t infoBoxStyle;
 
 const size_t SCREEN_WIDTH_PX = 800;
 const size_t SCREEN_HEIGHT_PX = 480;
 
-lv_obj_t * speed = NULL;
-lv_obj_t * state = NULL;  
-lv_obj_t * voltage = NULL;
-lv_obj_t * SoC = NULL;
-lv_obj_t * power = NULL;   
+lv_obj_t *voltage_l, *SoC_l, *power_l, *speed_l, *state_l, *cell_l, *motor_l, *inverter_l, *debugMsg_l;
 
-lv_obj_t * cell = NULL;
-lv_obj_t * motor = NULL;
-lv_obj_t * inverter = NULL;
-lv_obj_t * brake = NULL;
+lv_obj_t *chargeMeter, *powerMeter;
 
-lv_obj_t * current = NULL;
-lv_obj_t * torqueMapping = NULL;
-lv_obj_t * regen = NULL;
-
-lv_obj_t * wheelDispCanvas = NULL;
-DebugMsg debugMsg;
-
-LV_DRAW_BUF_DEFINE_STATIC(wheelDispBuf, GRID_WIDTH_PX, GRID_HEIGHT_PX, LV_COLOR_FORMAT_RGB565);
-
-lv_obj_t * gridCells[];
 // extern DashInfo globalStatus;
 
 void styleSetup(void) {
-    lv_style_init(&screenStyle);
-    lv_style_set_layout(&screenStyle, LV_LAYOUT_FLEX);
-    lv_style_set_flex_flow(&screenStyle, LV_FLEX_FLOW_COLUMN);
+    lv_style_init(&infoTextStyle);
+    lv_style_set_text_color(&infoTextStyle, lv_color_white());
+    lv_style_set_text_font(&infoTextStyle, &lv_font_montserrat_20);
 
-    lv_style_init(&flexRowStyle);
-    lv_style_set_width(&flexRowStyle, lv_pct(100)); // Make rows take full width
-    lv_style_set_height(&flexRowStyle, LV_SIZE_CONTENT); // Row height based on content
-    lv_style_set_flex_flow(&flexRowStyle, LV_FLEX_FLOW_ROW);
-    lv_style_set_layout(&flexRowStyle, LV_LAYOUT_FLEX);
-    lv_style_set_border_width(&flexRowStyle, 0);
-    lv_style_set_flex_grow(&flexRowStyle, 1); // Specifically in context of columnn
-
-    lv_style_init(&flexColumnStyle);
-    lv_style_set_flex_flow(&flexColumnStyle, LV_FLEX_FLOW_COLUMN);
-    lv_style_set_layout(&flexColumnStyle, LV_LAYOUT_FLEX);
+    lv_style_init(&infoBoxStyle);
+    lv_style_set_bg_color(&infoBoxStyle, lv_color_black());
+    lv_style_set_bg_opa(&infoBoxStyle, 100);
+    lv_style_set_pad_all(&infoBoxStyle, 20);
+    lv_style_set_border_width(&infoBoxStyle, 0);
 }
 
 void displaySetup(void) {
@@ -59,168 +35,132 @@ void displaySetup(void) {
 
     #ifdef USE_NICE_BACKGROUND
     LV_IMAGE_DECLARE(dashbg);
-    lv_obj_t * bg = lv_image_create(lv_screen_active());
-    lv_image_set_src(bg, &dashbg);
-    lv_obj_set_width(bg, SCREEN_WIDTH_PX);
-    lv_obj_set_height(bg, SCREEN_HEIGHT_PX);
-    lv_obj_add_style(bg, &screenStyle, 0);
-
-    topSetup(bg);
-    bottomSetup(bg);
-    initDebugMsg(bg);
-    #else
-    lv_obj_t * screen = lv_screen_active();
-    lv_obj_add_style(screen, &screenStyle, 0);
-    lv_obj_set_style_bg_color(screen, lv_color_hex(GR_NAVY), LV_PART_MAIN);
-
-    topSetup(screen);
-    bottomSetup(screen);
-    initDebugMsg(screen);
+    lv_obj_set_style_bg_image_src(lv_screen_active(), &dashbg, 0);
     #endif
+
+    topSetup(lv_screen_active());
+    bottomSetup(lv_screen_active());
 }
 
 
 void topSetup(lv_obj_t * parent_obj) {
-    lv_obj_t * flexRowTop = lv_obj_create(parent_obj);
-    lv_obj_add_style(flexRowTop, &flexRowStyle, 0);
-    lv_obj_set_flex_align(flexRowTop, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_EVENLY);
-    lv_obj_set_style_bg_opa(flexRowTop, 0, 0);
+    lv_obj_t * boxTop1 = lv_obj_create(parent_obj);
+    lv_obj_set_flex_flow(boxTop1, LV_FLEX_COLUMN);
+    lv_obj_set_style_flex_cross_place(boxTop1, LV_FLEX_ALIGN_START, 0);
+    lv_obj_set_style_flex_main_place(boxTop1, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
+    lv_obj_set_align(boxTop1, LV_ALIGN_TOP_LEFT);
+    lv_obj_set_size(boxTop1, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_add_style(boxTop1, &infoBoxStyle, 0);
+    lv_obj_add_style(boxTop1, &infoTextStyle, 0);
 
-        lv_obj_t * boxTop1 = lv_obj_create(flexRowTop);
-        lv_obj_set_flex_flow(boxTop1, LV_FLEX_COLUMN);
-        lv_obj_set_flex_grow(boxTop1, 2);
-        lv_obj_set_style_flex_cross_place(boxTop1, LV_FLEX_ALIGN_CENTER, 0);
-        lv_obj_set_style_flex_main_place(boxTop1, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
-        lv_obj_set_size(boxTop1, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-        lv_obj_set_height(boxTop1, TOP_HEIGHT);
-        lv_obj_set_style_bg_color(boxTop1, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_style_pad_all(boxTop1, 20, 0);
+        voltage_l = lv_label_create(boxTop1);
+        SoC_l = lv_label_create(boxTop1);
+        power_l = lv_label_create(boxTop1);
 
-            voltage = lv_label_create(boxTop1);
-            lv_label_set_text_static(voltage, voltageBuffer);
-            SoC = lv_label_create(boxTop1);
-            lv_label_set_text_static(SoC, SoCBuffer);
-            power = lv_label_create(boxTop1);
-            lv_label_set_text_static(power, powerBuffer);
+    lv_obj_t * boxTop2 = lv_obj_create(parent_obj);
+    lv_obj_set_align(boxTop2, LV_ALIGN_TOP_MID);
+    lv_obj_set_size(boxTop2, 420, 420);
+    lv_obj_set_style_bg_color(boxTop2, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(boxTop2, 100, 0);
+    lv_obj_set_style_radius(boxTop2, LV_RADIUS_CIRCLE, 0);
+    lv_obj_set_style_border_width(boxTop2, 0, 0);
+    lv_obj_set_style_text_color(boxTop2, lv_color_white(), 0);
 
-        lv_obj_t * boxTop2 = lv_obj_create(flexRowTop);
-        lv_obj_set_flex_flow(boxTop2, LV_FLEX_COLUMN);
-        lv_obj_set_flex_grow(boxTop2, 8); // TODO: edit later for real screen
-        lv_obj_set_content_height(boxTop2, lv_pct(100));
-        lv_obj_set_size(boxTop2, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-        lv_obj_set_height(boxTop2, TOP_HEIGHT);
-        lv_obj_set_style_bg_color(boxTop2, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_style_pad_all(boxTop2, 20, 0);
-        lv_obj_set_flex_align(boxTop2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-        // lv_obj_set_style_flex_cross_place(boxTop2, LV_FLEX_ALIGN_CENTER, 0);
-        // lv_obj_set_style_flex_main_place(boxTop2, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
+        LV_FONT_DECLARE(lekton_200);
+        speed_l = lv_label_create(boxTop2);
+        lv_obj_center(speed_l);
+        lv_obj_set_style_text_font(speed_l, &lekton_200, 0);
 
-            // flexbox inside of flexbox doesn't seem to work? 
-            // lv_obj_t * speedBox = lv_obj_create(boxTop2);
-            //     lv_obj_set_flex_flow(speedBox, LV_FLEX_FLOW_ROW);
-            //     speed = lv_label_create(speedBox);
+        lv_obj_t * mph = lv_label_create(boxTop2);
+        lv_obj_set_pos(mph, 270, 240);
+        lv_obj_set_style_text_font(mph, &lv_font_montserrat_20, 0);
+        lv_label_set_text(mph, "mph");
+    
+        state_l = lv_label_create(boxTop2);
+        lv_obj_align(state_l, LV_ALIGN_CENTER, 0, 100);
+        lv_obj_set_style_text_align(state_l, LV_TEXT_ALIGN_CENTER, 0);
+        lv_obj_set_style_text_font(state_l, &lv_font_montserrat_20, 0);
 
-            speed = lv_label_create(boxTop2);
-            lv_obj_set_style_text_font(speed, &lv_font_montserrat_44, 0);
-            lv_label_set_text_static(speed, speedBuffer);
-        
-            state = lv_label_create(boxTop2);
-            lv_obj_set_style_text_font(state, &lv_font_montserrat_28, 0);
-            lv_label_set_text_static(state, stateBuffer);
+    lv_obj_t * boxTop3 = lv_obj_create(parent_obj);
+    lv_obj_set_align(boxTop3, LV_ALIGN_TOP_RIGHT);
+    lv_obj_set_flex_flow(boxTop3, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_style_flex_main_place(boxTop3, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
+    lv_obj_set_style_flex_cross_place(boxTop3, LV_FLEX_ALIGN_END, 0);
+    lv_obj_set_size(boxTop3, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_add_style(boxTop3, &infoBoxStyle, 0);
+    lv_obj_add_style(boxTop3, &infoTextStyle, 0);
 
-        lv_obj_t * boxTop3 = lv_obj_create(flexRowTop);
-        lv_obj_set_flex_flow(boxTop3, LV_FLEX_FLOW_COLUMN);
-        lv_obj_set_flex_grow(boxTop3, 2);
-        lv_obj_set_style_flex_main_place(boxTop3, LV_FLEX_ALIGN_SPACE_EVENLY, 0);
-        lv_obj_set_style_flex_cross_place(boxTop3, LV_FLEX_ALIGN_CENTER, 0);
-        lv_obj_set_size(boxTop3, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-        lv_obj_set_height(boxTop3, TOP_HEIGHT);
-        lv_obj_set_style_bg_color(boxTop3, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_style_pad_all(boxTop3, 20, 0); // Add some padding inside the box
+        cell_l = lv_label_create(boxTop3);
+        //lv_label_set_text_static(cell_l, "Cell: 30 C");
 
-                current = lv_label_create(boxTop3);
-                lv_obj_set_width(current, 100);
-                lv_label_set_text_static(current, currentBuffer);
-                torqueMapping = lv_label_create(boxTop3);
-                lv_obj_set_width(torqueMapping, 100);
-                lv_label_set_text_static(torqueMapping, torqueMappingBuffer);
-                regen = lv_label_create(boxTop3);
-                lv_obj_set_width(regen, 100);
-                lv_label_set_text_static(regen, regenBuffer);
+        motor_l = lv_label_create(boxTop3);
+        //lv_label_set_text_static(motor_l, "Motor: 30 C");
+
+        inverter_l = lv_label_create(boxTop3);
+        //lv_label_set_text_static(inverter_l, "Inverter: 30 C");
 }
 
 void bottomSetup(lv_obj_t * parent_obj) {
+    lv_obj_t * chargeBox = lv_obj_create(parent_obj);
+    lv_obj_align(chargeBox, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    lv_obj_add_style(chargeBox, &infoBoxStyle, 0);
+    lv_obj_set_size(chargeBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    
+        chargeMeter = lv_bar_create(chargeBox);
+        lv_obj_set_width(chargeMeter, 50);
+        lv_obj_set_height(chargeMeter, 300);
+        lv_obj_set_style_outline_width(chargeMeter, 3, 0);
+        lv_obj_set_style_outline_opa(chargeMeter, LV_OPA_COVER, 0);
+        lv_obj_set_style_outline_color(chargeMeter, lv_color_hex(GR_GRAY), 0);
+        lv_obj_set_style_bg_opa(chargeMeter, LV_OPA_COVER, LV_PART_INDICATOR);
+        lv_obj_set_style_bg_opa(chargeMeter, 0, LV_PART_MAIN);
+        lv_obj_set_style_radius(chargeMeter, 5, LV_PART_MAIN);
+        lv_obj_set_style_radius(chargeMeter, 5, LV_PART_INDICATOR);
+        lv_obj_set_style_bg_color(chargeMeter, lv_color_hex(GR_PINK), LV_PART_INDICATOR);
 
-    // Code for bottom flex row
-    lv_obj_t * flexRowBottom = lv_obj_create(parent_obj);
-    lv_obj_add_style(flexRowBottom, &flexRowStyle, 0);
-    lv_obj_set_flex_align(flexRowBottom, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_SPACE_AROUND);
-    lv_obj_set_style_bg_opa(flexRowBottom, 0, 0);
-    lv_obj_set_style_pad_all(flexRowBottom, 10, 0);
+    lv_obj_t * debugPanel = lv_obj_create(parent_obj);
+    lv_obj_set_size(debugPanel, 390, 55);
+    lv_obj_set_align(debugPanel, LV_ALIGN_BOTTOM_MID);
+    lv_obj_add_style(debugPanel, &infoBoxStyle, 0);
+    lv_obj_add_style(debugPanel, &infoTextStyle, 0);
+    lv_obj_set_scrollbar_mode(debugPanel, LV_SCROLLBAR_MODE_OFF);
 
-        lv_obj_t * boxBottom1 = lv_obj_create(flexRowBottom);
-        lv_obj_set_size(boxBottom1, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-        lv_obj_set_height(boxBottom1, TOP_HEIGHT);
-        lv_obj_set_width(boxBottom1, 200);
-        lv_obj_set_style_bg_color(boxBottom1, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_style_pad_all(boxBottom1, 20, 0); // Add some padding inside the box
+        debugMsg_l = lv_label_create(debugPanel);
+        lv_obj_center(debugMsg_l);
+        //lv_label_set_text(debugMsg_l, "Allegedly");
 
-            // lv_obj_update_layout(lv_screen_active());
-            createGrid(boxBottom1);
-
-        lv_obj_t * boxBottom2 = lv_obj_create(flexRowBottom);
-        lv_obj_set_flex_flow(boxBottom2, LV_FLEX_FLOW_ROW); // --> no longer need flex column since we removed the "temperatures" label
-        lv_obj_set_flex_grow(boxBottom2, 4);
-        lv_obj_set_size(boxBottom2, LV_PCT(100), LV_SIZE_CONTENT);
-        lv_obj_set_height(boxBottom2, TOP_HEIGHT);
-        lv_obj_set_style_bg_color(boxBottom2, lv_color_hex(GR_GRAY), 0);
-        lv_obj_set_flex_align(boxBottom2, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-        lv_obj_set_style_flex_cross_place(boxBottom2, LV_FLEX_ALIGN_START, 0);
-        lv_obj_set_style_pad_all(boxBottom2, 20, 0); // Add some padding inside the box
-
-                    // lv_obj_t * cellTempBox = lv_obj_create(boxBottom2);
-                    // lv_obj_set_height(cellTempBox, 200);
-                    // lv_obj_set_flex_flow(cellTempBox, LV_FLEX_FLOW_COLUMN);
-                    // lv_obj_set_flex_align(cellTempBox, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-                    // lv_obj_set_scrollbar_mode(cellTempBox, LV_SCROLLBAR_MODE_OFF);    // gets rid of scrollbars when content within a flexbox extends past box borders
-                    // lv_obj_set_size(cellTempBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-
-                        cell = lv_label_create(boxBottom2);
-                        lv_label_set_text_static(cell, cellBuffer);
-
-                        motor = lv_label_create(boxBottom2);
-                        lv_label_set_text_static(motor, motorBuffer);
-
-                        inverter = lv_label_create(boxBottom2);
-                        lv_label_set_text_static(inverter, inverterBuffer);
-
-                        brake = lv_label_create(boxBottom2);
-                        lv_label_set_text_static(brake, brakeBuffer);
-
+    lv_obj_t * powerBox = lv_obj_create(parent_obj);
+    lv_obj_align(powerBox, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+    lv_obj_add_style(powerBox, &infoBoxStyle, 0);
+    lv_obj_set_size(powerBox, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    
+        powerMeter = lv_bar_create(powerBox);
+        lv_obj_set_width(powerMeter, 50);
+        lv_obj_set_height(powerMeter, 300);
+        lv_obj_set_style_outline_width(powerMeter, 3, 0);
+        lv_obj_set_style_outline_opa(powerMeter, LV_OPA_COVER, 0);
+        lv_obj_set_style_outline_color(powerMeter, lv_color_hex(GR_GRAY), 0);
+        lv_obj_set_style_bg_opa(powerMeter, LV_OPA_COVER, LV_PART_INDICATOR);
+        lv_obj_set_style_bg_opa(powerMeter, 0, LV_PART_MAIN);
+        lv_obj_set_style_radius(powerMeter, 5, LV_PART_MAIN);
+        lv_obj_set_style_radius(powerMeter, 5, LV_PART_INDICATOR);
+        lv_obj_set_style_bg_color(powerMeter, lv_color_hex(GR_PRPL), LV_PART_INDICATOR);
+        lv_bar_set_range(powerMeter, 0, 80);
 }
 
-void initDebugMsg(lv_obj_t * parent_obj)
-{
-    debugMsg.panel = lv_obj_create(parent_obj);
-    lv_obj_set_size(debugMsg.panel, 800, 70);
-    lv_obj_center(debugMsg.panel);
-    lv_obj_set_style_bg_color(debugMsg.panel, lv_color_hex(0x7920FF), LV_PART_MAIN);
-    lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
+void updateDisplay(int voltage, int SoC, int power, int speed, int cellTemp, int motorTemp, int inverterTemp, const char *state, volatile char *message) {
+    lv_label_set_text_fmt(voltage_l, "%d V", voltage);
+    lv_label_set_text_fmt(SoC_l, "SoC: %d%%", SoC);
+    lv_label_set_text_fmt(power_l, "%d kW", power);
+    lv_label_set_text_fmt(speed_l, "%02d ", speed);
+    lv_label_set_text_fmt(cell_l, "Cell: %d C", cellTemp);
+    lv_label_set_text_fmt(motor_l, "Motor: %d C", motorTemp);
+    lv_label_set_text_fmt(inverter_l, "Inverter: %d C", inverterTemp);
+    lv_label_set_text(state_l, state);
+    lv_label_set_text_fmt(debugMsg_l, "%s", message);
 
-    debugMsg.text = lv_label_create(debugMsg.panel);
-    lv_obj_center(debugMsg.text);
-    lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
-    lv_obj_set_style_text_font(debugMsg.text, &lv_font_montserrat_44, 0);
+    lv_bar_set_value(chargeMeter, SoC, LV_ANIM_OFF);
+    lv_bar_set_value(powerMeter, power, LV_ANIM_OFF);
+
+    lv_obj_invalidate(lv_screen_active());
 }
-
-void createGrid(lv_obj_t * parent) {
-    LV_DRAW_BUF_INIT_STATIC(wheelDispBuf);
-
-    wheelDispCanvas = lv_canvas_create(parent);
-    lv_obj_set_size(wheelDispCanvas, GRID_WIDTH_PX, GRID_HEIGHT_PX);
-    lv_canvas_set_draw_buf(wheelDispCanvas, &wheelDispBuf);
-
-    lv_canvas_fill_bg(wheelDispCanvas, lv_color_hex(GR_GRAY), LV_OPA_COVER);
-    lv_obj_center(wheelDispCanvas);
-}
-

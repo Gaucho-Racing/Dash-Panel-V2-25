@@ -4,7 +4,6 @@
 #include "cmsis_os2.h"
 #include "dash.h"
 #include "msgIDs.h"
-#include "utils.h"
 #include "grIDs.h"
 #include "fdcan.h"
 #include "main.h"
@@ -26,15 +25,16 @@ uint16_t voltageData = 1;
 uint16_t SoCData = 1;
 uint16_t powerData = 1;
 
-uint16_t cellData = 1;
-uint16_t motorData[4] = {0};
-uint16_t inverterData[4] = {0};
-uint16_t brakeData[4] = {0};
+uint16_t cellTemp;
+uint16_t motorTemp;
+uint16_t inverterTemp;
+//uint16_t brakeData[4] = {0};
 
 uint16_t currentData = 1;
 uint16_t torqueMappingData = 1;
 uint16_t regenData = 1;
 
+/*
 char speedBuffer[32] = "test";
 char stateBuffer[32] = "tests";
 char voltageBuffer[32] = "test";
@@ -49,8 +49,9 @@ char brakeBuffer[64] = "test\ntest\ntest\ntest\ntest";
 char currentBuffer[32] = "test";
 char torqueMappingBuffer[32] = "test";
 char regenBuffer[32] = "test";
+*/
 
-const char* ECUStateNames[] = {"!INVALID STATE!",
+const char *ECUStateNames[] = {"!INVALID STATE!",
     "GLV ON",
     "PRECHARGE ENGAGED",
     "PRECHARGING",
@@ -69,13 +70,16 @@ volatile DashInfo globalStatus = {0};
 int32_t prevRefresh = BAD_TIME_Negative1;
 int32_t tempsRefreshRateMillis = 50;
 
+/*
 lv_color_t temperatureMap(uint8_t temp)
 {
     // FIXME What does this function do and how can we do it
     UNUSED(temp);
     return (lv_color_t){0, 0, 0};   // Stub
 }
+*/
 
+/*
 void updateWheelDisp(void)
 {
     #ifdef ADVANCED_LOGGING
@@ -126,6 +130,7 @@ void updateWheelDisp(void)
 
     lv_canvas_finish_layer(wheelDispCanvas, &layer);
 }
+*/
 
 void updateDataFromCAN(void)
 {
@@ -133,27 +138,30 @@ void updateDataFromCAN(void)
     LOGOMATIC("Updating data from CAN\n");
     #endif
 
-    speedData = globalStatus.vehicleSpeed % 256;
+    speedData = globalStatus.vehicleSpeed;
     stateData = globalStatus.ecuState % 11;
     voltageData = globalStatus.tsVoltage % 1000;
     SoCData = globalStatus.accumulatorStateOfCharge % 256;
-    //powerData = globalStatus.; // tsVoltage * dcCurrent, converted into kW
+    powerData = globalStatus.tsVoltage * globalStatus.inverterCurrents[0]; // tsVoltage * dcCurrent, converted into kW
 
-    cellData = globalStatus.maxCellTemp;
+    cellTemp = globalStatus.maxCellTemp;
 
-    for (int i = 0; i < 3; i++)
-    {
-        motorData[i] = globalStatus.motorTemperatures[i] % 256;
-        inverterData[i] = globalStatus.inverterTemperatures[i] % 256;
-        brakeData[i]= globalStatus.brakeTemps[i] % 256;
-    }
-    
+    motorTemp = globalStatus.motorTemperatures[0];
+    inverterTemp = globalStatus.inverterTemperatures[0];
+    //for(...) {
+        //brakeData[i]= globalStatus.brakeTemps[i] % 256;
+    //}
 
     // This data is coming from the steering encoders
     currentData = globalStatus.steeringStatusMsg.currentEncoder;
     torqueMappingData = globalStatus.steeringStatusMsg.torqueMapEncoder;
     regenData = globalStatus.steeringStatusMsg.regenEncoder;
 
+    globalStatus.debugMessage[8] = 0;
+    updateDisplay(voltageData, SoCData, powerData, speedData,
+                  cellTemp, motorTemp, inverterTemp,
+                  ECUStateNames[stateData], globalStatus.debugMessage);
+    /*
     snprintf(speedBuffer, sizeof(speedBuffer), "%d", speedData);
     snprintf(stateBuffer, sizeof(stateBuffer), "%s", ECUStateNames[(uint8_t)stateData]);
     snprintf(voltageBuffer, sizeof(voltageBuffer), "%d V", voltageData);
@@ -169,22 +177,22 @@ void updateDataFromCAN(void)
     snprintf(currentBuffer, sizeof(currentBuffer), "C: %d A", currentData);
     snprintf(torqueMappingBuffer, sizeof(torqueMappingBuffer), "TM: %d", torqueMappingData);
     snprintf(regenBuffer, sizeof(regenBuffer), "RN: %d", regenData);
+    */
 
-    updateWheelDisp();
 
-    lv_label_set_text_static(speed, speedBuffer);
-    lv_label_set_text_static(state, stateBuffer);
-    lv_label_set_text_static(voltage, voltageBuffer);
-    lv_label_set_text_static(SoC, SoCBuffer);
+    //lv_label_set_text_static(speed, speedBuffer);
+    //lv_label_set_text_static(state, stateBuffer);
+    //lv_label_set_text_static(voltage, voltageBuffer);
+    //lv_label_set_text_static(SoC, SoCBuffer);
 
     // lv_label_set_text_static(cell, cellBuffer);     // note: how are cell, motor, inverter, and brake updating even when these are commented out? 
     // lv_label_set_text_static(motor, motorBuffer);
     // lv_label_set_text_static(inverter, inverterBuffer);
     // lv_label_set_text_static(brake, brakeBuffer);
 
-    lv_obj_invalidate(lv_screen_active());
 }
 
+/*
 void updateDebugMsg(void)
 {
     if (globalStatus.debugMessage[0] != '\0')
@@ -198,6 +206,7 @@ void updateDebugMsg(void)
         lv_obj_add_flag(debugMsg.panel, LV_OBJ_FLAG_HIDDEN);
     }
 
-    /* adding this line below causes debugmsg text to display "0000" again, not sure why */
+    // adding this line below causes debugmsg text to display "0000" again, not sure why
     //lv_label_set_text(debugMsg.text, (const char*)globalStatus.debugMessage);
 }
+*/

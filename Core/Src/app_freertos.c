@@ -247,7 +247,7 @@ void LVGLTimer(void *argument)
     {
         recievedNewInformationPleaseRefresh = false;
         updateDataFromCAN();
-        updateDebugMsg();
+        //updateDebugMsg();
     }
 
     osDelay(10);

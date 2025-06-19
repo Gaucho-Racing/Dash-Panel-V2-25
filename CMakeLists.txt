@@ -28,7 +28,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(LV_CONF_BUILD_DISABLE_DEMOS 1)
 set(LV_CONF_BUILD_DISABLE_EXAMPLES 1)
 
-
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})

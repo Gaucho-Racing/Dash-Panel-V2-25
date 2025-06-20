@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.25)
 
 #
 # This file is generated only once,
@@ -17,17 +17,6 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable")
-
-    add_compile_definitions(LOGOMATIC_ENABLED)
-#   add_compile_definitions(ADVANCED_LOGGING)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -u _printf_float -O1")  # Un-optimize out variables
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float")
-else()
-    add_compile_definitions(USE_NICE_BACKGROUND)
-endif()
-
 # Set the project name
 set(CMAKE_PROJECT_NAME dashPanel25)
 
@@ -39,7 +28,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(LV_CONF_BUILD_DISABLE_DEMOS 1)
 set(LV_CONF_BUILD_DISABLE_EXAMPLES 1)
 
-
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
@@ -49,7 +37,6 @@ enable_language(C ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
-
 
 # Add STM32CubeMX generated sources
 add_subdirectory(Middlewares/Third_Party/LVGL/lvgl)
@@ -85,7 +72,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Application/Src/utils.c
     Application/Src/buttons.c
 
-
     Application/Src/Fonts/lekton_200.c
     #Application/Src/Fonts/lv_font_gr_bold_16.c
     #Application/Src/Fonts/lv_font_gr_bold_24.c
@@ -99,8 +85,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     #Application/Src/Fonts/lv_font_gr_light_24.c
     #Application/Src/Fonts/lv_font_gr_light_32.c
     #Application/Src/Fonts/lv_font_gr_light_40.c
-
-    Application/Src/Images/dashbg.c
 )
 
 # Add include paths
@@ -123,6 +107,18 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     lvgl
     # lvgl_demos
 )
+
+# Setup debug to enable logomatic and disable background
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable")
+    add_compile_definitions(LOGOMATIC_ENABLED)
+#   add_compile_definitions(ADVANCED_LOGGING)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -u _printf_float -O1")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -u _printf_float")
+else()
+    add_compile_definitions(USE_NICE_BACKGROUND)
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE Application/Src/Images/dashbg.c)
+endif()
 
 # Add CSV-25 integration
 add_dependencies(${CMAKE_PROJECT_NAME} executeCSV25)

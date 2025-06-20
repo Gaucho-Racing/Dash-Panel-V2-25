@@ -109,7 +109,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 )
 
 # Setup debug to enable logomatic and disable background
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (CMAKE_BUILD_TYPE MATCHES Debug)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable")
     add_compile_definitions(LOGOMATIC_ENABLED)
 #   add_compile_definitions(ADVANCED_LOGGING)

@@ -295,6 +295,7 @@ void clearDebugMsg(void* args)
         {
             LOGOMATIC("Clearing debug message\n");
             globalStatus.debugMessage[0] = '\0';
+            updateDataFromCAN();
             lastUpdated = 0;
         }
 

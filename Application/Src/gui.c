@@ -36,6 +36,8 @@ void displaySetup(void) {
     #ifdef USE_NICE_BACKGROUND
     LV_IMAGE_DECLARE(dashbg);
     lv_obj_set_style_bg_image_src(lv_screen_active(), &dashbg, 0);
+    #else
+    lv_obj_set_style_bg_color(lv_screen_active(), lv_color_black(), 0);
     #endif
 
     topSetup(lv_screen_active());
